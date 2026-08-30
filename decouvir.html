@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Découvrir · CS Le Tremplin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif}
+        body{background:#f0ebe3;display:flex;justify-content:center;padding:20px;min-height:100vh}
+        .page{max-width:860px;width:100%;background:#ffffff;border-radius:28px;padding:32px 28px;box-shadow:0 12px 48px rgba(0,0,0,0.06);overflow:hidden}
+        .logo-simple{display:flex;align-items:center;gap:14px;border-bottom:2px solid #ede6db;padding-bottom:18px;margin-bottom:28px}
+        .logo-simple img{height:60px;width:auto;border-radius:10px}
+        .logo-simple h1{font-size:1.6rem;font-weight:800;color:#1a1a1a;letter-spacing:-0.5px}
+        .logo-simple h1 span{color:#8b7a5a}
+        .hero{background:linear-gradient(145deg,#f7f2ea,#ede6db);border-radius:20px;padding:28px 24px;color:#1a1a1a;margin-bottom:28px;border:1px solid #e8e0d6}
+        .hero .badge{display:inline-block;background:#8b7a5a;color:#fff;border-radius:30px;padding:4px 18px;font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+        .hero h2{font-size:2rem;font-weight:800;letter-spacing:-0.5px}
+        .hero h2 i{color:#8b7a5a;font-weight:300}
+        .hero p{font-size:1rem;line-height:1.7;margin:10px 0 16px;color:#3f3a32}
+        .stat-table{background:#fff;border-radius:16px;padding:16px 18px;border:1px solid #e8e0d6;width:100%;overflow-x:auto}
+        .stat-table table{width:100%;border-collapse:collapse;font-size:0.92rem}
+        .stat-table td{padding:10px 6px;border-bottom:1px solid #ede6db;color:#1a1a1a}
+        .stat-table tr:last-child td{border-bottom:0}
+        .stat-table .label{color:#6b5d48;font-weight:400;width:45%}
+        .stat-table .value{font-weight:600;text-align:right;color:#1a1a1a}
+        .section-title{font-size:1.3rem;font-weight:700;color:#1a1a1a;padding:24px 0 12px 0;display:flex;align-items:center;gap:10px}
+        .section-title i{color:#8b7a5a;font-size:1.4rem}
+        .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding-bottom:16px}
+        .card{background:#faf7f2;border-radius:16px;padding:16px 18px;border:1px solid #ede6db}
+        .card h3{font-size:1rem;font-weight:700;color:#1a1a1a;margin-bottom:3px}
+        .card h3 i{color:#8b7a5a;margin-right:6px;font-size:0.9rem}
+        .card p{color:#4a4036;line-height:1.6;font-size:0.92rem}
+        .card .tag{display:inline-block;background:#ede6db;border-radius:14px;padding:2px 12px;font-size:0.7rem;font-weight:600;color:#6b5d48;margin-top:6px}
+        .img-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding-bottom:16px}
+        .img-grid img{width:100%;height:180px;object-fit:cover;border-radius:16px;border:1px solid #ede6db}
+        .btn-retour{display:inline-flex;align-items:center;gap:10px;background:#8b7a5a;color:#fff;padding:14px 34px;border-radius:50px;font-weight:600;font-size:1rem;text-decoration:none;transition:0.3s;border:none;cursor:pointer;box-shadow:0 4px 16px rgba(139,122,90,0.2)}
+        .btn-retour:hover{background:#6b5d48;transform:translateY(-2px);box-shadow:0 8px 24px rgba(139,122,90,0.3)}
+        .retour-wrapper{text-align:center;padding:16px 0 4px 0}
+        .footer{background:#1a1a1a;color:#aac4d4;border-radius:16px;padding:24px 22px 18px;margin-top:28px}
+        .footer .inner{display:grid;grid-template-columns:2fr 1fr 1fr;gap:24px}
+        .footer h4{color:#fff;font-weight:700;margin-bottom:6px;font-size:0.95rem}
+        .footer p{font-size:0.85rem;line-height:1.6;color:#b0a898}
+        .footer a{color:#b0a898;text-decoration:none;display:block;margin:4px 0;font-size:0.85rem;transition:0.2s}
+        .footer a:hover{color:#fff}
+        .footer .copy{text-align:center;border-top:1px solid rgba(255,255,255,0.06);padding-top:14px;margin-top:16px;font-size:0.75rem;color:#6a5f50}
+        .slide-left{opacity:0;transform:translateX(-60px);transition:all 0.9s cubic-bezier(0.25,0.46,0.45,0.94)}
+        .slide-left.visible{opacity:1;transform:translateX(0)}
+        .slide-left-delay-1{transition-delay:0.1s}
+        .slide-left-delay-2{transition-delay:0.2s}
+        .slide-left-delay-3{transition-delay:0.3s}
+        .slide-left-delay-4{transition-delay:0.4s}
+        .slide-left-delay-5{transition-delay:0.5s}
+        .slide-left-delay-6{transition-delay:0.6s}
+        .slide-left-delay-7{transition-delay:0.7s}
+        .slide-left-delay-8{transition-delay:0.8s}
+        @media(max-width:640px){.page{padding:18px 14px}.hero{padding:20px 16px}.hero h2{font-size:1.5rem}.grid{grid-template-columns:1fr}.img-grid{grid-template-columns:1fr}.img-grid img{height:160px}.stat-table{font-size:0.82rem;padding:12px}.stat-table td{padding:8px 4px}.logo-simple h1{font-size:1.2rem}.logo-simple img{height:48px}.footer .inner{grid-template-columns:1fr;gap:16px}}
+        @media(max-width:400px){.hero h2{font-size:1.2rem}.btn-retour{padding:12px 24px;font-size:0.85rem;width:100%;justify-content:center}}
+    </style>
+</head>
+<body>
+<div class="page">
+
+    <div class="logo-simple slide-left visible">
+        <img src="https://www.netubex.com/tremplin.png" alt="Logo">
+        <h1>CS <span>LE TREMPLIN</span></h1>
+    </div>
+
+    <div class="hero slide-left slide-left-delay-1 visible">
+        <div class="badge"><i class="fas fa-school" style="margin-right:5px;"></i> Présentation</div>
+        <h2>Découvrir <i>notre école</i></h2>
+        <p>Fondé à Kasumbalesa, le Complexe Scolaire Le Tremplin est une institution éducative de référence, de la maternelle au secondaire.</p>
+        <div class="stat-table">
+            <table>
+                <tr><td class="label">📍 Localisation</td><td class="value">Kasumbalesa, Haut-Katanga, RDC</td></tr>
+                <tr><td class="label">🎓 Niveaux</td><td class="value">Maternelle · Primaire · Secondaire</td></tr>
+                <tr><td class="label">⭐ Valeurs</td><td class="value">Travail · Discipline · Réussite</td></tr>
+                <tr><td class="label">🏛️ Statut</td><td class="value">Établissement privé agréé</td></tr>
+                <tr><td class="label">🌍 Pays</td><td class="value">République Démocratique du Congo</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="section-title slide-left slide-left-delay-2 visible"><i class="fas fa-flag"></i> Notre histoire</div>
+    <div class="grid">
+        <div class="card slide-left slide-left-delay-3 visible"><h3><i class="fas fa-graduation-cap"></i> Institution de référence</h3><p>Fondé en 2022 à Kasumbalesa, le CS Le Tremplin est une école d'excellence en RDC.</p></div>
+        <div class="card slide-left slide-left-delay-4 visible"><h3><i class="fas fa-rocket"></i> Une vision éducative</h3><p>Former des esprits critiques, responsables et ambitieux pour relever les défis du monde actuel.</p></div>
+    </div>
+
+    <div class="section-title slide-left slide-left-delay-3 visible"><i class="fas fa-users"></i> Nos valeurs</div>
+    <div class="grid">
+        <div class="card slide-left slide-left-delay-4 visible"><h3><i class="fas fa-hammer"></i> Travail</h3><p>L'effort et la persévérance pour construire l'excellence.</p></div>
+        <div class="card slide-left slide-left-delay-5 visible"><h3><i class="fas fa-balance-scale"></i> Discipline</h3><p>Respect, responsabilité et rigueur au quotidien.</p></div>
+        <div class="card slide-left slide-left-delay-6 visible"><h3><i class="fas fa-trophy"></i> Réussite</h3><p>L'ambition de dépasser ses limites et de construire son avenir.</p></div>
+    </div>
+
+    <div class="section-title slide-left slide-left-delay-4 visible"><i class="fas fa-building"></i> Nos infrastructures</div>
+    <div class="grid">
+        <div class="card slide-left slide-left-delay-5 visible"><h3><i class="fas fa-chalkboard-teacher"></i> Salles de classe</h3><p>Modernes et équipées pour un apprentissage optimal.</p></div>
+        <div class="card slide-left slide-left-delay-6 visible"><h3><i class="fas fa-book"></i> Bibliothèque</h3><p>Espace dédié à la lecture et à la recherche.</p></div>
+        <div class="card slide-left slide-left-delay-7 visible"><h3><i class="fas fa-flask"></i> Laboratoires</h3><p>Sciences et informatique pour une formation pratique.</p></div>
+        <div class="card slide-left slide-left-delay-8 visible"><h3><i class="fas fa-futbol"></i> Terrain de sport</h3><p>Activités physiques pour l'épanouissement et la santé.</p></div>
+    </div>
+
+    <div class="section-title slide-left slide-left-delay-5 visible"><i class="fas fa-images"></i> Galerie</div>
+    <div class="img-grid">
+        <img src="https://www.cstremplin.com/image1.jpg" alt="Établissement" class="slide-left slide-left-delay-6 visible">
+        <img src="https://www.cstremplin.com/image2.jpg" alt="Vie scolaire" class="slide-left slide-left-delay-7 visible">
+    </div>
+
+    <div class="retour-wrapper slide-left slide-left-delay-8 visible">
+        <a href="index.html" class="btn-retour"><i class="fas fa-arrow-left"></i> Retour à l'accueil</a>
+    </div>
+
+    <div class="footer slide-left slide-left-delay-8 visible">
+        <div class="inner">
+            <div><h4>CS LE TREMPLIN</h4><p>Une école d'excellence à Kasumbalesa, formant les leaders de demain.</p></div>
+            <div><h4>Liens</h4><a href="index.html">Accueil</a><a href="about.html">À propos</a><a href="niveaux.html">Niveaux</a></div>
+            <div><h4>Contact</h4><a href="#"><i class="fas fa-envelope" style="margin-right:6px;"></i> contact@cstremplin.com</a><a href="#"><i class="fas fa-map-marker-alt" style="margin-right:6px;"></i> Kasumbalesa, RDC</a></div>
+        </div>
+        <div class="copy">© 2026 Complexe Scolaire Le Tremplin</div>
+    </div>
+
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var elements = document.querySelectorAll('.slide-left');
+        elements.forEach(function(el) {
+            el.classList.add('visible');
+        });
+    });
+    document.addEventListener('contextmenu',function(e){e.preventDefault();return false});
+    document.addEventListener('keydown',function(e){if(e.key==='F12'||e.keyCode===123){e.preventDefault();return false}if(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='i'||e.key==='J'||e.key==='j')){e.preventDefault();return false}if(e.ctrlKey&&(e.key==='U'||e.key==='u')){e.preventDefault();return false}if(e.ctrlKey&&(e.key==='S'||e.key==='s')){e.preventDefault();return false}if(e.ctrlKey&&e.shiftKey&&(e.key==='C'||e.key==='c')){e.preventDefault();return false}});
+    document.addEventListener('dragstart',function(e){e.preventDefault();return false});
+    document.addEventListener('selectstart',function(e){e.preventDefault();return false});
+</script>
+</body>
+</html>
