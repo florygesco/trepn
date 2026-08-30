@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portail Le Tremplin</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0b0e1a;display:flex;justify-content:center;align-items:center;min-height:100vh;font-family:'Courier New',monospace;user-select:none}
+.container{text-align:center;background:#11172b;padding:40px 30px;border-radius:24px;box-shadow:0 20px 40px rgba(0,0,0,0.8);max-width:750px;width:92%}
+.typewriter{font-size:1.9rem;font-weight:700;color:#f0e9d0;overflow:hidden;border-right:3px solid #f1c40f;white-space:nowrap;margin:0 auto 30px;letter-spacing:2px;animation:typing 3.5s steps(40,end),blink 0.7s step-end infinite;width:fit-content}
+@keyframes typing{from{width:0}to{width:100%}}
+@keyframes blink{50%{border-color:transparent}}
+.img-container{cursor:pointer;display:inline-block;border-radius:16px;overflow:hidden;box-shadow:0 8px 24px rgba(241,196,15,0.2);transition:transform 0.2s;margin-bottom:25px}
+.img-container:hover{transform:scale(1.02)}
+.img-container img{display:block;width:100%;max-width:500px;height:auto}
+.menu{display:none;flex-direction:column;gap:14px;margin-top:20px;animation:fadeIn 0.5s ease}
+.menu.show{display:flex}
+.menu-item{background:#1e2745;padding:16px 20px;border-radius:14px;color:#f0e9d0;font-size:1.3rem;font-weight:600;cursor:pointer;border:2px solid #2a3560;transition:all 0.25s;letter-spacing:1px;text-decoration:none}
+.menu-item:hover{background:#f1c40f;color:#0b0e1a;border-color:#f1c40f;transform:translateY(-3px);box-shadow:0 8px 20px rgba(241,196,15,0.3)}
+.menu-item:active{transform:scale(0.97)}
+@keyframes fadeIn{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
+.click-count{color:#6a7a9e;font-size:0.9rem;margin-top:18px;font-family:'Courier New',monospace}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="typewriter">BIENVENUE</div>
+<div class="img-container" id="imageClick">
+<img src="https://www.netubex.com/tremplin.png" alt="École Le Tremplin" draggable="false">
+</div>
+<div class="click-count" id="clickCounter">🙏🏾</div>
+<div class="menu" id="menuList">
+<a class="menu-item" href="https://www.netubex.com/schooling?ecole=tremplin" target="_blank">📘 Section Secondaire</a>
+<a class="menu-item" href="https://www.netubex.com/schoolingprimat?ecole=tremplin" target="_blank">📙 Section Primaire</a>
+<a class="menu-item" href="https://www.netubex.com/schoolingprimat?ecole=tremplin" target="_blank">📒 Section Maternelle</a>
+</div>
+</div>
+<script>
+let clicks=0;
+const img=document.getElementById('imageClick');
+const counter=document.getElementById('clickCounter');
+const menu=document.getElementById('menuList');
+img.addEventListener('click',function(e){
+e.preventDefault();
+clicks++;
+counter.textContent=`Clic ${clicks}/3`;
+if(clicks>=3){
+menu.classList.add('show');
+counter.textContent='✅ Sections disponibles';
+img.style.cursor='default';
+img.style.pointerEvents='none';
+}
+});
+document.querySelectorAll('.menu-item').forEach(item=>{
+item.addEventListener('click',function(e){
+e.stopPropagation();
+});
+});
+</script>
+</body>
+</html>
