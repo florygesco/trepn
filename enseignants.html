@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Nos Enseignants · CS Le Tremplin</title>
+    <meta name="description" content="Équipe pédagogique du Complexe Scolaire Le Tremplin.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+        body{background:#f4f6f9;display:flex;justify-content:center;padding:0;min-height:100vh}
+        .page{max-width:1200px;width:100%;background:#ffffff;min-height:100vh;overflow-x:hidden;box-shadow:0 0 40px rgba(0,0,0,0.04)}
+        .top-bar{background:#0a1a2a;color:#ffffff;padding:6px 5%;font-size:0.8rem;display:flex;justify-content:flex-end;align-items:center;flex-wrap:wrap}
+        .top-bar a{color:#aac4d4;text-decoration:none;margin:0 8px;transition:0.2s}
+        .top-bar a:hover{color:#ffffff;transform:scale(1.1)}
+        .header-main{background:#ffffff;padding:16px 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;box-shadow:0 2px 12px rgba(0,0,0,0.04);border-bottom:2px solid #cc3333}
+        .logo{display:flex;align-items:center;gap:16px}
+        .logo img{height:100px;width:auto;border-radius:12px;object-fit:contain;transition:transform 0.4s}
+        .logo img:hover{transform:scale(1.05) rotate(-2deg)}
+        .logo h1{font-size:2.4rem;font-weight:900;color:#0a1a2a;letter-spacing:-0.5px}
+        .logo h1 span{font-weight:700;color:#cc3333}
+        .nav-main{display:flex;gap:2.2rem;align-items:center;flex-wrap:wrap}
+        .nav-main a{color:#1a2b3e;text-decoration:none;font-weight:600;font-size:1rem;padding:6px 0;border-bottom:3px solid transparent;transition:0.3s}
+        .nav-main a:hover,.nav-main a.active{border-bottom-color:#cc3333;color:#cc3333;transform:translateY(-2px)}
+        .page-header{background:linear-gradient(145deg,#f8f9fa,#eef2f5);padding:40px 5% 20px 5%;border-bottom:1px solid #eef2f5;text-align:center}
+        .page-header h1{font-size:2.6rem;font-weight:800;color:#0a1a2a;letter-spacing:-1px;display:flex;align-items:center;justify-content:center;gap:16px}
+        .page-header h1 i{color:#cc3333;font-size:2.4rem}
+        .page-header p{font-size:1.1rem;color:#4a5a6a;max-width:700px;margin:8px auto 0;line-height:1.7}
+        .teachers-grid{display:flex;flex-direction:column;gap:6px;padding:0;width:100%;background:#f4f6f9}
+        .teacher-card{width:100%;display:flex;flex-direction:column;position:relative;overflow:hidden;background:#ffffff}
+        .teacher-card .img-wrapper{width:100%;aspect-ratio:16/9;overflow:hidden;background:#eef2f5}
+        .teacher-card .img-wrapper img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94)}
+        .teacher-card:hover .img-wrapper img{transform:scale(1.03)}
+        .action-section{text-align:center;padding:32px 5% 48px 5%;background:#ffffff}
+        .btn-back{display:inline-flex;align-items:center;gap:14px;background:#0a1a2a;color:#fff;padding:16px 48px;border-radius:60px;font-weight:700;font-size:1.1rem;text-decoration:none;border:none;cursor:pointer;box-shadow:0 8px 28px rgba(10,26,42,0.25);transition:all 0.4s cubic-bezier(0.25,0.46,0.45,0.94);letter-spacing:0.3px}
+        .btn-back i{font-size:1.2rem;transition:transform 0.3s}
+        .btn-back:hover{background:#cc3333;transform:translateY(-4px) scale(1.03);box-shadow:0 16px 40px rgba(204,51,51,0.30)}
+        .btn-back:hover i{transform:translateX(-6px)}
+        .footer{background:#f8f5f0;color:#4a4036;padding:40px 5% 24px;margin-top:0;border-top:2px solid #cc3333}
+        .footer .inner{display:grid;grid-template-columns:2fr 1fr 1fr;gap:48px;max-width:1200px;margin:0 auto}
+        .footer h4{color:#0a1a2a;font-weight:700;margin-bottom:14px;font-size:1.1rem}
+        .footer p{font-size:0.95rem;line-height:1.7;max-width:300px;color:#4a4036}
+        .footer a{color:#6b5d48;text-decoration:none;display:block;margin:6px 0;font-size:0.95rem;transition:0.3s}
+        .footer a:hover{color:#cc3333;transform:translateX(4px)}
+        .footer a i{color:#cc3333;margin-right:8px}
+        .footer .copy{text-align:center;border-top:1px solid #ede6db;padding-top:18px;margin-top:28px;font-size:0.85rem;color:#8a7a6a}
+        .footer .phone-link{cursor:pointer;display:inline-block}
+        .footer .phone-link:hover{color:#cc3333}
+
+        .phone-popup-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);backdrop-filter:blur(8px);z-index:99999;justify-content:center;align-items:center}
+        .phone-popup-overlay.active{display:flex}
+        .phone-popup-box{background:linear-gradient(145deg,#ffffff,#f5f7fa);border-radius:28px;padding:40px 36px;max-width:420px;width:92%;text-align:center;box-shadow:0 40px 80px rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.15);transform:scale(0.95) translateY(20px);transition:all 0.7s cubic-bezier(0.34,1.56,0.64,1)}
+        .phone-popup-overlay.active .phone-popup-box{transform:scale(1) translateY(0)}
+        .phone-popup-box .phone-icon{font-size:3.5rem;color:#cc3333;display:block;margin-bottom:8px}
+        .phone-popup-box h2{font-size:1.4rem;font-weight:800;color:#0a1a2a;margin-bottom:6px}
+        .phone-popup-box .phone-number{font-size:1.5rem;font-weight:700;color:#cc3333;margin-bottom:16px;display:block}
+        .phone-popup-box .phone-buttons{display:flex;flex-direction:column;gap:12px}
+        .phone-popup-box .phone-buttons a{display:flex;align-items:center;justify-content:center;gap:12px;padding:14px;border-radius:14px;font-weight:700;font-size:1.1rem;text-decoration:none;transition:all 0.3s}
+        .phone-popup-box .phone-buttons .btn-whatsapp{background:#25D366;color:#fff}
+        .phone-popup-box .phone-buttons .btn-whatsapp:hover{transform:scale(1.03);box-shadow:0 8px 24px rgba(37,211,102,0.4)}
+        .phone-popup-box .phone-buttons .btn-call{background:#0a1a2a;color:#fff}
+        .phone-popup-box .phone-buttons .btn-call:hover{transform:scale(1.03);box-shadow:0 8px 24px rgba(10,26,42,0.4)}
+        .phone-popup-box .btn-close-phone{background:transparent;border:none;color:#4a5a6a;font-size:0.9rem;cursor:pointer;margin-top:12px;padding:8px;transition:0.3s}
+        .phone-popup-box .btn-close-phone:hover{color:#0a1a2a}
+
+        @media(max-width:768px){.header-main{flex-direction:column;gap:14px;align-items:flex-start}.nav-main{gap:1rem;flex-wrap:wrap}.page-header h1{font-size:2rem}.footer .inner{grid-template-columns:1fr;gap:28px}.logo img{height:70px}.logo h1{font-size:1.6rem}.btn-back{width:100%;justify-content:center;padding:14px 24px}.teacher-card .img-wrapper{aspect-ratio:4/3}}
+        @media(max-width:480px){.top-bar{flex-direction:column;gap:4px;text-align:center;font-size:0.7rem}.page-header h1{font-size:1.6rem}.page-header h1 i{font-size:1.8rem}}
+    </style>
+</head>
+<body>
+<div class="page">
+    <div class="top-bar">
+        <div>
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+    </div>
+    <div class="header-main">
+        <div class="logo">
+            <img src="https://www.netubex.com/tremplin.png" alt="Logo CS Le Tremplin">
+            <h1>CS <span>LE TREMPLIN</span></h1>
+        </div>
+        <div class="nav-main">
+            <a href="index.html">Accueil</a>
+            <a href="https://www.cstremplin.com/about">À propos</a>
+            <a href="niveaux.html">Niveaux</a>
+            <a href="enseignants.html" class="active">Enseignants</a>
+            <a href="fondateur.html">Fondateur</a>
+        </div>
+    </div>
+    <div class="page-header">
+        <h1><i class="fas fa-chalkboard-teacher"></i> Nos enseignants</h1>
+        <p>Des professionnels passionnés et engagés, au service de l'excellence et de l'épanouissement de chaque élève.</p>
+    </div>
+    <div class="teachers-grid">
+        <div class="teacher-card">
+            <div class="img-wrapper"><img src="https://www.cstremplin.com/prof1.jpg" alt="Équipe enseignante"></div>
+        </div>
+        <div class="teacher-card">
+            <div class="img-wrapper"><img src="https://www.cstremplin.com/prof2.jpg" alt="Équipe enseignante"></div>
+        </div>
+        <div class="teacher-card">
+            <div class="img-wrapper"><img src="https://www.cstremplin.com/prof3.jpg" alt="Équipe enseignante"></div>
+        </div>
+        <div class="teacher-card">
+            <div class="img-wrapper"><img src="https://www.cstremplin.com/prof4.jpg" alt="Équipe enseignante"></div>
+        </div>
+    </div>
+    <div class="action-section">
+        <a href="index.html" class="btn-back"><i class="fas fa-arrow-left"></i> Retour à l'accueil</a>
+    </div>
+    <div class="footer">
+        <div class="inner">
+            <div>
+                <h4>CS LE TREMPLIN</h4>
+                <p>Une école d'excellence à Kasumbalesa, formant les leaders de demain dans un cadre exigeant et bienveillant.</p>
+            </div>
+            <div>
+                <h4>Liens rapides</h4>
+                <a href="index.html">Accueil</a>
+                <a href="https://www.cstremplin.com/about">À propos</a>
+                <a href="niveaux.html">Niveaux</a>
+                <a href="enseignants.html">Enseignants</a>
+                <a href="fondateur.html">Fondateur</a>
+            </div>
+            <div>
+                <h4>Contact</h4>
+                <a href="#" class="phone-link" onclick="openPhonePopup(); return false;"><i class="fas fa-phone"></i> +243 973510555</a>
+                <a href="#"><i class="fas fa-map-marker-alt"></i> Kasumbalesa, RDC</a>
+            </div>
+        </div>
+        <div class="copy">© 2026 Complexe Scolaire Le Tremplin — Tous droits réservés</div>
+    </div>
+</div>
+
+<div class="phone-popup-overlay" id="phonePopupOverlay" onclick="closePhonePopup()">
+    <div class="phone-popup-box" onclick="event.stopPropagation()">
+        <i class="fas fa-phone-alt phone-icon"></i>
+        <h2>📞 CONTACTEZ-NOUS</h2>
+        <span class="phone-number">+243 973510555</span>
+        <div class="phone-buttons">
+            <a href="https://wa.me/243973510555" target="_blank" class="btn-whatsapp"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+            <a href="tel:+243973510555" class="btn-call"><i class="fas fa-phone"></i> Appel normal</a>
+        </div>
+        <button class="btn-close-phone" onclick="closePhonePopup()">✕ Fermer</button>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('contextmenu', function(e){e.preventDefault();return false;});
+    document.addEventListener('keydown', function(e){
+        if(e.key==='F12'||e.keyCode===123){e.preventDefault();return false;}
+        if(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='i'||e.key==='J'||e.key==='j')){e.preventDefault();return false;}
+        if(e.ctrlKey&&(e.key==='U'||e.key==='u')){e.preventDefault();return false;}
+        if(e.ctrlKey&&(e.key==='S'||e.key==='s')){e.preventDefault();return false;}
+        if(e.ctrlKey&&e.shiftKey&&(e.key==='C'||e.key==='c')){e.preventDefault();return false;}
+        if(e.key==='Escape' && document.getElementById('phonePopupOverlay').classList.contains('active')){
+            document.getElementById('phonePopupOverlay').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
+    document.addEventListener('dragstart', function(e){e.preventDefault();return false;});
+    document.addEventListener('selectstart', function(e){e.preventDefault();return false;});
+
+    function openPhonePopup() {
+        document.getElementById('phonePopupOverlay').classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+    function closePhonePopup() {
+        document.getElementById('phonePopupOverlay').classList.remove('active');
+        document.body.style.overflow = '';
+    }
+    document.getElementById('phonePopupOverlay').addEventListener('click', function(e) {
+        if (e.target === this) {
+            closePhonePopup();
+        }
+    });
+</script>
+</body>
+</html>
