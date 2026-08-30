@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>KASHIBA ABEDI Oscar — Promoteur du Complexe Scolaire Le Tremplin</title>
+    <meta name="description" content="Découvrez le profil de Monsieur Oscar KASHIBA ABEDI, promoteur et fondateur du Complexe Scolaire Le Tremplin à Kasumbalesa. Un éducateur visionnaire engagé pour l'excellence scolaire.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://cstremplin.com/promoteur">
+    <link rel="icon" type="image/jpeg" href="https://www.cstremplin.com/favicon.jpg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+        html,body{overflow-x:hidden;width:100%;background:#f0f2f5;user-select:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none}
+        .page{max-width:1200px;margin:0 auto;background:#ffffff;min-height:100vh}
+        
+        .profile-hero{background:linear-gradient(145deg,#8B0000 0%,#cc0000 40%,#0a1a2a 70%,#1a3a5c 100%);padding:70px 5% 60px;color:#fff;text-align:center;position:relative;overflow:hidden}
+        .profile-hero::before{content:'';position:absolute;top:-50%;right:-20%;width:60%;height:200%;background:radial-gradient(ellipse,rgba(255,255,255,0.05) 0%,transparent 70%);pointer-events:none}
+        .profile-hero .badge{display:inline-block;background:rgba(255,255,255,0.12);border-radius:40px;padding:8px 28px;font-size:0.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:20px;backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,0.10)}
+        .profile-hero .avatar{width:140px;height:140px;border-radius:50%;object-fit:cover;margin-bottom:20px;border:4px solid rgba(255,255,255,0.3);box-shadow:0 8px 40px rgba(0,0,0,0.25);transition:transform 0.4s;background:#1a3a5c}
+        .profile-hero .avatar:hover{transform:scale(1.05) rotate(-2deg)}
+        .profile-hero h1{font-size:3.4rem;font-weight:900;letter-spacing:-1px;margin-bottom:6px;line-height:1.1;text-shadow:0 4px 20px rgba(0,0,0,0.15)}
+        .profile-hero h1 .prenom{font-weight:300}
+        .profile-hero .titre{font-size:1.1rem;opacity:0.9;font-weight:300;letter-spacing:1px}
+        .profile-hero .titre i{color:#ffcc99;margin-right:8px}
+        .profile-hero .separator{display:inline-block;width:80px;height:3px;background:rgba(255,255,255,0.3);margin:14px auto 10px;border-radius:4px}
+        .profile-hero .date-creation{display:inline-block;margin-top:16px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);padding:10px 32px;border-radius:50px;font-size:0.9rem;font-weight:500;backdrop-filter:blur(4px)}
+        .profile-hero .date-creation i{margin-right:10px}
+        
+        .profile-section{padding:50px 5% 40px;max-width:860px;margin:0 auto}
+        .profile-section .bio-block{background:#f8fafc;border-radius:28px;padding:40px 44px;margin-bottom:36px;border:1px solid #eef2f5;transition:all 0.3s}
+        .profile-section .bio-block:hover{box-shadow:0 12px 40px rgba(139,0,0,0.06)}
+        .profile-section .bio-block .section-title{font-size:1.4rem;font-weight:800;color:#0a1a2a;margin-bottom:16px;display:flex;align-items:center;gap:14px}
+        .profile-section .bio-block .section-title i{color:#8B0000;font-size:1.6rem}
+        .profile-section .bio-block p{font-size:1.08rem;line-height:1.9;color:#1a2b3e;margin-bottom:16px}
+        .profile-section .bio-block p:last-child{margin-bottom:0}
+        .profile-section .bio-block p strong{color:#8B0000}
+        
+        .profile-section .bio-block .highlight-quote{background:linear-gradient(145deg,#fdf0f0,#fce8e8);border-radius:18px;padding:24px 30px;margin:24px 0 10px;border-left:5px solid #8B0000;font-style:italic;color:#0a1a2a;font-size:1.05rem;line-height:1.7}
+        .profile-section .bio-block .highlight-quote i{color:#8B0000;margin-right:10px;opacity:0.6}
+        
+        .profile-section .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:30px 0 10px}
+        .profile-section .info-grid .info-item{background:#ffffff;border-radius:18px;padding:20px 22px;border:1px solid #eef2f5;transition:all 0.3s;display:flex;align-items:center;gap:16px}
+        .profile-section .info-grid .info-item:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(139,0,0,0.06);border-color:#cc8888}
+        .profile-section .info-grid .info-item i{font-size:1.6rem;color:#8B0000;width:40px;text-align:center;flex-shrink:0}
+        .profile-section .info-grid .info-item .info-content h4{font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:#6a8aa0}
+        .profile-section .info-grid .info-item .info-content p{font-size:1rem;font-weight:600;color:#0a1a2a;margin:0}
+        
+        .profile-section .logo-block{background:linear-gradient(145deg,#ffffff,#f5f7fa);border-radius:24px;padding:32px 40px;border:2px dashed #cc8888;text-align:center;margin:24px 0 18px;transition:all 0.3s}
+        .profile-section .logo-block:hover{border-color:#8B0000;box-shadow:0 8px 30px rgba(139,0,0,0.08)}
+        .profile-section .logo-block .logo-title{font-size:0.8rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:#6a8aa0;margin-bottom:18px}
+        .profile-section .logo-block .logo-title i{color:#8B0000;margin-right:8px}
+        .profile-section .logo-block .logo-display{display:flex;align-items:center;justify-content:center;gap:40px;flex-wrap:wrap}
+        .profile-section .logo-block .logo-display img{height:140px;width:auto;border-radius:20px;background:#ffffff;padding:12px 24px;box-shadow:0 6px 24px rgba(0,0,0,0.08);border:2px solid #eef2f5;transition:transform 0.4s,box-shadow 0.4s}
+        .profile-section .logo-block .logo-display img:hover{transform:scale(1.06);box-shadow:0 10px 40px rgba(139,0,0,0.15);border-color:#8B0000}
+        .profile-section .logo-block .logo-display .logo-text{font-size:1.3rem;font-weight:800;color:#0a1a2a}
+        .profile-section .logo-block .logo-display .logo-text span{color:#8B0000}
+        .profile-section .logo-block .logo-display .logo-text .sub{display:block;font-weight:400;font-size:0.95rem;color:#4a5a6a;margin-top:6px}
+        
+        .profile-section .values-mini{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:30px 0 10px}
+        .profile-section .values-mini .v-item{background:#ffffff;border-radius:18px;padding:20px 16px;text-align:center;border:1px solid #eef2f5;transition:all 0.3s}
+        .profile-section .values-mini .v-item:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(139,0,0,0.06);border-color:#cc8888}
+        .profile-section .values-mini .v-item i{font-size:2rem;color:#8B0000;display:block;margin-bottom:8px}
+        .profile-section .values-mini .v-item h4{font-size:1rem;font-weight:700;color:#0a1a2a}
+        .profile-section .values-mini .v-item p{font-size:0.85rem;color:#4a5a6a;margin-top:4px}
+        
+        .profile-section .signature-block{background:linear-gradient(145deg,#f8f9fa,#eef2f5);border-radius:24px;padding:32px 36px;border:1px solid #e8edf2;text-align:center;margin-top:20px}
+        .profile-section .signature-block .name{font-size:1.8rem;font-weight:800;color:#0a1a2a}
+        .profile-section .signature-block .name span{color:#8B0000}
+        .profile-section .signature-block .sub{color:#4a5a6a;font-size:1rem;margin-top:4px}
+        .profile-section .signature-block .date{color:#8B0000;font-weight:600;margin-top:8px;font-size:0.95rem}
+        .profile-section .signature-block .date i{margin-right:8px}
+        
+        .btn-wrapper{text-align:center;padding:10px 5% 60px}
+        .btn-action{display:inline-flex;align-items:center;gap:16px;background:linear-gradient(135deg,#8B0000 0%,#cc0000 50%,#8B0000 100%);color:#fff;padding:18px 56px;border-radius:60px;font-weight:700;font-size:1.05rem;text-decoration:none;border:none;cursor:pointer;box-shadow:0 10px 40px rgba(139,0,0,0.35);transition:all 0.4s cubic-bezier(0.25,0.46,0.45,0.94);letter-spacing:0.5px;position:relative;overflow:hidden}
+        .btn-action::after{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(255,255,255,0.10) 0%,transparent 70%);opacity:0;transition:opacity 0.5s}
+        .btn-action:hover::after{opacity:1}
+        .btn-action:hover{transform:translateY(-6px) scale(1.03);box-shadow:0 20px 56px rgba(139,0,0,0.45);background:linear-gradient(135deg,#aa0000 0%,#dd2222 50%,#aa0000 100%)}
+        .btn-action i{font-size:1.2rem;transition:transform 0.3s}
+        .btn-action:hover i{transform:translateX(6px)}
+        
+        .footer{background:#0a1a2a;color:#aac4d4;padding:28px 5% 18px;margin-top:10px}
+        .footer .copy{text-align:center;border-top:1px solid rgba(255,255,255,0.06);padding-top:16px;font-size:0.8rem;color:#6a8aa0}
+        
+        .fade-in{opacity:0;transform:translateY(30px);transition:all 0.9s cubic-bezier(0.25,0.46,0.45,0.94)}
+        .fade-in.visible{opacity:1;transform:translateY(0)}
+        
+        @media(max-width:768px){.profile-hero{padding:60px 5% 50px}.profile-hero h1{font-size:2.4rem}.profile-hero p{font-size:1rem}.profile-section{padding:30px 5%}.profile-section .bio-block{padding:28px 22px}.profile-section .info-grid{grid-template-columns:1fr}.profile-section .values-mini{grid-template-columns:1fr 1fr}.profile-section .logo-block .logo-display{flex-direction:column;gap:16px}.profile-section .logo-block .logo-display img{height:100px}.btn-action{padding:16px 36px;font-size:1rem;width:100%;justify-content:center}}
+        @media(max-width:480px){.profile-hero h1{font-size:1.8rem}.profile-hero .date-creation{font-size:0.75rem;padding:8px 16px}.profile-hero .avatar{width:100px;height:100px}.profile-section .bio-block p{font-size:0.98rem}.profile-section .values-mini{grid-template-columns:1fr}.profile-section .signature-block .name{font-size:1.3rem}.profile-section .logo-block{padding:20px 16px}.profile-section .logo-block .logo-display img{height:80px}.btn-action{padding:14px 28px;font-size:0.95rem}}
+    </style>
+</head>
+<body>
+<div class="page">
+    <div class="profile-hero">
+        <img src="oscar.jpg" alt="KASHIBA ABEDI Oscar - Promoteur du Complexe Scolaire Le Tremplin" class="avatar" loading="lazy">
+        <div class="badge"><i class="fas fa-user-tie" style="margin-right:8px;"></i> Promoteur & Fondateur</div>
+        <h1>KASHIBA ABEDI <span class="prenom">Oscar</span></h1>
+        <div class="separator"></div>
+        <div class="titre"><i class="fas fa-graduation-cap"></i> Éducateur visionnaire — Fondateur du CS Le Tremplin</div>
+        <div class="date-creation"><i class="fas fa-calendar-alt"></i> Fondateur depuis 2022 — Kasumbalesa, RDC</div>
+    </div>
+    
+    <div class="profile-section">
+        <div class="fade-in bio-block">
+            <div class="section-title"><i class="fas fa-user-circle"></i> Biographie</div>
+            <p><strong>KASHIBA ABEDI Oscar</strong> est un éducateur passionné et un visionnaire engagé pour l'excellence scolaire. Fort d'une conviction profonde que l'éducation est le socle de tout développement durable, il a fondé en <strong>2022</strong> le <strong>Complexe Scolaire Le Tremplin</strong> à Kasumbalesa.</p>
+            
+            <div class="highlight-quote">
+                <i class="fas fa-quote-left"></i> Chaque enfant porte en lui un potentiel immense. Notre mission est de créer les conditions pour qu'il puisse s'épanouir, apprendre et devenir un acteur responsable de la société.
+            </div>
+            
+            <p>À travers cette institution, <strong>Monsieur Oscar</strong> incarne une vision éducative qui allie rigueur scolaire, éducation aux valeurs et accompagnement personnalisé. Son engagement repose sur trois piliers fondamentaux : le <strong>travail</strong>, la <strong>discipline</strong> et la <strong>réussite</strong>.</p>
+            
+            <p>Reconnu pour son dévouement et sa bienveillance, il suit de près le parcours de chaque élève, veillant à ce que chacun puisse développer ses talents et construire un avenir prometteur. Son leadership a fait du CS Le Tremplin une référence en matière d'éducation à Kasumbalesa.</p>
+            
+            <div class="logo-block fade-in">
+                <div class="logo-title"><i class="fas fa-school"></i> L'emblème du Complexe Scolaire Le Tremplin</div>
+                <div class="logo-display">
+                    <img src="tremplin.png" alt="Logo du Complexe Scolaire Le Tremplin" loading="lazy">
+                    <div class="logo-text">
+                        Complexe Scolaire <span>Le Tremplin</span>
+                        <span class="sub"><i class="fas fa-map-marker-alt" style="color:#8B0000;margin-right:4px;"></i> Kasumbalesa — Éducation d'excellence</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="info-grid">
+                <div class="info-item">
+                    <i class="fas fa-calendar-alt"></i>
+                    <div class="info-content">
+                        <h4>Année de fondation</h4>
+                        <p>2022</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div class="info-content">
+                        <h4>Localisation</h4>
+                        <p>Kasumbalesa, Haut-Katanga</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-school"></i>
+                    <div class="info-content">
+                        <h4>Établissement</h4>
+                        <p>Complexe Scolaire Le Tremplin</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-award"></i>
+                    <div class="info-content">
+                        <h4>Valeurs</h4>
+                        <p>Travail · Discipline · Réussite</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="values-mini">
+                <div class="v-item"><i class="fas fa-hammer"></i><h4>Travail</h4><p>L'effort comme fondement de la réussite</p></div>
+                <div class="v-item"><i class="fas fa-balance-scale"></i><h4>Discipline</h4><p>Le respect et la rigueur au quotidien</p></div>
+                <div class="v-item"><i class="fas fa-trophy"></i><h4>Réussite</h4><p>L'ambition de dépasser ses limites</p></div>
+            </div>
+            
+            <div class="signature-block">
+                <div class="name">KASHIBA ABEDI <span>Oscar</span></div>
+                <div class="sub">Promoteur — Complexe Scolaire Le Tremplin</div>
+                <div class="date"><i class="fas fa-calendar-check"></i> Fondateur depuis 2022</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="btn-wrapper">
+        <a href="https://cstremplin.com" class="btn-action"><i class="fas fa-external-link-alt"></i> Découvrir l'école</a>
+    </div>
+    
+    <div class="footer">
+        <div class="copy">© 2026 Complexe Scolaire Le Tremplin — Tous droits réservés</div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded',function(){var e=document.querySelectorAll('.fade-in');var t=new IntersectionObserver(function(e){e.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible')}})},{threshold:0.15,rootMargin:'0px 0px -30px 0px'});e.forEach(function(e){t.observe(e)});setTimeout(function(){e.forEach(function(e){if(e.getBoundingClientRect().top<window.innerHeight){e.classList.add('visible')}})},150)});
+    
+    document.addEventListener('contextmenu', function(e){e.preventDefault();return false});
+    document.addEventListener('keydown', function(e){if(e.keyCode==123||(e.ctrlKey&&e.shiftKey&&(e.keyCode==73||e.keyCode==74||e.keyCode==67))||(e.ctrlKey&&e.keyCode==85)){e.preventDefault();return false}});
+</script>
+</body>
+</html>
