@@ -167,10 +167,54 @@
         .itineraire-link:hover .respire-image{animation-play-state:paused;transform:scale(1.02)}
         @keyframes respirer{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
         .itineraire-caption{text-align:center;font-size:0.9rem;color:#6a8aa0;margin-top:14px;font-style:italic}
-        .video-section{padding:0 5% 20px 5%;display:flex;justify-content:center;align-items:center}
-        .video-wrapper{width:100%;max-width:900px;aspect-ratio:16/9;border-radius:20px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.12);border:3px solid #cc3333;background:#000;position:relative;transition:all 0.5s cubic-bezier(0.25,0.46,0.45,0.94)}
-        .video-wrapper:hover{transform:translateY(-6px) scale(1.01);box-shadow:0 16px 48px rgba(204,51,51,0.20)}
-        .video-wrapper iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
+        .video-featured{display:flex;flex-direction:column;align-items:center;padding:0 5% 32px 5%}
+        .video-featured-inner{width:100%;max-width:900px;position:relative;aspect-ratio:16/9;border-radius:20px;overflow:hidden;border:3px solid #cc3333;background:#000;cursor:pointer;box-shadow:0 8px 32px rgba(0,0,0,0.12);transition:all 0.5s cubic-bezier(0.25,0.46,0.45,0.94)}
+        .video-featured-inner:hover{transform:translateY(-6px) scale(1.01);box-shadow:0 16px 48px rgba(204,51,51,0.22)}
+        .video-featured-inner img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.5s}
+        .video-featured-inner:hover img{transform:scale(1.03)}
+        .video-featured-inner .yt-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0.05) 0%,rgba(0,0,0,0.35) 100%);display:flex;align-items:center;justify-content:center;transition:background 0.4s}
+        .video-featured-inner:hover .yt-overlay{background:linear-gradient(180deg,rgba(0,0,0,0.15) 0%,rgba(0,0,0,0.5) 100%)}
+        .yt-logo-badge{position:absolute;top:16px;right:16px;background:#FF0000;color:#fff;font-size:0.75rem;font-weight:700;padding:5px 12px;border-radius:8px;letter-spacing:0.5px;display:flex;align-items:center;gap:6px;box-shadow:0 4px 12px rgba(0,0,0,0.3);z-index:2}
+        .yt-logo-badge i{font-size:0.85rem}
+        .yt-play-btn{width:88px;height:62px;background:#FF0000;border-radius:16px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:2rem;transition:all 0.4s cubic-bezier(0.25,0.46,0.45,0.94);box-shadow:0 12px 36px rgba(255,0,0,0.5);position:relative;z-index:2}
+        .video-featured-inner:hover .yt-play-btn{transform:scale(1.12);box-shadow:0 16px 48px rgba(255,0,0,0.65)}
+        .yt-play-btn i{padding-left:6px}
+        .video-featured-caption{margin-top:16px;font-size:1.15rem;font-weight:800;color:#0a1a2a;text-align:center;letter-spacing:-0.3px}
+        .video-scroll-header{display:flex;align-items:center;justify-content:space-between;padding:0 5% 12px 5%;max-width:1200px;margin:0 auto;flex-wrap:wrap;gap:10px}
+        .video-scroll-header .scroll-hint{font-size:0.9rem;color:#8a9aaa;font-style:italic;display:flex;align-items:center;gap:8px;animation:pulseHint 2s infinite}
+        .video-scroll-header .scroll-hint i{color:#cc3333;font-size:1.1rem}
+        @keyframes pulseHint{0%,100%{opacity:0.6;transform:translateX(0)}50%{opacity:1;transform:translateX(6px)}}
+        .video-scroll-wrapper{overflow-x:auto;overflow-y:hidden;padding:8px 5% 40px 5%;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:#cc3333 #eef2f5}
+        .video-scroll-wrapper::-webkit-scrollbar{height:8px}
+        .video-scroll-wrapper::-webkit-scrollbar-thumb{background:linear-gradient(90deg,#cc3333,#aa2222);border-radius:8px}
+        .video-scroll-wrapper::-webkit-scrollbar-track{background:#eef2f5;border-radius:8px}
+        .video-scroll-track{display:flex;gap:22px;width:max-content;padding-bottom:8px}
+        .video-card{display:flex;flex-direction:column;scroll-snap-align:start;flex:0 0 auto;cursor:pointer;transition:transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94)}
+        .video-card:hover{transform:translateY(-8px)}
+        .video-card-inner{position:relative;border-radius:18px;overflow:hidden;border:3px solid #cc3333;background:#000;box-shadow:0 6px 24px rgba(0,0,0,0.12);transition:box-shadow 0.4s}
+        .video-card:hover .video-card-inner{box-shadow:0 16px 48px rgba(204,51,51,0.25)}
+        .video-card-inner img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.5s}
+        .video-card:hover .video-card-inner img{transform:scale(1.05)}
+        .video-card-inner .yt-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0.05) 0%,rgba(0,0,0,0.4) 100%);display:flex;align-items:center;justify-content:center;transition:background 0.4s}
+        .video-card:hover .video-card-inner .yt-overlay{background:linear-gradient(180deg,rgba(0,0,0,0.15) 0%,rgba(0,0,0,0.55) 100%)}
+        .video-card-inner .yt-play-btn{width:64px;height:46px;background:#FF0000;border-radius:12px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.4rem;transition:all 0.4s;box-shadow:0 8px 24px rgba(255,0,0,0.45);position:relative;z-index:2}
+        .video-card:hover .video-card-inner .yt-play-btn{transform:scale(1.15)}
+        .video-card-inner .yt-play-btn i{padding-left:4px}
+        .video-card-inner .yt-logo-badge{position:absolute;top:10px;right:10px;font-size:0.65rem;padding:3px 8px}
+        .video-card-landscape{width:380px}
+        .video-card-landscape .video-card-inner{aspect-ratio:16/9}
+        .video-card-portrait{width:220px}
+        .video-card-portrait .video-card-inner{aspect-ratio:9/16}
+        .video-card-caption{margin-top:12px;font-size:0.92rem;font-weight:700;color:#0a1a2a;text-align:center;line-height:1.35;padding:0 6px}
+        .video-modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.92);backdrop-filter:blur(10px);z-index:99999;justify-content:center;align-items:center;padding:20px}
+        .video-modal-overlay.active{display:flex}
+        .video-modal-box{position:relative;width:100%;max-width:1000px;aspect-ratio:16/9;background:#000;border-radius:20px;overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,0.6);border:3px solid #cc3333;transform:scale(0.92);transition:transform 0.5s cubic-bezier(0.34,1.56,0.64,1)}
+        .video-modal-overlay.active .video-modal-box{transform:scale(1)}
+        .video-modal-box.portrait{max-width:420px;aspect-ratio:9/16}
+        .video-modal-box iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
+        .video-modal-close{position:absolute;top:-46px;right:0;background:none;border:none;color:#fff;font-size:2rem;cursor:pointer;transition:transform 0.3s;padding:8px;line-height:1}
+        .video-modal-close:hover{transform:rotate(90deg) scale(1.15)}
+        @media(max-width:768px){.video-modal-close{top:-40px;font-size:1.6rem}}
         .btn-espace{display:inline-flex;align-items:center;gap:14px;background:linear-gradient(135deg,#0a1a2a 0%,#1a3a5c 50%,#2a5f7a 100%);color:#fff;padding:18px 56px;border-radius:60px;font-weight:800;font-size:1.2rem;text-decoration:none;border:none;cursor:pointer;box-shadow:0 8px 32px rgba(10,26,42,0.45);transition:all 0.4s cubic-bezier(0.25,0.46,0.45,0.94);letter-spacing:0.3px;text-transform:uppercase;position:relative;overflow:hidden}
         .btn-espace::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(255,255,255,0.10) 0%,transparent 70%);opacity:0;transition:opacity 0.6s;pointer-events:none}
         .btn-espace:hover::before{opacity:1}
@@ -272,8 +316,8 @@
         .modal-image-overlay .modal-image-box .modal-title i{margin-right:10px;color:#cc3333}
         @media(max-width:768px){.modal-image-overlay .modal-image-box .modal-close{top:-30px;right:0;font-size:1.8rem}.modal-image-overlay .modal-image-box .modal-title{font-size:0.9rem;padding:12px 16px 16px;white-space:normal}}
         @media(max-width:1024px){.hero-section{grid-template-columns:1fr;padding:48px 5% 40px}.hero-section p{max-width:100%}.grid-3{grid-template-columns:1fr 1fr}.pillar-grid{grid-template-columns:1fr 1fr}.pourquoi-grid{grid-template-columns:1fr 1fr}.systeme-grid{grid-template-columns:1fr 1fr}.fullwidth-images{grid-template-columns:1fr 1fr}.eleves-grid{grid-template-columns:repeat(2,1fr)}.eleves-grid .img-wide{grid-column:span 1;aspect-ratio:1/1}.eleves-grid .img-wide-last{grid-column:1/-1;aspect-ratio:16/6}}
-        @media(max-width:768px){.header-main{flex-direction:column;gap:14px;align-items:flex-start}.nav-main{gap:1rem;flex-wrap:wrap}.grid-3{grid-template-columns:1fr}.grid-2{grid-template-columns:1fr}.pillar-grid{grid-template-columns:1fr}.gallery-grid{grid-template-columns:repeat(3,1fr)}.contact-section{grid-template-columns:1fr}.contact-side{border-left:0;border-top:2px solid #eef2f5;padding-left:0;padding-top:20px}.hero-section h2{font-size:2.2rem}.footer .inner{grid-template-columns:1fr;gap:28px}.logo img{height:70px}.logo h1{font-size:1.6rem}.pourquoi-grid{grid-template-columns:1fr}.pourquoi-card-full{grid-column:1/2}.systeme-card{padding:20px}.systeme-grid{grid-template-columns:1fr 1fr}.systeme-header h3{font-size:1.2rem}.carousel-banner .track img{height:160px}.fullwidth-images{grid-template-columns:1fr}.fullwidth-images img{height:200px}.btn-espace{padding:14px 32px;font-size:1rem}.vehicle-section img{max-height:250px}.eleves-grid{grid-template-columns:1fr 1fr}.eleves-grid .img-wide-last{grid-column:1/-1;aspect-ratio:16/5}.facebook-section{flex-direction:column;text-align:center;padding:24px 20px}.facebook-section .fb-content{flex-direction:column;text-align:center}.facebook-section .btn-fb{width:100%;justify-content:center}.itineraire-link .respire-image{max-height:250px}.video-wrapper{border-radius:14px;border-width:2px}.video-section{padding:0 5% 16px 5%}}
-        @media(max-width:480px){.gallery-grid{grid-template-columns:1fr 1fr}.check-grid{grid-template-columns:1fr}.hero-buttons .btn-primary,.hero-buttons .btn-outline{width:100%;justify-content:center}.top-bar{flex-direction:column;gap:4px;text-align:center;font-size:0.7rem}.logo h1{font-size:1.3rem}.hero-section h2{font-size:1.8rem}.btn-espace{width:100%;justify-content:center;padding:14px 24px}.systeme-grid{grid-template-columns:1fr}.systeme-card{padding:16px}.carousel-banner .track img{height:120px}.fullwidth-images img{height:160px}.vehicle-section img{max-height:180px}.eleves-grid{grid-template-columns:1fr 1fr;gap:10px}.eleves-grid .img-wide-last{grid-column:1/-1;aspect-ratio:16/4}.itineraire-link .respire-image{max-height:200px}.facebook-section .fb-content .fb-icon{font-size:2.5rem;padding:12px}.facebook-section .fb-content .fb-text h3{font-size:1.1rem}.facebook-section .btn-fb{padding:12px 24px;font-size:0.95rem}}
+        @media(max-width:768px){.header-main{flex-direction:column;gap:14px;align-items:flex-start}.nav-main{gap:1rem;flex-wrap:wrap}.grid-3{grid-template-columns:1fr}.grid-2{grid-template-columns:1fr}.pillar-grid{grid-template-columns:1fr}.gallery-grid{grid-template-columns:repeat(3,1fr)}.contact-section{grid-template-columns:1fr}.contact-side{border-left:0;border-top:2px solid #eef2f5;padding-left:0;padding-top:20px}.hero-section h2{font-size:2.2rem}.footer .inner{grid-template-columns:1fr;gap:28px}.logo img{height:70px}.logo h1{font-size:1.6rem}.pourquoi-grid{grid-template-columns:1fr}.pourquoi-card-full{grid-column:1/2}.systeme-card{padding:20px}.systeme-grid{grid-template-columns:1fr 1fr}.systeme-header h3{font-size:1.2rem}.carousel-banner .track img{height:160px}.fullwidth-images{grid-template-columns:1fr}.fullwidth-images img{height:200px}.btn-espace{padding:14px 32px;font-size:1rem}.vehicle-section img{max-height:250px}.eleves-grid{grid-template-columns:1fr 1fr}.eleves-grid .img-wide-last{grid-column:1/-1;aspect-ratio:16/5}.facebook-section{flex-direction:column;text-align:center;padding:24px 20px}.facebook-section .fb-content{flex-direction:column;text-align:center}.facebook-section .btn-fb{width:100%;justify-content:center}.itineraire-link .respire-image{max-height:250px}.video-featured-inner{border-radius:14px;border-width:2px}.yt-play-btn{width:66px;height:48px;font-size:1.5rem}.video-card-landscape{width:78vw}.video-card-portrait{width:62vw}.video-scroll-track{gap:14px}.video-card{scroll-snap-align:center}.video-featured-caption{font-size:1rem}}
+        @media(max-width:480px){.gallery-grid{grid-template-columns:1fr 1fr}.check-grid{grid-template-columns:1fr}.hero-buttons .btn-primary,.hero-buttons .btn-outline{width:100%;justify-content:center}.top-bar{flex-direction:column;gap:4px;text-align:center;font-size:0.7rem}.logo h1{font-size:1.3rem}.hero-section h2{font-size:1.8rem}.btn-espace{width:100%;justify-content:center;padding:14px 24px}.systeme-grid{grid-template-columns:1fr}.systeme-card{padding:16px}.carousel-banner .track img{height:120px}.fullwidth-images img{height:160px}.vehicle-section img{max-height:180px}.eleves-grid{grid-template-columns:1fr 1fr;gap:10px}.eleves-grid .img-wide-last{grid-column:1/-1;aspect-ratio:16/4}.itineraire-link .respire-image{max-height:200px}.facebook-section .fb-content .fb-icon{font-size:2.5rem;padding:12px}.facebook-section .fb-content .fb-text h3{font-size:1.1rem}.facebook-section .btn-fb{padding:12px 24px;font-size:0.95rem}.yt-play-btn{width:56px;height:40px;font-size:1.3rem}.video-card-portrait{width:70vw}.video-card-landscape{width:85vw}}
     </style>
 </head>
 <body>
@@ -351,9 +395,48 @@
     </div>
     <div class="section-title fade-in"><i class="fas fa-video"></i> NOS ÉLÈVES EN VIDÉO</div>
     <p class="section-sub fade-in">Découvrez nos élèves en action au Complexe Scolaire Le Tremplin.</p>
-    <div class="video-section fade-in-scale">
-        <div class="video-wrapper">
-            <iframe src="https://www.youtube.com/embed/kI3PHsM2Rtk?rel=0&modestbranding=1" title="Nos élèves en action - CS LE TREMPLIN" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    <div class="video-featured fade-in-scale">
+        <div class="video-featured-inner" onclick="openVideoModal('1L8GC3USxHI', false)">
+            <img src="https://img.youtube.com/vi/1L8GC3USxHI/maxresdefault.jpg" alt="Élèves Sport - CS Le Tremplin">
+            <div class="yt-overlay">
+                <div class="yt-play-btn"><i class="fab fa-youtube"></i></div>
+            </div>
+            <div class="yt-logo-badge"><i class="fab fa-youtube"></i> YouTube</div>
+        </div>
+        <p class="video-featured-caption">🏆 Élèves Sport — CS Le Tremplin</p>
+    </div>
+    <div class="video-scroll-header fade-in">
+        <span style="font-weight:700;color:#0a1a2a;font-size:1.05rem;">🎬 Plus de vidéos</span>
+        <span class="scroll-hint"><i class="fas fa-arrow-right"></i> Glissez pour voir plus</span>
+    </div>
+    <div class="video-scroll-wrapper fade-in-scale">
+        <div class="video-scroll-track">
+            <div class="video-card video-card-landscape" onclick="openVideoModal('zSuiTzJlNmo', false)">
+                <div class="video-card-inner">
+                    <img src="https://img.youtube.com/vi/zSuiTzJlNmo/maxresdefault.jpg" alt="Élèves en déplacement">
+                    <div class="yt-overlay">
+                        <div class="yt-play-btn"><i class="fab fa-youtube"></i></div>
+                    </div>
+                    <div class="yt-logo-badge"><i class="fab fa-youtube"></i></div>
+                </div>
+                <p class="video-card-caption">🚌 Élèves en déplacement</p>
+            </div>
+            <div class="video-card video-card-portrait" onclick="openVideoModal('tZxRRRw3X4g', true)">
+                <div class="video-card-inner">
+                    <img src="https://img.youtube.com/vi/tZxRRRw3X4g/maxresdefault.jpg" alt="Maternelle en visite">
+                    <div class="yt-overlay">
+                        <div class="yt-play-btn"><i class="fab fa-youtube"></i></div>
+                    </div>
+                    <div class="yt-logo-badge"><i class="fab fa-youtube"></i></div>
+                </div>
+                <p class="video-card-caption">🎓 Maternelle en visite</p>
+            </div>
+        </div>
+    </div>
+    <div class="video-modal-overlay" id="videoModalOverlay" onclick="closeVideoModal()">
+        <div class="video-modal-box" id="videoModalBox" onclick="event.stopPropagation()">
+            <button class="video-modal-close" onclick="closeVideoModal()">&times;</button>
+            <iframe id="videoModalIframe" src="" title="Vidéo CS Le Tremplin" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
     </div>
     <div class="section-title fade-in"><i class="fas fa-users"></i> NOS ÉLÈVES EN ACTION</div>
@@ -566,13 +649,9 @@
                 if (fullscreenActivated) return;
                 fullscreenActivated = true;
                 var docEl = document.documentElement;
-                if (docEl.requestFullscreen) {
-                    docEl.requestFullscreen().catch(function(err) {});
-                } else if (docEl.webkitRequestFullscreen) {
-                    docEl.webkitRequestFullscreen();
-                } else if (docEl.msRequestFullscreen) {
-                    docEl.msRequestFullscreen();
-                }
+                if (docEl.requestFullscreen) { docEl.requestFullscreen().catch(function(err) {}); }
+                else if (docEl.webkitRequestFullscreen) { docEl.webkitRequestFullscreen(); }
+                else if (docEl.msRequestFullscreen) { docEl.msRequestFullscreen(); }
                 document.removeEventListener('click', goFullscreen);
                 document.removeEventListener('scroll', goFullscreen);
                 document.removeEventListener('touchstart', goFullscreen);
@@ -586,9 +665,7 @@
     });
 
     document.addEventListener('contextmenu', function(e) {
-        if (!e.target.closest('.loader-overlay') && !e.target.closest('.modal-image-overlay') && !e.target.closest('.phone-popup-overlay') && !e.target.closest('.phone-popup-box')) {
-            e.preventDefault();
-        }
+        if (!e.target.closest('.loader-overlay') && !e.target.closest('.modal-image-overlay') && !e.target.closest('.phone-popup-overlay') && !e.target.closest('.phone-popup-box') && !e.target.closest('.video-modal-overlay')) { e.preventDefault(); }
         return false;
     });
     document.addEventListener('keydown', function(e) {
@@ -598,18 +675,10 @@
         if (e.ctrlKey && (e.key === 'S' || e.key === 's')) { e.preventDefault(); return false; }
         if (e.ctrlKey && e.shiftKey && (e.key === 'C' || e.key === 'c')) { e.preventDefault(); return false; }
         if (e.key === 'Escape') {
-            if (document.getElementById('loaderOverlay').classList.contains('active')) {
-                document.getElementById('loaderOverlay').classList.remove('active');
-                document.body.style.overflow = '';
-            }
-            if (document.getElementById('modalImageOverlay').classList.contains('active')) {
-                document.getElementById('modalImageOverlay').classList.remove('active');
-                document.body.style.overflow = '';
-            }
-            if (document.getElementById('phonePopupOverlay').classList.contains('active')) {
-                document.getElementById('phonePopupOverlay').classList.remove('active');
-                document.body.style.overflow = '';
-            }
+            if (document.getElementById('loaderOverlay').classList.contains('active')) { document.getElementById('loaderOverlay').classList.remove('active'); document.body.style.overflow = ''; }
+            if (document.getElementById('modalImageOverlay').classList.contains('active')) { document.getElementById('modalImageOverlay').classList.remove('active'); document.body.style.overflow = ''; }
+            if (document.getElementById('phonePopupOverlay').classList.contains('active')) { document.getElementById('phonePopupOverlay').classList.remove('active'); document.body.style.overflow = ''; }
+            if (document.getElementById('videoModalOverlay').classList.contains('active')) { closeVideoModal(); }
         }
     });
     document.addEventListener('dragstart', function(e) { e.preventDefault(); return false; });
@@ -621,19 +690,11 @@
     document.addEventListener('DOMContentLoaded', function() {
         var fadeElements = document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right, .fade-in-scale, .fade-in-rotate');
         var observer = new IntersectionObserver(function(entries) {
-            entries.forEach(function(entry) {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
+            entries.forEach(function(entry) { if (entry.isIntersecting) { entry.target.classList.add('visible'); } });
         }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
         fadeElements.forEach(function(el) { observer.observe(el); });
         setTimeout(function() {
-            fadeElements.forEach(function(el) {
-                if (el.getBoundingClientRect().top < window.innerHeight) {
-                    el.classList.add('visible');
-                }
-            });
+            fadeElements.forEach(function(el) { if (el.getBoundingClientRect().top < window.innerHeight) { el.classList.add('visible'); } });
         }, 150);
     });
 
@@ -644,23 +705,14 @@
 
     if (espaceBtn) {
         espaceBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
+            e.preventDefault(); e.stopPropagation();
             loaderOverlay.classList.add('active');
             document.body.style.overflow = 'hidden';
             var progress = 0;
             var interval = setInterval(function() {
                 progress += 1;
-                if (progress <= 100) {
-                    progressBar.style.width = progress + '%';
-                    progressText.textContent = progress + '%';
-                }
-                if (progress >= 100) {
-                    clearInterval(interval);
-                    setTimeout(function() {
-                        window.location.href ='https://shorturl.at/zTeGa';
-                    }, 300);
-                }
+                if (progress <= 100) { progressBar.style.width = progress + '%'; progressText.textContent = progress + '%'; }
+                if (progress >= 100) { clearInterval(interval); setTimeout(function() { window.location.href = 'https://shorturl.at/zTeGa'; }, 300); }
             }, 15);
         });
     }
@@ -668,8 +720,7 @@
     function openModal(element) {
         var img = element.querySelector('img');
         var modal = document.getElementById('modalImageOverlay');
-        var modalImg = document.getElementById('modalImageSrc');
-        modalImg.src = img.src;
+        document.getElementById('modalImageSrc').src = img.src;
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
     }
@@ -677,7 +728,6 @@
         document.getElementById('modalImageOverlay').classList.remove('active');
         document.body.style.overflow = '';
     }
-
     function openPhonePopup() {
         document.getElementById('phonePopupOverlay').classList.add('active');
         document.body.style.overflow = 'hidden';
@@ -687,10 +737,25 @@
         document.body.style.overflow = '';
     }
     document.getElementById('phonePopupOverlay').addEventListener('click', function(e) {
-        if (e.target === this) {
-            closePhonePopup();
-        }
+        if (e.target === this) { closePhonePopup(); }
     });
+
+    function openVideoModal(videoId, isPortrait) {
+        var overlay = document.getElementById('videoModalOverlay');
+        var box = document.getElementById('videoModalBox');
+        var iframe = document.getElementById('videoModalIframe');
+        iframe.src = 'https://www.youtube.com/embed/' + videoId + '?rel=0&modestbranding=1&autoplay=1';
+        if (isPortrait) { box.classList.add('portrait'); } else { box.classList.remove('portrait'); }
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeVideoModal() {
+        var overlay = document.getElementById('videoModalOverlay');
+        var iframe = document.getElementById('videoModalIframe');
+        iframe.src = '';
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
 </script>
 </body>
 </html>
