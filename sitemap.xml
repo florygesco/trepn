@@ -1,11 +1,103 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
 
   <url>
     <loc>https://cstremplin.com/</loc>
-    <lastmod>2026-08-22</lastmod>
+    <lastmod>2026-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://www.cstremplin.com/image1.jpg</image:loc>
+      <image:title>Bâtiment principal du Complexe Scolaire Le Tremplin à Kasumbalesa</image:title>
+      <image:caption>Complexe Scolaire Le Tremplin — Kasumbalesa, RDC</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cstremplin.com/image2.jpg</image:loc>
+      <image:title>Vue extérieure de l'école CS Le Tremplin</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cstremplin.com/image3.jpg</image:loc>
+      <image:title>Cour de l'école Complexe Scolaire Le Tremplin</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cstremplin.com/image4.jpg</image:loc>
+      <image:title>Entrée du Complexe Scolaire Le Tremplin</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cstremplin.com/maternel1.jpg</image:loc>
+      <image:title>Classe de maternelle du CS Le Tremplin</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cstremplin.com/maternel2.jpg</image:loc>
+      <image:title>Élèves de maternelle en activité au CS Le Tremplin</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cstremplin.com/enseignant.jpg</image:loc>
+      <image:title>Enseignants du Complexe Scolaire Le Tremplin</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cstremplin.com/merite.jpg</image:loc>
+      <image:title>Remise des prix d'excellence au CS Le Tremplin</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cstremplin.com/merite2.jpg</image:loc>
+      <image:title>Élèves méritants du Complexe Scolaire Le Tremplin</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cstremplin.com/vehicule.jpg</image:loc>
+      <image:title>Véhicule de transport scolaire du CS Le Tremplin</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cstremplin.com/eleve1.jpg</image:loc>
+      <image:title>Élève du CS Le Tremplin en activité</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cstremplin.com/eleve2.jpg</image:loc>
+      <image:title>Élève du CS Le Tremplin en classe</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cstremplin.com/eleve3.jpg</image:loc>
+      <image:title>Élève du CS Le Tremplin en action scolaire</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cstremplin.com/eleve4.jpg</image:loc>
+      <image:title>Élève du CS Le Tremplin en activité</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cstremplin.com/eleve5.jpg</image:loc>
+      <image:title>Groupe d'élèves du Complexe Scolaire Le Tremplin</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cstremplin.com/eleve6.jpg</image:loc>
+      <image:title>Élève du CS Le Tremplin en classe</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cstremplin.com/eleve7.jpg</image:loc>
+      <image:title>Élève du CS Le Tremplin en activité</image:title>
+    </image:image>
+    <video:video>
+      <video:thumbnail_loc>https://img.youtube.com/vi/kI3PHsM2Rtk/maxresdefault.jpg</video:thumbnail_loc>
+      <video:title>Nos élèves en action — CS Le Tremplin</video:title>
+      <video:description>Découvrez nos élèves en action au Complexe Scolaire Le Tremplin, Kasumbalesa, RDC.</video:description>
+      <video:player_loc>https://www.youtube.com/embed/kI3PHsM2Rtk</video:player_loc>
+      <video:publication_date>2026-01-01</video:publication_date>
+    </video:video>
+    <video:video>
+      <video:thumbnail_loc>https://img.youtube.com/vi/1L8GC3USxHI/maxresdefault.jpg</video:thumbnail_loc>
+      <video:title>Élèves Sport — CS Le Tremplin</video:title>
+      <video:description>Activités sportives des élèves du Complexe Scolaire Le Tremplin. Sport, discipline et esprit d'équipe.</video:description>
+      <video:player_loc>https://www.youtube.com/embed/1L8GC3USxHI</video:player_loc>
+      <video:publication_date>2026-01-01</video:publication_date>
+    </video:video>
+    <video:video>
+      <video:thumbnail_loc>https://img.youtube.com/vi/zSuiTzJlNmo/maxresdefault.jpg</video:thumbnail_loc>
+      <video:title>Élèves en déplacement — CS Le Tremplin</video:title>
+      <video:description>Transport scolaire sécurisé des élèves du Complexe Scolaire Le Tremplin.</video:description>
+      <video:player_loc>https://www.youtube.com/embed/zSuiTzJlNmo</video:player_loc>
+      <video:publication_date>2026-01-01</video:publication_date>
+    </video:video>
   </url>
 
   <url>
@@ -16,7 +108,7 @@
   </url>
 
   <url>
-    <loc>https://cstremplin.com/discouvir.html</loc>
+    <loc>https://cstremplin.com/decouvir.html</loc>
     <lastmod>2026-08-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
