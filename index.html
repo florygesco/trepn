@@ -55,6 +55,46 @@
     {
       "@context": "https://schema.org",
       "@type": "VideoObject",
+      "name": "Élèves en joie au CS LE TREMPLIN — Le bonheur d'apprendre",
+      "description": "Découvrez la joie et le bonheur de nos élèves au Complexe Scolaire Le Tremplin, Kasumbalesa, RDC.",
+      "thumbnailUrl": ["https://img.youtube.com/vi/D5Z4BkkQGi8/maxresdefault.jpg"],
+      "uploadDate": "2026-01-01",
+      "contentUrl": "https://www.youtube.com/watch?v=D5Z4BkkQGi8",
+      "embedUrl": "https://www.youtube.com/embed/D5Z4BkkQGi8",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Complexe Scolaire Le Tremplin",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://www.cstremplin.com/favicon.jpg"
+        }
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "VideoObject",
+      "name": "Journée de la Femme — Élèves en défilé — CS Le Tremplin",
+      "description": "À l'occasion de la Journée Internationale de la Femme, les élèves du Complexe Scolaire Le Tremplin à Kasumbalesa défilent pour célébrer la femme, l'égalité et le respect.",
+      "thumbnailUrl": ["https://img.youtube.com/vi/487zSZfs4CM/maxresdefault.jpg"],
+      "uploadDate": "2026-03-08",
+      "contentUrl": "https://www.youtube.com/watch?v=487zSZfs4CM",
+      "embedUrl": "https://www.youtube.com/embed/487zSZfs4CM",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Complexe Scolaire Le Tremplin",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://www.cstremplin.com/favicon.jpg"
+        }
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "VideoObject",
       "name": "Nos élèves en action — CS Le Tremplin",
       "description": "Découvrez nos élèves en action au Complexe Scolaire Le Tremplin, Kasumbalesa, RDC.",
       "thumbnailUrl": ["https://img.youtube.com/vi/kI3PHsM2Rtk/maxresdefault.jpg"],
@@ -457,6 +497,16 @@
     <p class="section-sub fade-in">Découvrez nos élèves en action au Complexe Scolaire Le Tremplin.</p>
     <div class="video-section fade-in-scale">
         <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/D5Z4BkkQGi8?rel=0&modestbranding=1" title="Élèves en joie - CS LE TREMPLIN" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+    </div>
+    <div class="video-section fade-in-scale">
+        <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/487zSZfs4CM?rel=0&modestbranding=1" title="Journée de la Femme - Élèves en défilé - CS LE TREMPLIN" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+    </div>
+    <div class="video-section fade-in-scale">
+        <div class="video-wrapper">
             <iframe src="https://www.youtube.com/embed/kI3PHsM2Rtk?rel=0&modestbranding=1" title="Nos élèves en action - CS LE TREMPLIN" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
     </div>
@@ -756,9 +806,8 @@
             e.preventDefault();
             e.stopPropagation();
             var now = new Date();
-            var jour = now.getDay(); // 0 = Dimanche, 4 = Jeudi, 5 = Vendredi
+            var jour = now.getDay();
             var heure = now.getHours();
-            // Jeudi (4) entre 8h et 20h — Vendredi (5) entre 8h et 20h
             var isJeudi = (jour === 4 && heure >= 8 && heure < 20);
             var isVendredi = (jour === 5 && heure >= 8 && heure < 20);
             if (isJeudi || isVendredi) {
