@@ -524,59 +524,196 @@ body{height:100%;margin:0;padding:0;overflow-y:auto;overflow-x:hidden;-webkit-ov
 
 </div>
 </div>
+
+<!-- ============ SCRIPTS ============ -->
+<!-- 1) SCRIPT CLASSIQUE : protection + onglets TOUJOURS fonctionnels -->
+<script>
+// Protection clavier / clic droit
+document.addEventListener('contextmenu',function(e){const tag=e.target.tagName;if(tag==='INPUT'||tag==='TEXTAREA'||e.target.isContentEditable){return true;}e.preventDefault();return false;});
+document.addEventListener('keydown',function(e){if(e.key==='F12'||e.keyCode===123){e.preventDefault();return false;}if(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.keyCode===73)){e.preventDefault();return false;}if(e.ctrlKey&&e.shiftKey&&(e.key==='J'||e.keyCode===74)){e.preventDefault();return false;}if(e.ctrlKey&&(e.key==='U'||e.keyCode===85)){e.preventDefault();return false;}if(e.ctrlKey&&(e.key==='S'||e.keyCode===83)){e.preventDefault();return false;}return true;});
+if('scrollRestoration' in history)history.scrollRestoration='manual';
+</script>
+
 <script type="importmap">
 {"imports":{"firebase/app":"https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js","firebase/firestore":"https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"}}
 </script>
+
 <script type="module">
+/* ========================================================
+   1. IMPORTS FIREBASE
+   ======================================================== */
 import{initializeApp}from"firebase/app";
 import{getFirestore,collection,doc,getDoc,getDocs,onSnapshot}from"firebase/firestore";
 
-const firebaseConfig={apiKey:"AIzaSyBma80S0bc9uzSuO38qn7JLSwLrYniV5Fw",authDomain:"gesco-2.firebaseapp.com",projectId:"gesco-2",storageBucket:"gesco-2.firebasestorage.app",messagingSenderId:"36319988765",appId:"1:36319988765:web:e8cd823804596495248af4"};
+const firebaseConfig={
+  apiKey:"AIzaSyBma80S0bc9uzSuO38qn7JLSwLrYniV5Fw",
+  authDomain:"gesco-2.firebaseapp.com",
+  projectId:"gesco-2",
+  storageBucket:"gesco-2.firebasestorage.app",
+  messagingSenderId:"36319988765",
+  appId:"1:36319988765:web:e8cd823804596495248af4"
+};
 const app=initializeApp(firebaseConfig);
 const db=getFirestore(app);
 
-if(sessionStorage.getItem('isAuthenticated')!=='true'){window.location.href='https://www.cstremplin.com/login2';throw new Error('Redirection');}
-
-const schoolId="tremplin";
+/* ========================================================
+   2. CONSTANTES
+   ======================================================== */
 const ECOLET_ID="tremplin";
 const codeFromUrl=sessionStorage.getItem('code')||'';
-document.getElementById('schoolNameSpan').textContent='TREMPLIN';
+const schoolNameSpan=document.getElementById('schoolNameSpan');
+if(schoolNameSpan)schoolNameSpan.textContent='TREMPLIN';
 
-let allEleves=[], allProfs=[], allEnseignants=[], isFirstLoad=true, currentDate=new Date().toISOString().split('T')[0];
-let unsubscribePrimaire=null, unsubscribeMaternelle=null, unsubscribeSecondaire=null, unsubscribeProfs=null, unsubscribeEnseignants=null;
+/* ========================================================
+   3. ÉTAT GLOBAL
+   ======================================================== */
+let allEleves=[];
+let allProfs=[];
+let allEnseignants=[];
+let isFirstLoad=true;
+let currentDate=new Date().toISOString().split('T')[0];
+let unsubscribePrimaire=null,unsubscribeMaternelle=null,unsubscribeSecondaire=null,unsubscribeProfs=null,unsubscribeEnseignants=null;
+let darkModeActive=false;
+let authentifie=false;
 
+/* ========================================================
+   4. OUTILS
+   ======================================================== */
 function formatNb(n){if(isNaN(n)||n===null||n===undefined)return"0";return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g," ");}
-function escapeHtml(s){if(!s)return'';return s.replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));}
+function escapeHtml(s){if(!s)return'';return String(s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));}
 function joursOuvresDuMois(dateRef){const annee=dateRef.getFullYear();const mois=dateRef.getMonth();const dernierJour=new Date(annee,mois+1,0).getDate();let count=0;for(let j=1;j<=dernierJour;j++){const d=new Date(annee,mois,j).getDay();if(d!==0&&d!==6)count++;}return count;}
 function prefixeMois(dateRef){const annee=dateRef.getFullYear();const mois=String(dateRef.getMonth()+1).padStart(2,'0');return annee+'-'+mois+'-';}
 
+/* ========================================================
+   5. ONGLETS — attachés immédiatement, ne dépendent PAS de Firebase
+   ======================================================== */
+function activerOnglets(){
+  const tousLesTabs=document.querySelectorAll('.tab');
+  const tousLesContenus=document.querySelectorAll('.tab-content');
+
+  tousLesTabs.forEach(function(btn){
+    // Retirer tout ancien listener en clonant ? Non, on attache simplement
+    btn.addEventListener('click',function(e){
+      e.preventDefault();
+      e.stopPropagation();
+
+      // Cas spécial : bouton THÈME
+      if(this.id==='darkModeBtn'){
+        darkModeActive=!darkModeActive;
+        document.body.classList.toggle('dark-mode',darkModeActive);
+        const icon=this.querySelector('i');
+        if(icon){
+          icon.className=darkModeActive?'fas fa-sun':'fas fa-moon';
+        }
+        return;
+      }
+
+      // Onglets normaux
+      tousLesTabs.forEach(t=>t.classList.remove('active'));
+      tousLesContenus.forEach(c=>c.classList.remove('active'));
+      this.classList.add('active');
+      const cible=document.getElementById(this.dataset.tab);
+      if(cible)cible.classList.add('active');
+      document.body.scrollTop=0;
+      document.documentElement.scrollTop=0;
+
+      // Chargements à la demande (uniquement si authentifié)
+      if(!authentifie)return;
+      if(this.dataset.tab==='tabProfs'){
+        chargerTousProfesseurs().then(()=>chargerTousEnseignants()).then(()=>afficherProfs()).catch(err=>console.error(err));
+      }
+      if(this.dataset.tab==='tabFinances'){
+        afficherPaiements();
+      }
+      if(this.dataset.tab==='tabVue'){
+        updateStats();
+        updatePresenceBars();
+        updateInscriptionsBars();
+      }
+    });
+  });
+}
+
+/* ========================================================
+   6. MODAL DÉCONNEXION — attaché immédiatement
+   ======================================================== */
+function attacherDeconnexion(){
+  const btn=document.getElementById('logoutBtn');
+  if(!btn)return;
+  btn.addEventListener('click',function(e){
+    e.preventDefault();
+    showLogoutModal();
+  });
+}
+
+function showLogoutModal(){
+  document.querySelectorAll('.modal-overlay').forEach(m=>m.remove());
+  const overlay=document.createElement('div');
+  overlay.className='modal-overlay';
+  overlay.innerHTML='<div class="modal-box"><button class="modal-close" onclick="this.closest(\'.modal-overlay\').remove()">&times;</button><div class="modal-icon"><i class="fas fa-sign-out-alt"></i></div><div class="modal-title"><i class="fas fa-power-off"></i> Déconnexion</div><p class="modal-message">Êtes-vous sûr de vouloir vous déconnecter ?<br><span style="font-size:12px;color:#94a3b8;">Vous serez redirigé vers la page de connexion.</span></p><div class="modal-actions"><button class="btn-cancel" onclick="this.closest(\'.modal-overlay\').remove()">Annuler</button><button class="btn-confirm" id="confirmLogout"><i class="fas fa-sign-out-alt"></i> Confirmer</button></div></div>';
+  document.body.appendChild(overlay);
+  setTimeout(()=>overlay.classList.add('show'),10);
+  document.getElementById('confirmLogout').onclick=function(){
+    const overlayEl=this.closest('.modal-overlay');
+    overlayEl.classList.remove('show');
+    setTimeout(()=>{
+      overlayEl.remove();
+      sessionStorage.clear();
+      window.location.href='https://www.cstremplin.com/login2';
+    },400);
+  };
+}
+
+/* ========================================================
+   7. VÉRIFICATION D'ACCÈS — AVERTISSEMENT mais ne bloque PAS l'UI
+   ======================================================== */
 async function verifierAcces(){
-  if(!codeFromUrl){window.location.href='https://www.cstremplin.com/login2';return false;}
+  if(!codeFromUrl){
+    console.warn('[ACCÈS] Aucun code en sessionStorage.');
+    authentifie=false;
+    return false;
+  }
   try{
     const ref=doc(db,"ecoles",ECOLET_ID);
     const snap=await getDoc(ref);
-    if(!snap.exists()){window.location.href='https://www.cstremplin.com/login2';return false;}
+    if(!snap.exists()){
+      console.warn('[ACCÈS] École "tremplin" introuvable dans Firestore.');
+      authentifie=false;
+      return false;
+    }
     const settingsRef=doc(db,"ecoles",ECOLET_ID,"settings","data");
     const settingsSnap=await getDoc(settingsRef);
     if(settingsSnap.exists()){
       const data=settingsSnap.data();
       const codePromoteur=data.codePromoteur||'';
-      if(codeFromUrl!==codePromoteur){window.location.href='https://www.cstremplin.com/login2';return false;}
+      if(codeFromUrl!==codePromoteur){
+        console.warn('[ACCÈS] Code promoteur invalide.');
+        authentifie=false;
+        return false;
+      }
     }else{
-      window.location.href='https://www.cstremplin.com/login2';return false;
+      console.warn('[ACCÈS] settings/data introuvable.');
+      authentifie=false;
+      return false;
     }
+    authentifie=true;
     return true;
   }catch(e){
-    window.location.href='https://www.cstremplin.com/login2';return false;
+    console.error('[ACCÈS] Erreur Firestore :',e);
+    authentifie=false;
+    return false;
   }
 }
 
+/* ========================================================
+   8. CHARGEMENTS DE DONNÉES
+   ======================================================== */
 async function chargerTousEleves(){
   try{
     const[primaireSnap,materSnap,secSnap]=await Promise.all([
-      getDocs(collection(db,"ecoles",ECOLET_ID,"prima_eleves")),
-      getDocs(collection(db,"ecoles",ECOLET_ID,"mater_eleves")),
-      getDocs(collection(db,"ecoles",ECOLET_ID,"compta_eleves"))
+      getDocs(collection(db,"ecoles",ECOLET_ID,"prima_eleves")).catch(()=>({forEach:()=>{}})),
+      getDocs(collection(db,"ecoles",ECOLET_ID,"mater_eleves")).catch(()=>({forEach:()=>{}})),
+      getDocs(collection(db,"ecoles",ECOLET_ID,"compta_eleves")).catch(()=>({forEach:()=>{}}))
     ]);
     let tous=[];
     primaireSnap.forEach(d=>{const data=d.data();if(data.nom){tous.push({id:d.id,...data,section:'primaire'});}});
@@ -584,31 +721,34 @@ async function chargerTousEleves(){
     secSnap.forEach(d=>{const data=d.data();if(data.nom){tous.push({id:data.eleveId||d.id,nom:data.nom||'',postnom:data.postnom||'',prenom:data.prenom||'',sexe:data.sexe||'M',classe:data.classe||'',option:data.option||'',minerval:data.minerval||45000,exonere:data.exonere||false,motifExon:data.motifExon||'',approbateur:data.approbateur||'',abandon:data.abandon||false,dateInscription:data.dateInscription||new Date().toISOString(),paiements:data.paiements||{},moisBlancs:data.moisBlancs||[],parentCode:data.parentCode||'',section:'secondaire'});}});
     allEleves=tous;
     return tous;
-  }catch(e){console.error('Erreur chargement tous élèves:',e);return[];}
+  }catch(e){console.error('[ELEVES] Erreur :',e);allEleves=[];return[];}
 }
 
 async function chargerTousProfesseurs(){
   try{
-    const profsSnap=await getDocs(collection(db,"ecoles",ECOLET_ID,"professeurs"));
+    const profsSnap=await getDocs(collection(db,"ecoles",ECOLET_ID,"professeurs")).catch(()=>({forEach:()=>{}}));
     let tous=[];
     profsSnap.forEach(ds=>{const data=ds.data();if(data.nom&&data._type==="prof"){tous.push({id:ds.id,nom:data.nom||'',sexe:data.sexe||'M',actif:data.actif!==false,presences:data.presences||{},stats:data.stats||{},type:'prof'});}});
     tous.sort((a,b)=>(a.nom||'').localeCompare(b.nom||''));
     allProfs=tous;
     return tous;
-  }catch(e){console.error('Erreur chargement professeurs:',e);return[];}
+  }catch(e){console.error('[PROFS] Erreur :',e);allProfs=[];return[];}
 }
 
 async function chargerTousEnseignants(){
   try{
-    const ensSnap=await getDocs(collection(db,"ecoles",ECOLET_ID,"enseignants"));
+    const ensSnap=await getDocs(collection(db,"ecoles",ECOLET_ID,"enseignants")).catch(()=>({forEach:()=>{}}));
     let tous=[];
     ensSnap.forEach(ds=>{const data=ds.data();if(data.nom&&data._type==="enseignant"){tous.push({id:ds.id,nom:data.nom||'',sexe:data.sexe||'M',cycle:data.cycle||'primaire',classes:data.classes||[],actif:data.actif!==false,presences:data.presences||{},stats:data.stats||{},type:'ens'});}});
     tous.sort((a,b)=>(a.nom||'').localeCompare(b.nom||''));
     allEnseignants=tous;
     return tous;
-  }catch(e){console.error('Erreur chargement enseignants:',e);return[];}
+  }catch(e){console.error('[ENS] Erreur :',e);allEnseignants=[];return[];}
 }
 
+/* ========================================================
+   9. RENDU UI
+   ======================================================== */
 function updateStats(){
   const actifs=allEleves.filter(e=>!e.abandon);
   const abandons=allEleves.filter(e=>e.abandon);
@@ -619,27 +759,28 @@ function updateStats(){
   const ensPrimaire=allEnseignants.filter(e=>e.actif!==false&&e.cycle==='primaire').length;
   const ensMaternelle=allEnseignants.filter(e=>e.actif!==false&&e.cycle==='maternelle').length;
   const totalProfs=allProfs.filter(p=>p.actif!==false).length;
-  document.getElementById('statTotalEleves').textContent=total;
-  document.getElementById('statFilles').textContent=filles;
-  document.getElementById('statGarcons').textContent=garcons;
-  document.getElementById('statExoneres').textContent=exoneres;
-  document.getElementById('statAbandons').textContent=abandons.length;
-  document.getElementById('statProfs').textContent=totalProfs+ensPrimaire+ensMaternelle;
+  const set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v;};
+  set('statTotalEleves',total);
+  set('statFilles',filles);
+  set('statGarcons',garcons);
+  set('statExoneres',exoneres);
+  set('statAbandons',abandons.length);
+  set('statProfs',totalProfs+ensPrimaire+ensMaternelle);
   const secActifs=actifs.filter(e=>e.section==='secondaire');
-  document.getElementById('statSecondaire').textContent=secActifs.length;
-  document.getElementById('statSecondaireFilles').textContent=secActifs.filter(e=>e.sexe==='F').length;
-  document.getElementById('statSecondaireGarcons').textContent=secActifs.filter(e=>e.sexe==='M').length;
-  document.getElementById('statSecondaireExo').textContent=secActifs.filter(e=>e.exonere).length;
+  set('statSecondaire',secActifs.length);
+  set('statSecondaireFilles',secActifs.filter(e=>e.sexe==='F').length);
+  set('statSecondaireGarcons',secActifs.filter(e=>e.sexe==='M').length);
+  set('statSecondaireExo',secActifs.filter(e=>e.exonere).length);
   const priActifs=actifs.filter(e=>e.section==='primaire');
-  document.getElementById('statPrimaire').textContent=priActifs.length;
-  document.getElementById('statPrimaireFilles').textContent=priActifs.filter(e=>e.sexe==='F').length;
-  document.getElementById('statPrimaireGarcons').textContent=priActifs.filter(e=>e.sexe==='M').length;
-  document.getElementById('statPrimaireExo').textContent=priActifs.filter(e=>e.exonere).length;
+  set('statPrimaire',priActifs.length);
+  set('statPrimaireFilles',priActifs.filter(e=>e.sexe==='F').length);
+  set('statPrimaireGarcons',priActifs.filter(e=>e.sexe==='M').length);
+  set('statPrimaireExo',priActifs.filter(e=>e.exonere).length);
   const matActifs=actifs.filter(e=>e.section==='maternelle');
-  document.getElementById('statMaternelle').textContent=matActifs.length;
-  document.getElementById('statMaternelleFilles').textContent=matActifs.filter(e=>e.sexe==='F').length;
-  document.getElementById('statMaternelleGarcons').textContent=matActifs.filter(e=>e.sexe==='M').length;
-  document.getElementById('statMaternelleExo').textContent=matActifs.filter(e=>e.exonere).length;
+  set('statMaternelle',matActifs.length);
+  set('statMaternelleFilles',matActifs.filter(e=>e.sexe==='F').length);
+  set('statMaternelleGarcons',matActifs.filter(e=>e.sexe==='M').length);
+  set('statMaternelleExo',matActifs.filter(e=>e.exonere).length);
 }
 
 function updatePresenceBars(){
@@ -656,24 +797,16 @@ function updatePresenceBars(){
   const globalPresents=profPresents+ensPrimPresents+ensMatPresents;
   const globalTotal=profTotal+ensPrimTotal+ensMatTotal;
   const globalPct=globalTotal>0?Math.round((globalPresents/globalTotal)*100):0;
-  const profPctEl=document.getElementById('presenceTauxProfPct');
-  if(!profPctEl)return;
-  profPctEl.textContent=profPct+'%';
-  document.getElementById('presenceTauxProfBar').style.width=profPct+'%';
-  document.getElementById('presenceProfPresents').textContent=profPresents;
-  document.getElementById('presenceProfTotal').textContent=profTotal;
-  document.getElementById('presenceTauxEnsPrimPct').textContent=ensPrimPct+'%';
-  document.getElementById('presenceTauxEnsPrimBar').style.width=ensPrimPct+'%';
-  document.getElementById('presenceEnsPrimPresents').textContent=ensPrimPresents;
-  document.getElementById('presenceEnsPrimTotal').textContent=ensPrimTotal;
-  document.getElementById('presenceTauxEnsMatPct').textContent=ensMatPct+'%';
-  document.getElementById('presenceTauxEnsMatBar').style.width=ensMatPct+'%';
-  document.getElementById('presenceEnsMatPresents').textContent=ensMatPresents;
-  document.getElementById('presenceEnsMatTotal').textContent=ensMatTotal;
-  document.getElementById('presenceTauxGlobalPct').textContent=globalPct+'%';
-  document.getElementById('presenceTauxGlobalBar').style.width=globalPct+'%';
-  document.getElementById('presenceGlobalPresents').textContent=globalPresents;
-  document.getElementById('presenceGlobalTotal').textContent=globalTotal;
+  const set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v;};
+  const width=(id,v)=>{const el=document.getElementById(id);if(el)el.style.width=v;};
+  set('presenceTauxProfPct',profPct+'%');width('presenceTauxProfBar',profPct+'%');
+  set('presenceProfPresents',profPresents);set('presenceProfTotal',profTotal);
+  set('presenceTauxEnsPrimPct',ensPrimPct+'%');width('presenceTauxEnsPrimBar',ensPrimPct+'%');
+  set('presenceEnsPrimPresents',ensPrimPresents);set('presenceEnsPrimTotal',ensPrimTotal);
+  set('presenceTauxEnsMatPct',ensMatPct+'%');width('presenceTauxEnsMatBar',ensMatPct+'%');
+  set('presenceEnsMatPresents',ensMatPresents);set('presenceEnsMatTotal',ensMatTotal);
+  set('presenceTauxGlobalPct',globalPct+'%');width('presenceTauxGlobalBar',globalPct+'%');
+  set('presenceGlobalPresents',globalPresents);set('presenceGlobalTotal',globalTotal);
 }
 
 function updateInscriptionsBars(){
@@ -688,17 +821,11 @@ function updateInscriptionsBars(){
   const pctAuj=total>0?Math.round((inscritAuj/total)*100):0;
   const pctHier=total>0?Math.round((inscritHier/total)*100):0;
   const pctSemaine=total>0?Math.round((inscritSemaine/total)*100):0;
-  const pctAujEl=document.getElementById('inscritAujPct');
-  if(!pctAujEl)return;
-  pctAujEl.textContent=pctAuj+'%';
-  document.getElementById('inscritAujBar').style.width=pctAuj+'%';
-  document.getElementById('inscritAujNb').textContent=inscritAuj;
-  document.getElementById('inscritHierPct').textContent=pctHier+'%';
-  document.getElementById('inscritHierBar').style.width=pctHier+'%';
-  document.getElementById('inscritHierNb').textContent=inscritHier;
-  document.getElementById('inscritSemainePct').textContent=pctSemaine+'%';
-  document.getElementById('inscritSemaineBar').style.width=pctSemaine+'%';
-  document.getElementById('inscritSemaineNb').textContent=inscritSemaine;
+  const set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v;};
+  const width=(id,v)=>{const el=document.getElementById(id);if(el)el.style.width=v;};
+  set('inscritAujPct',pctAuj+'%');width('inscritAujBar',pctAuj+'%');set('inscritAujNb',inscritAuj);
+  set('inscritHierPct',pctHier+'%');width('inscritHierBar',pctHier+'%');set('inscritHierNb',inscritHier);
+  set('inscritSemainePct',pctSemaine+'%');width('inscritSemaineBar',pctSemaine+'%');set('inscritSemaineNb',inscritSemaine);
 }
 
 function afficherProfs(){
@@ -709,8 +836,8 @@ function afficherProfs(){
   if(typeFilter==='tous'||typeFilter==='prof'){liste=liste.concat(allProfs.map(p=>({...p,typeAffiche:'PROFESSEUR'})));}
   if(typeFilter==='tous'||typeFilter==='ens'){liste=liste.concat(allEnseignants.map(e=>({...e,typeAffiche:e.cycle==='primaire'?'ENS. PRIMAIRE':'ENS. MATERNELLE'})));}
   liste.sort((a,b)=>(a.nom||'').localeCompare(b.nom||''));
-  document.getElementById('profsCountBadge').textContent=liste.length;
-  document.getElementById('profsCurrentDate').textContent=new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'});
+  const badge=document.getElementById('profsCountBadge');if(badge)badge.textContent=liste.length;
+  const dateEl=document.getElementById('profsCurrentDate');if(dateEl)dateEl.textContent=new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'});
   const searchTerm=document.getElementById('searchProf')?.value?.toLowerCase()||'';
   let filtered=liste;
   if(searchTerm){filtered=liste.filter(p=>(p.nom||'').toLowerCase().includes(searchTerm));}
@@ -735,10 +862,14 @@ function afficherProfs(){
 }
 
 function afficherPaiements(){
-  const mois=document.getElementById('filterMois').value;
-  const section=document.getElementById('filterSectionPaiement').value;
-  const classe=document.getElementById('filterClassePaiement').value;
+  const moisEl=document.getElementById('filterMois');
+  const sectionEl=document.getElementById('filterSectionPaiement');
+  const classeEl=document.getElementById('filterClassePaiement');
   const tbody=document.getElementById('paiementsTableBody');
+  if(!moisEl||!sectionEl||!classeEl||!tbody)return;
+  const mois=moisEl.value;
+  const section=sectionEl.value;
+  const classe=classeEl.value;
   const eleves=allEleves.filter(e=>!e.abandon);
   let filtres=eleves;
   if(section!=='toutes'){filtres=filtres.filter(e=>e.section===section);}
@@ -775,107 +906,102 @@ function afficherPaiements(){
   const barWidthGlobal=Math.min(tauxGlobal,100);
   html+='<tr class="total-row"><td>TOTAL</td><td style="text-align:center;">'+filtres.length+'</td><td style="text-align:right;">'+formatNb(totalAttendu)+' FC</td><td style="text-align:right;">'+formatNb(totalPaye)+' FC</td><td style="text-align:center;"><div class="taux-container"><div class="taux-bar"><div class="taux-fill '+tauxClassGlobal+'" style="width:'+barWidthGlobal+'%"></div></div><span class="taux-text '+tauxClassGlobal+'">'+tauxGlobal+'%</span></div></td><td style="text-align:right;">'+formatNb(resteGlobal)+' FC</td></tr>';
   tbody.innerHTML=html;
-  document.getElementById('progressPaye').textContent=formatNb(totalPaye)+' FC';
-  document.getElementById('progressAttendu').textContent=formatNb(totalAttendu)+' FC';
-  document.getElementById('progressReste').textContent=formatNb(resteGlobal)+' FC';
-  document.getElementById('progressPercentage').textContent=tauxGlobal+'%';
-  document.getElementById('progressFill').style.width=tauxGlobal+'%';
+  const set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v;};
+  set('progressPaye',formatNb(totalPaye)+' FC');
+  set('progressAttendu',formatNb(totalAttendu)+' FC');
+  set('progressReste',formatNb(resteGlobal)+' FC');
+  set('progressPercentage',tauxGlobal+'%');
+  const fill=document.getElementById('progressFill');if(fill)fill.style.width=tauxGlobal+'%';
 }
 
 function updateClasseFilter(){
-  const section=document.getElementById('filterSectionPaiement').value;
+  const sectionEl=document.getElementById('filterSectionPaiement');
   const select=document.getElementById('filterClassePaiement');
+  if(!sectionEl||!select)return;
+  const section=sectionEl.value;
   const classes=new Set();
   allEleves.filter(e=>!e.abandon).forEach(e=>{if(section!=='toutes'&&e.section!==section)return;classes.add(e.classe);});
   select.innerHTML='<option value="">TOUTES</option>';
   Array.from(classes).sort().forEach(c=>{const opt=document.createElement('option');opt.value=c;opt.textContent=c;select.appendChild(opt);});
 }
 
-function showLogoutModal(){
-  document.querySelectorAll('.modal-overlay').forEach(m=>m.remove());
-  const overlay=document.createElement('div');
-  overlay.className='modal-overlay';
-  overlay.innerHTML='<div class="modal-box"><button class="modal-close" onclick="this.closest(\'.modal-overlay\').remove()">&times;</button><div class="modal-icon"><i class="fas fa-sign-out-alt"></i></div><div class="modal-title"><i class="fas fa-power-off"></i> Déconnexion</div><p class="modal-message">Êtes-vous sûr de vouloir vous déconnecter ?<br><span style="font-size:12px;color:#94a3b8;">Vous serez redirigé vers la page de connexion.</span></p><div class="modal-actions"><button class="btn-cancel" onclick="this.closest(\'.modal-overlay\').remove()">Annuler</button><button class="btn-confirm" id="confirmLogout"><i class="fas fa-sign-out-alt"></i> Confirmer</button></div></div>';
-  document.body.appendChild(overlay);
-  setTimeout(()=>overlay.classList.add('show'),10);
-  document.getElementById('confirmLogout').onclick=function(){
-    const overlayEl=this.closest('.modal-overlay');
-    overlayEl.classList.remove('show');
-    setTimeout(()=>{overlayEl.remove();sessionStorage.clear();window.location.href='https://www.cstremplin.com/login2';},400);
-  };
-}
-
-document.getElementById('logoutBtn').addEventListener('click',function(e){e.preventDefault();showLogoutModal();});
-
+/* ========================================================
+   10. TEMPS RÉEL
+   ======================================================== */
 function demarrerTempsReel(){
-  unsubscribePrimaire=onSnapshot(collection(db,"ecoles",ECOLET_ID,"prima_eleves"),()=>{chargerTousEleves().then(()=>{updateStats();updatePresenceBars();updateInscriptionsBars();afficherPaiements();});});
-  unsubscribeMaternelle=onSnapshot(collection(db,"ecoles",ECOLET_ID,"mater_eleves"),()=>{chargerTousEleves().then(()=>{updateStats();updatePresenceBars();updateInscriptionsBars();afficherPaiements();});});
-  unsubscribeSecondaire=onSnapshot(collection(db,"ecoles",ECOLET_ID,"compta_eleves"),()=>{chargerTousEleves().then(()=>{updateStats();updatePresenceBars();updateInscriptionsBars();afficherPaiements();});});
-  unsubscribeProfs=onSnapshot(collection(db,"ecoles",ECOLET_ID,"professeurs"),()=>{chargerTousProfesseurs().then(()=>{afficherProfs();updateStats();updatePresenceBars();});});
-  unsubscribeEnseignants=onSnapshot(collection(db,"ecoles",ECOLET_ID,"enseignants"),()=>{chargerTousEnseignants().then(()=>{afficherProfs();updateStats();updatePresenceBars();});});
-  if(isFirstLoad)isFirstLoad=false;
+  const refresh=()=>{
+    chargerTousEleves().then(()=>{updateStats();updatePresenceBars();updateInscriptionsBars();afficherPaiements();}).catch(e=>console.error(e));
+  };
+  try{
+    unsubscribePrimaire=onSnapshot(collection(db,"ecoles",ECOLET_ID,"prima_eleves"),refresh,err=>console.warn('snapshot primaire:',err.message));
+    unsubscribeMaternelle=onSnapshot(collection(db,"ecoles",ECOLET_ID,"mater_eleves"),refresh,err=>console.warn('snapshot maternelle:',err.message));
+    unsubscribeSecondaire=onSnapshot(collection(db,"ecoles",ECOLET_ID,"compta_eleves"),refresh,err=>console.warn('snapshot secondaire:',err.message));
+    unsubscribeProfs=onSnapshot(collection(db,"ecoles",ECOLET_ID,"professeurs"),()=>{chargerTousProfesseurs().then(()=>{afficherProfs();updateStats();updatePresenceBars();}).catch(e=>console.error(e));},err=>console.warn('snapshot profs:',err.message));
+    unsubscribeEnseignants=onSnapshot(collection(db,"ecoles",ECOLET_ID,"enseignants"),()=>{chargerTousEnseignants().then(()=>{afficherProfs();updateStats();updatePresenceBars();}).catch(e=>console.error(e));},err=>console.warn('snapshot ens:',err.message));
+    if(isFirstLoad)isFirstLoad=false;
+  }catch(e){console.error('Erreur démarrage temps réel:',e);}
 }
 
-document.getElementById('searchProf').addEventListener('input',afficherProfs);
-document.getElementById('filterTypePersonne').addEventListener('change',afficherProfs);
-document.getElementById('filterMois').addEventListener('change',()=>{afficherPaiements();updateClasseFilter();});
-document.getElementById('filterSectionPaiement').addEventListener('change',()=>{updateClasseFilter();afficherPaiements();});
-document.getElementById('filterClassePaiement').addEventListener('change',afficherPaiements);
+/* ========================================================
+   11. FILTRES ET BOUTONS PDF — attachés au chargement
+   ======================================================== */
+function attacherFiltresEtPDF(){
+  const on=(id,evt,fn)=>{const el=document.getElementById(id);if(el)el.addEventListener(evt,fn);};
+  on('searchProf','input',afficherProfs);
+  on('filterTypePersonne','change',afficherProfs);
+  on('filterMois','change',()=>{afficherPaiements();updateClasseFilter();});
+  on('filterSectionPaiement','change',()=>{updateClasseFilter();afficherPaiements();});
+  on('filterClassePaiement','change',afficherPaiements);
 
-document.getElementById('btnPDFPaiements').addEventListener('click',function(){
-  const{jsPDF}=window.jspdf;
-  const doc=new jsPDF('landscape','mm','a4');
-  const pw=doc.internal.pageSize.getWidth();
-  const nomEcole=document.querySelector('.school-name')?.textContent||'COMPLEXE SCOLAIRE TREMPLIN';
-  doc.setFillColor(26,26,46);doc.rect(0,0,pw,32,'F');
-  doc.setTextColor(212,175,55);doc.setFontSize(16);doc.setFont('helvetica','bold');doc.text(nomEcole,pw/2,12,{align:'center'});
-  doc.setTextColor(255,255,255);doc.setFontSize(11);doc.setFont('helvetica','normal');doc.text('SITUATION FINANCIÈRE - '+document.getElementById('filterMois').value.toUpperCase(),pw/2,21,{align:'center'});
-  doc.setFontSize(9);doc.text('Année scolaire 2026-2027',pw/2,28,{align:'center'});
-  const rows=[];
-  document.querySelectorAll('#paiementsTableBody tr').forEach(row=>{const cells=row.querySelectorAll('td');if(cells.length===6){rows.push([cells[0]?.textContent||'',cells[1]?.textContent||'',cells[2]?.textContent||'',cells[3]?.textContent||'',cells[4]?.textContent||'',cells[5]?.textContent||'']);}});
-  doc.autoTable({head:[['CLASSE','ÉLÈVES','ATTENDU','PAYÉ','TAUX','RESTE']],body:rows,startY:38,styles:{fontSize:8,cellPadding:3,textColor:[30,30,30],lineColor:[200,200,200],lineWidth:0.1},headStyles:{fillColor:[26,26,46],textColor:[255,255,255],fontSize:9,fontStyle:'bold',halign:'center',lineColor:[212,175,55],lineWidth:0.3},alternateRowStyles:{fillColor:[248,246,242]},columnStyles:{0:{cellWidth:40,fontStyle:'bold'},1:{cellWidth:20,halign:'center'},2:{cellWidth:35,halign:'right'},3:{cellWidth:35,halign:'right'},4:{cellWidth:20,halign:'center'},5:{cellWidth:35,halign:'right'}},margin:{left:10,right:10},didDrawPage:function(data){const pageNum=doc.internal.getCurrentPageInfo().pageNumber;const totalPages=doc.internal.getNumberOfPages();doc.setFontSize(8);doc.setTextColor(150,150,150);doc.text('Page '+pageNum+'/'+totalPages,pw/2,doc.internal.pageSize.height-10,{align:'center'});doc.text(new Date().toLocaleDateString('fr-FR'),pw-15,doc.internal.pageSize.height-10,{align:'right'});}});
-  const finalY=doc.lastAutoTable.finalY+10;
-  doc.setFontSize(8);doc.setTextColor(150,150,150);doc.text('Document généré par l\'Espace Promoteur',15,finalY);doc.text('C.S. Tremplin - Année scolaire 2026-2027',pw-15,finalY,{align:'right'});
-  doc.save('Situation_Financiere_'+new Date().toISOString().split('T')[0]+'.pdf');
-});
+  on('btnPDFPaiements','click',function(){
+    try{
+      const{jsPDF}=window.jspdf;
+      const doc=new jsPDF('landscape','mm','a4');
+      const pw=doc.internal.pageSize.getWidth();
+      const nomEcole=document.querySelector('.school-name')?.textContent||'COMPLEXE SCOLAIRE TREMPLIN';
+      doc.setFillColor(26,26,46);doc.rect(0,0,pw,32,'F');
+      doc.setTextColor(212,175,55);doc.setFontSize(16);doc.setFont('helvetica','bold');doc.text(nomEcole,pw/2,12,{align:'center'});
+      doc.setTextColor(255,255,255);doc.setFontSize(11);doc.setFont('helvetica','normal');doc.text('SITUATION FINANCIÈRE - '+document.getElementById('filterMois').value.toUpperCase(),pw/2,21,{align:'center'});
+      doc.setFontSize(9);doc.text('Année scolaire 2026-2027',pw/2,28,{align:'center'});
+      const rows=[];
+      document.querySelectorAll('#paiementsTableBody tr').forEach(row=>{const cells=row.querySelectorAll('td');if(cells.length===6){rows.push([cells[0]?.textContent||'',cells[1]?.textContent||'',cells[2]?.textContent||'',cells[3]?.textContent||'',cells[4]?.textContent||'',cells[5]?.textContent||'']);}});
+      doc.autoTable({head:[['CLASSE','ÉLÈVES','ATTENDU','PAYÉ','TAUX','RESTE']],body:rows,startY:38,styles:{fontSize:8,cellPadding:3,textColor:[30,30,30],lineColor:[200,200,200],lineWidth:0.1},headStyles:{fillColor:[26,26,46],textColor:[255,255,255],fontSize:9,fontStyle:'bold',halign:'center',lineColor:[212,175,55],lineWidth:0.3},alternateRowStyles:{fillColor:[248,246,242]},columnStyles:{0:{cellWidth:40,fontStyle:'bold'},1:{cellWidth:20,halign:'center'},2:{cellWidth:35,halign:'right'},3:{cellWidth:35,halign:'right'},4:{cellWidth:20,halign:'center'},5:{cellWidth:35,halign:'right'}},margin:{left:10,right:10},didDrawPage:function(data){const pageNum=doc.internal.getCurrentPageInfo().pageNumber;const totalPages=doc.internal.getNumberOfPages();doc.setFontSize(8);doc.setTextColor(150,150,150);doc.text('Page '+pageNum+'/'+totalPages,pw/2,doc.internal.pageSize.height-10,{align:'center'});doc.text(new Date().toLocaleDateString('fr-FR'),pw-15,doc.internal.pageSize.height-10,{align:'right'});}});
+      const finalY=doc.lastAutoTable.finalY+10;
+      doc.setFontSize(8);doc.setTextColor(150,150,150);doc.text('Document généré par l\'Espace Promoteur',15,finalY);doc.text('C.S. Tremplin - Année scolaire 2026-2027',pw-15,finalY,{align:'right'});
+      doc.save('Situation_Financiere_'+new Date().toISOString().split('T')[0]+'.pdf');
+    }catch(e){console.error('PDF finances:',e);alert('Erreur lors de la génération du PDF.');}
+  });
 
-document.getElementById('btnPDFProfs').addEventListener('click',function(){
-  const{jsPDF}=window.jspdf;
-  const doc=new jsPDF('landscape','mm','a4');
-  const pw=doc.internal.pageSize.getWidth();
-  const ph=doc.internal.pageSize.getHeight();
-  const maintenant=new Date();
-  const moisLabel=maintenant.toLocaleDateString('fr-FR',{month:'long',year:'numeric'});
-  const totalJoursOuvres=joursOuvresDuMois(maintenant);
-  doc.setFillColor(26,26,46);doc.rect(0,0,pw,45,'F');
-  doc.setDrawColor(212,175,55);doc.setLineWidth(1.5);doc.line(0,45,pw,45);
-  doc.setTextColor(255,255,255);doc.setFontSize(18);doc.setFont('helvetica','bold');doc.text('COMPLEXE SCOLAIRE',pw/2,15,{align:'center'});
-  doc.setTextColor(212,175,55);doc.setFontSize(14);doc.text('TREMPLIN',pw/2,23,{align:'center'});
-  doc.setTextColor(255,255,255);doc.setFontSize(10);doc.setFont('helvetica','normal');doc.text('Année scolaire 2026-2027',pw/2,30,{align:'center'});
-  doc.setFontSize(11);doc.setFont('helvetica','bold');doc.setTextColor(212,175,55);doc.text('RAPPORT DE PRÉSENCE DU PERSONNEL ENSEIGNANT',pw/2,38,{align:'center'});
-  doc.setFontSize(9);doc.setFont('helvetica','normal');doc.setTextColor(60,60,60);doc.text('Période : '+moisLabel.charAt(0).toUpperCase()+moisLabel.slice(1)+'  |  Jours ouvrés : '+totalJoursOuvres+'  |  Généré le : '+maintenant.toLocaleDateString('fr-FR')+' à '+maintenant.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}),15,53);
-  const rows=[];
-  document.querySelectorAll('#profsTableBody tr').forEach(row=>{const cells=row.querySelectorAll('td');if(cells.length===7){rows.push([cells[0]?.textContent||'',cells[1]?.textContent||'',cells[2]?.textContent||'',cells[3]?.textContent||'',cells[4]?.textContent||'',cells[5]?.textContent||'',cells[6]?.textContent||'']);}});
-  doc.autoTable({head:[['N°','NOM ET PRÉNOM','SEXE','TYPE','STATUT DU JOUR','ARRIVÉE','JOURS PRESTÉS']],body:rows,startY:60,styles:{fontSize:9,cellPadding:3.5,textColor:[30,30,30],lineColor:[220,220,220],lineWidth:0.15,valign:'middle'},headStyles:{fillColor:[26,26,46],textColor:[212,175,55],fontSize:9.5,fontStyle:'bold',halign:'center',valign:'middle',lineColor:[212,175,55],lineWidth:0.3,cellPadding:4},alternateRowStyles:{fillColor:[250,249,247]},columnStyles:{0:{cellWidth:12,halign:'center',fontStyle:'bold'},1:{cellWidth:60,fontStyle:'bold'},2:{cellWidth:15,halign:'center'},3:{cellWidth:42,halign:'center'},4:{cellWidth:32,halign:'center',fontStyle:'bold'},5:{cellWidth:22,halign:'center'},6:{cellWidth:28,halign:'center',fontStyle:'bold'}},margin:{left:10,right:10},didParseCell:function(data){if(data.section==='body'&&data.column.index===4){const txt=data.cell.raw||'';if(txt.indexOf('PRÉSENT')!==-1){data.cell.styles.textColor=[5,150,105];}else if(txt.indexOf('RETARD')!==-1){data.cell.styles.textColor=[217,119,6];}else if(txt.indexOf('ABSENT')!==-1){data.cell.styles.textColor=[220,38,38];}}if(data.section==='body'&&data.column.index===3){const t=data.cell.raw||'';if(t.indexOf('PROF')!==-1){data.cell.styles.textColor=[124,58,237];}else{data.cell.styles.textColor=[37,99,235];}}},didDrawPage:function(data){const pageNum=doc.internal.getCurrentPageInfo().pageNumber;const totalPages=doc.internal.getNumberOfPages();doc.setFillColor(248,246,242);doc.rect(0,ph-15,pw,15,'F');doc.setDrawColor(212,175,55);doc.setLineWidth(0.5);doc.line(0,ph-15,pw,ph-15);doc.setFontSize(8);doc.setTextColor(100,100,100);doc.setFont('helvetica','normal');doc.text('COMPLEXE SCOLAIRE TREMPLIN  |  Rapport de présence - '+moisLabel,pw/2,ph-7,{align:'center'});doc.text('Page '+pageNum+' / '+totalPages,pw-15,ph-7,{align:'right'});doc.text('Document confidentiel',15,ph-7);}});
-  doc.save('Rapport_Presence_'+maintenant.toISOString().split('T')[0]+'.pdf');
-});
+  on('btnPDFProfs','click',function(){
+    try{
+      const{jsPDF}=window.jspdf;
+      const doc=new jsPDF('landscape','mm','a4');
+      const pw=doc.internal.pageSize.getWidth();
+      const ph=doc.internal.pageSize.getHeight();
+      const maintenant=new Date();
+      const moisLabel=maintenant.toLocaleDateString('fr-FR',{month:'long',year:'numeric'});
+      const totalJoursOuvres=joursOuvresDuMois(maintenant);
+      doc.setFillColor(26,26,46);doc.rect(0,0,pw,45,'F');
+      doc.setDrawColor(212,175,55);doc.setLineWidth(1.5);doc.line(0,45,pw,45);
+      doc.setTextColor(255,255,255);doc.setFontSize(18);doc.setFont('helvetica','bold');doc.text('COMPLEXE SCOLAIRE',pw/2,15,{align:'center'});
+      doc.setTextColor(212,175,55);doc.setFontSize(14);doc.text('TREMPLIN',pw/2,23,{align:'center'});
+      doc.setTextColor(255,255,255);doc.setFontSize(10);doc.setFont('helvetica','normal');doc.text('Année scolaire 2026-2027',pw/2,30,{align:'center'});
+      doc.setFontSize(11);doc.setFont('helvetica','bold');doc.setTextColor(212,175,55);doc.text('RAPPORT DE PRÉSENCE DU PERSONNEL ENSEIGNANT',pw/2,38,{align:'center'});
+      doc.setFontSize(9);doc.setFont('helvetica','normal');doc.setTextColor(60,60,60);doc.text('Période : '+moisLabel.charAt(0).toUpperCase()+moisLabel.slice(1)+'  |  Jours ouvrés : '+totalJoursOuvres+'  |  Généré le : '+maintenant.toLocaleDateString('fr-FR')+' à '+maintenant.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}),15,53);
+      const rows=[];
+      document.querySelectorAll('#profsTableBody tr').forEach(row=>{const cells=row.querySelectorAll('td');if(cells.length===7){rows.push([cells[0]?.textContent||'',cells[1]?.textContent||'',cells[2]?.textContent||'',cells[3]?.textContent||'',cells[4]?.textContent||'',cells[5]?.textContent||'',cells[6]?.textContent||'']);}});
+      doc.autoTable({head:[['N°','NOM ET PRÉNOM','SEXE','TYPE','STATUT DU JOUR','ARRIVÉE','JOURS PRESTÉS']],body:rows,startY:60,styles:{fontSize:9,cellPadding:3.5,textColor:[30,30,30],lineColor:[220,220,220],lineWidth:0.15,valign:'middle'},headStyles:{fillColor:[26,26,46],textColor:[212,175,55],fontSize:9.5,fontStyle:'bold',halign:'center',valign:'middle',lineColor:[212,175,55],lineWidth:0.3,cellPadding:4},alternateRowStyles:{fillColor:[250,249,247]},columnStyles:{0:{cellWidth:12,halign:'center',fontStyle:'bold'},1:{cellWidth:60,fontStyle:'bold'},2:{cellWidth:15,halign:'center'},3:{cellWidth:42,halign:'center'},4:{cellWidth:32,halign:'center',fontStyle:'bold'},5:{cellWidth:22,halign:'center'},6:{cellWidth:28,halign:'center',fontStyle:'bold'}},margin:{left:10,right:10},didParseCell:function(data){if(data.section==='body'&&data.column.index===4){const txt=data.cell.raw||'';if(txt.indexOf('PRÉSENT')!==-1){data.cell.styles.textColor=[5,150,105];}else if(txt.indexOf('RETARD')!==-1){data.cell.styles.textColor=[217,119,6];}else if(txt.indexOf('ABSENT')!==-1){data.cell.styles.textColor=[220,38,38];}}if(data.section==='body'&&data.column.index===3){const t=data.cell.raw||'';if(t.indexOf('PROF')!==-1){data.cell.styles.textColor=[124,58,237];}else{data.cell.styles.textColor=[37,99,235];}}},didDrawPage:function(data){const pageNum=doc.internal.getCurrentPageInfo().pageNumber;const totalPages=doc.internal.getNumberOfPages();doc.setFillColor(248,246,242);doc.rect(0,ph-15,pw,15,'F');doc.setDrawColor(212,175,55);doc.setLineWidth(0.5);doc.line(0,ph-15,pw,ph-15);doc.setFontSize(8);doc.setTextColor(100,100,100);doc.setFont('helvetica','normal');doc.text('COMPLEXE SCOLAIRE TREMPLIN  |  Rapport de présence - '+moisLabel,pw/2,ph-7,{align:'center'});doc.text('Page '+pageNum+' / '+totalPages,pw-15,ph-7,{align:'right'});doc.text('Document confidentiel',15,ph-7);}});
+      doc.save('Rapport_Presence_'+maintenant.toISOString().split('T')[0]+'.pdf');
+    }catch(e){console.error('PDF profs:',e);alert('Erreur lors de la génération du PDF.');}
+  });
+}
 
-document.querySelectorAll('.tab').forEach(btn=>{
-  btn.onclick=function(){
-    if(this.id==='darkModeBtn'){document.body.classList.toggle('dark-mode');return;}
-    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-    document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
-    this.classList.add('active');
-    document.getElementById(this.dataset.tab).classList.add('active');
-    document.body.scrollTop=0;document.documentElement.scrollTop=0;
-    if(this.dataset.tab==='tabProfs'){chargerTousProfesseurs().then(()=>chargerTousEnseignants()).then(()=>afficherProfs());}
-    if(this.dataset.tab==='tabFinances'){afficherPaiements();}
-    if(this.dataset.tab==='tabVue'){updateStats();updatePresenceBars();updateInscriptionsBars();}
-  };
-});
-
-const tabsContainer=document.querySelector('.tabs-container');
-if(tabsContainer){
+/* ========================================================
+   12. NAVIGATION CLAVIER DES ONGLETS
+   ======================================================== */
+function attacherNavClavier(){
+  const tabsContainer=document.querySelector('.tabs-container');
+  if(!tabsContainer)return;
   tabsContainer.setAttribute('tabindex','0');
   tabsContainer.style.outline='none';
   tabsContainer.addEventListener('keydown',function(e){
@@ -894,26 +1020,47 @@ if(tabsContainer){
   tabsContainer.addEventListener('click',function(){this.focus();});
 }
 
-document.addEventListener('contextmenu',function(e){const tag=e.target.tagName;if(tag==='INPUT'||tag==='TEXTAREA'||e.target.isContentEditable){return true;}e.preventDefault();return false;});
-document.addEventListener('keydown',function(e){if(e.key==='F12'||e.keyCode===123){e.preventDefault();return false;}if(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.keyCode===73)){e.preventDefault();return false;}if(e.ctrlKey&&e.shiftKey&&(e.key==='J'||e.keyCode===74)){e.preventDefault();return false;}if(e.ctrlKey&&(e.key==='U'||e.keyCode===85)){e.preventDefault();return false;}if(e.ctrlKey&&(e.key==='S'||e.keyCode===83)){e.preventDefault();return false;}return true;});
-
-if('scrollRestoration' in history)history.scrollRestoration='manual';
-
+/* ========================================================
+   13. INITIALISATION
+   ======================================================== */
 async function initApp(){
+  // ÉTAPE A — Attacher TOUT de suite les boutons pour qu'ils fonctionnent même sans Firebase
+  activerOnglets();
+  attacherDeconnexion();
+  attacherFiltresEtPDF();
+  attacherNavClavier();
+
+  // ÉTAPE B — Vérifier l'accès (avertit mais ne bloque PAS)
   const ok=await verifierAcces();
-  if(!ok)return;
+  if(!ok){
+    console.warn('[INIT] Accès Firestore non validé. Interface utilisable mais données non chargées.');
+    // On laisse quand même l'utilisateur cliquer sur les onglets, PDF, thème, déconnexion
+    return;
+  }
+
+  // ÉTAPE C — Charger les données
   await chargerTousEleves();
   await chargerTousProfesseurs();
   await chargerTousEnseignants();
+
+  // ÉTAPE D — Afficher
   updateStats();
   updatePresenceBars();
   updateInscriptionsBars();
-  afficherPaiementswach();
+  afficherPaiements();
   afficherProfs();
-  updateClasseFiltera();
-  demarrerTempsRe"el();
+  updateClasseFilter();
+
+  // ÉTAPE E — Temps réel
+  demarrerTempsReel();
 }
-initApp();
+
+// Lancement après que le DOM soit prêt
+if(document.readyState==='loading'){
+  document.addEventListener('DOMContentLoaded',initApp);
+}else{
+  initApp();
+}
 </script>
-</body`>
+</body>
 </html>
