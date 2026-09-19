@@ -160,17 +160,17 @@ input{-webkit-user-select:text!important;-moz-user-select:text!important;-ms-use
 
     <aside class="side-panel">
       <div class="side-brand">
-        <img src="https://www.tremplin.com/favicon.jpg" alt="Logo TREMPLIN" class="side-brand-logo" onerror="this.style.display='none'">
+        <img src="https://www.cstremplin.com/favicon.jpg" alt="Logo CS Tremplin" class="side-brand-logo" onerror="this.style.display='none'">
         <div class="side-brand-text">
           <span class="sbt-main">COMPLEXE SCOLAIRE</span>
-          <span class="sbt-sub">TREMPLIN · Système</span>
+          <span class="sbt-sub">Tremplin · Système</span>
         </div>
       </div>
 
       <div class="side-content">
         <span class="side-tag"><span class="dot"></span> Espace Promoteur</span>
         <h2>Accédez à votre <span>tableau de bord</span> en toute sécurité.</h2>
-        <p>Une interface dédiée au promoteur du Complexe Scolaire TREMPLIN. Suivez les performances et la gestion de votre établissement.</p>
+        <p>Une interface dédiée au promoteur du Complexe Scolaire Tremplin. Suivez les performances et la gestion de votre établissement.</p>
         <div class="side-features">
           <div class="side-feature"><i>✓</i> Accès sécurisé et confidentiel</div>
           <div class="side-feature"><i>✓</i> Vue consolidée des données</div>
@@ -179,14 +179,14 @@ input{-webkit-user-select:text!important;-moz-user-select:text!important;-ms-use
       </div>
 
       <div class="side-footer">
-        <span>© 2026 — TREMPLIN</span>
+        <span>© 2026 — Tremplin</span>
         <span>Support : <a href="tel:+243845048412">+243 845 048 412</a></span>
       </div>
     </aside>
 
     <main class="form-panel">
       <div class="mobile-brand">
-        <img src="https://www.tremplin.com/favicon.jpg" alt="Logo" onerror="this.style.display='none'">
+        <img src="https://www.cstremplin.com/favicon.jpg" alt="Logo" onerror="this.style.display='none'">
         <span>CS <b>TREMPLIN</b></span>
       </div>
 
@@ -225,7 +225,7 @@ input{-webkit-user-select:text!important;-moz-user-select:text!important;-ms-use
           <span>Un problème d'accès ?</span>
           <a href="tel:+243845048412">Contacter le support</a>
         </div>
-        <div class="copyright">© 2026 — Complexe Scolaire TREMPLIN</div>
+        <div class="copyright">© 2026 — Complexe Scolaire Tremplin</div>
       </div>
     </main>
 
@@ -246,10 +246,6 @@ document.addEventListener('keydown', function(e){
 });
 document.addEventListener('dragover', function(e){ e.preventDefault(); return false; });
 document.addEventListener('drop', function(e){ e.preventDefault(); return false; });
-</script>
-
-<script type="importmap">
-{"imports":{"firebase/app":"https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js","firebase/auth":"https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js","firebase/firestore":"https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"}}
 </script>
 
 <script type="module">
@@ -273,7 +269,7 @@ const db=getFirestore(app);
 const ECOLE_ID_FIXE = "tremplin";
 const ecoleId = ECOLE_ID_FIXE;
 const schoolDisplay = "TREMPLIN";
-document.getElementById("schoolSub").textContent="Saisissez votre code confidentiel pour accéder au tableau de bord du Complexe Scolaire TREMPLIN.";
+document.getElementById("schoolSub").textContent="Saisissez votre code confidentiel pour accéder au tableau de bord du Complexe Scolaire Tremplin.";
 document.title="Connexion - Espace Promoteur";
 
 let tentatives=0;
@@ -479,7 +475,7 @@ async function seConnecter(){
         showToast("Connexion réussie ! Redirection en cours...","success");
 
         setTimeout(()=>{
-            window.location.replace('https://www.tremplin.com/schoolpromo2');
+            window.location.replace('https://www.cstremplin.com/schoolpromo2');
         },800);
 
     }catch(error){
