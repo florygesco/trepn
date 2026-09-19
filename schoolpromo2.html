@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -130,7 +129,6 @@ body{height:100%;margin:0;padding:0;overflow-y:auto;overflow-x:hidden;-webkit-ov
 .table-wrapper table tr:last-child td{border-bottom:none}
 .table-wrapper table tr:hover td{background:#f8f6f2}
 
-/* TABLE PERCEPTION */
 .perception-table{overflow-x:auto;overflow-y:auto;border-radius:14px;border:1px solid #e2dcd2;background:#fff;max-height:550px;-webkit-overflow-scrolling:touch!important;touch-action:pan-x pan-y}
 .perception-table table{width:100%;border-collapse:collapse;font-size:11px;min-width:900px}
 .perception-table table th{background:linear-gradient(135deg,#1a1a2e,#16213e);color:#fff;padding:10px 8px;border-bottom:2px solid #d4af37;font-size:10px;font-weight:700;text-transform:uppercase;text-align:center;letter-spacing:0.3px;position:sticky;top:0;z-index:2}
@@ -142,7 +140,6 @@ body{height:100%;margin:0;padding:0;overflow-y:auto;overflow-x:hidden;-webkit-ov
 .perception-table table tr:nth-child(even) td{background:#faf9f7}
 .perception-table table tr:nth-child(even):hover td{background:#f5f2ed}
 
-/* FINANCE PROGRESS */
 .finance-progress-container{background:linear-gradient(145deg,#f8f6f2,#ede8e0);border-radius:20px;padding:28px 32px;margin-bottom:20px;border:2px solid #d4af37;box-shadow:0 4px 24px rgba(0,0,0,0.08),inset 0 1px 0 rgba(255,255,255,0.8)}
 .finance-progress-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
 .finance-progress-header .label{font-size:18px;font-weight:700;color:#1e293b;letter-spacing:0.3px}
@@ -182,7 +179,6 @@ body{height:100%;margin:0;padding:0;overflow-y:auto;overflow-x:hidden;-webkit-ov
 .table-wrapper-finance table tbody td .montant-paye{color:#059669;font-weight:600}
 .table-wrapper-finance table tbody td .montant-reste{color:#dc2626;font-weight:600}
 
-/* DARK MODE */
 .dark-mode{background:#0d1117;color:#e6edf3}
 .dark-mode .container{background:#0d1117}
 .dark-mode .school-header{background:linear-gradient(135deg,#0a0a0f,#161b22);border-color:#30363d}
@@ -562,7 +558,6 @@ body{height:100%;margin:0;padding:0;overflow-y:auto;overflow-x:hidden;-webkit-ov
 </div>
 </div>
 
-<!-- ===== ONGLET PERCEPTION ===== -->
 <div id="tabPerception" class="tab-content">
 <div class="card">
 <div class="card-header">
@@ -598,7 +593,6 @@ body{height:100%;margin:0;padding:0;overflow-y:auto;overflow-x:hidden;-webkit-ov
 </div>
 </div>
 
-<!-- ===== ONGLET RECOUVREMENT ===== -->
 <div id="tabRecouvrement" class="tab-content">
 <div class="card">
 <div class="card-header">
@@ -634,7 +628,6 @@ body{height:100%;margin:0;padding:0;overflow-y:auto;overflow-x:hidden;-webkit-ov
 </div>
 </div>
 
-<!-- ============ SCRIPTS ============ -->
 <script>
 document.addEventListener('contextmenu',function(e){const tag=e.target.tagName;if(tag==='INPUT'||tag==='TEXTAREA'||e.target.isContentEditable){return true;}e.preventDefault();return false;});
 document.addEventListener('keydown',function(e){if(e.key==='F12'||e.keyCode===123){e.preventDefault();return false;}if(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.keyCode===73)){e.preventDefault();return false;}if(e.ctrlKey&&e.shiftKey&&(e.key==='J'||e.keyCode===74)){e.preventDefault();return false;}if(e.ctrlKey&&(e.key==='U'||e.keyCode===85)){e.preventDefault();return false;}if(e.ctrlKey&&(e.key==='S'||e.keyCode===83)){e.preventDefault();return false;}return true;});
@@ -674,6 +667,49 @@ let unsubscribePrimaire=null,unsubscribeMaternelle=null,unsubscribeSecondaire=nu
 let darkModeActive=false;
 let authentifie=false;
 
+/* ============ CACHE SESSIONSTORAGE ============ */
+const CACHE_KEY_ELEVES = 'tremplin_cache_eleves_v1';
+const CACHE_KEY_PROFS = 'tremplin_cache_profs_v1';
+const CACHE_KEY_ENS = 'tremplin_cache_ens_v1';
+const CACHE_DUREE = 24*60*60*1000; // 24h
+
+function lireCache(key){
+  try{
+    const raw = sessionStorage.getItem(key);
+    if(!raw) return null;
+    const parsed = JSON.parse(raw);
+    if(!parsed || !parsed.data) return null;
+    if(Date.now() - parsed.time > CACHE_DUREE){
+      sessionStorage.removeItem(key);
+      return null;
+    }
+    return parsed.data;
+  }catch(e){console.warn('[CACHE] Lecture échouée:',e);return null;}
+}
+
+function ecrireCache(key, data){
+  try{
+    if(!data || data.length === 0) return;
+    sessionStorage.setItem(key, JSON.stringify({data:data, time:Date.now()}));
+  }catch(e){console.warn('[CACHE] Écriture échouée:',e);}
+}
+
+function afficherBadgeSync(texte, couleur){
+  let badge = document.getElementById('syncBadge');
+  if(!badge){
+    badge = document.createElement('div');
+    badge.id = 'syncBadge';
+    badge.style.cssText = 'position:fixed;bottom:20px;right:20px;z-index:9999;padding:10px 18px;border-radius:30px;font-size:13px;font-weight:700;color:#fff;box-shadow:0 8px 24px rgba(0,0,0,0.2);transition:all 0.4s;opacity:0;transform:translateY(20px);pointer-events:none;';
+    document.body.appendChild(badge);
+  }
+  badge.textContent = texte;
+  badge.style.background = couleur;
+  setTimeout(()=>{badge.style.opacity='1';badge.style.transform='translateY(0)';},10);
+  if(texte.indexOf('à jour') !== -1 || texte.indexOf('Synchronisé') !== -1){
+    setTimeout(()=>{badge.style.opacity='0';badge.style.transform='translateY(20px)';},2500);
+  }
+}
+
 const moisListe=["Septembre","Octobre","Novembre","Decembre","Janvier","Fevrier","Mars","Avril","Mai","Juin"];
 const classesSecondaire=["7ème EB","8ème EB","1ère Année","2ème Année","3ème Année","4ème Année"];
 const classesPrimaire=["1ère A","1ère B","2ème A","2ème B","3ème A","3ème B","4ème A","4ème B","5ème A","5ème B","6ème A","6ème B"];
@@ -685,7 +721,7 @@ function escapeHtml(s){if(!s)return'';return String(s).replace(/[&<>"]/g,m=>({'&
 function joursOuvresDuMois(dateRef){const annee=dateRef.getFullYear();const mois=dateRef.getMonth();const dernierJour=new Date(annee,mois+1,0).getDate();let count=0;for(let j=1;j<=dernierJour;j++){const d=new Date(annee,mois,j).getDay();if(d!==0&&d!==6)count++;}return count;}
 function prefixeMois(dateRef){const annee=dateRef.getFullYear();const mois=String(dateRef.getMonth()+1).padStart(2,'0');return annee+'-'+mois+'-';}
 
-/* ============ ONGLETS (attachés immédiatement) ============ */
+/* ============ ONGLETS ============ */
 function activerOnglets(){
   const tousLesTabs=document.querySelectorAll('.tab');
   const tousLesContenus=document.querySelectorAll('.tab-content');
@@ -707,7 +743,7 @@ function activerOnglets(){
       if(cible)cible.classList.add('active');
       document.body.scrollTop=0;
       document.documentElement.scrollTop=0;
-      if(!authentifie)return;
+      if(!authentifie && allEleves.length===0)return;
       if(this.dataset.tab==='tabProfs'){chargerTousProfesseurs().then(()=>chargerTousEnseignants()).then(()=>afficherProfs()).catch(err=>console.error(err));}
       if(this.dataset.tab==='tabFinances'){afficherPaiements();}
       if(this.dataset.tab==='tabVue'){updateStats();updatePresenceBars();updateInscriptionsBars();}
@@ -773,8 +809,9 @@ async function chargerTousEleves(){
     materSnap.forEach(d=>{const data=d.data();if(data.nom){tous.push({id:d.id,...data,section:'maternelle'});}});
     secSnap.forEach(d=>{const data=d.data();if(data.nom){tous.push({id:data.eleveId||d.id,nom:data.nom||'',postnom:data.postnom||'',prenom:data.prenom||'',sexe:data.sexe||'M',classe:data.classe||'',option:data.option||'',minerval:data.minerval||45000,exonere:data.exonere||false,motifExon:data.motifExon||'',approbateur:data.approbateur||'',abandon:data.abandon||false,dateInscription:data.dateInscription||new Date().toISOString(),paiements:data.paiements||{},moisBlancs:data.moisBlancs||[],parentCode:data.parentCode||'',section:'secondaire'});}});
     allEleves=tous;
+    ecrireCache(CACHE_KEY_ELEVES, tous);
     return tous;
-  }catch(e){console.error('[ELEVES] Erreur :',e);allEleves=[];return[];}
+  }catch(e){console.error('[ELEVES] Erreur :',e);return allEleves.length>0 ? allEleves : [];}
 }
 
 async function chargerTousProfesseurs(){
@@ -784,8 +821,9 @@ async function chargerTousProfesseurs(){
     profsSnap.forEach(ds=>{const data=ds.data();if(data.nom&&data._type==="prof"){tous.push({id:ds.id,nom:data.nom||'',sexe:data.sexe||'M',actif:data.actif!==false,presences:data.presences||{},stats:data.stats||{},type:'prof'});}});
     tous.sort((a,b)=>(a.nom||'').localeCompare(b.nom||''));
     allProfs=tous;
+    ecrireCache(CACHE_KEY_PROFS, tous);
     return tous;
-  }catch(e){console.error('[PROFS] Erreur :',e);allProfs=[];return[];}
+  }catch(e){console.error('[PROFS] Erreur :',e);return allProfs;}
 }
 
 async function chargerTousEnseignants(){
@@ -795,8 +833,9 @@ async function chargerTousEnseignants(){
     ensSnap.forEach(ds=>{const data=ds.data();if(data.nom&&data._type==="enseignant"){tous.push({id:ds.id,nom:data.nom||'',sexe:data.sexe||'M',cycle:data.cycle||'primaire',classes:data.classes||[],actif:data.actif!==false,presences:data.presences||{},stats:data.stats||{},type:'ens'});}});
     tous.sort((a,b)=>(a.nom||'').localeCompare(b.nom||''));
     allEnseignants=tous;
+    ecrireCache(CACHE_KEY_ENS, tous);
     return tous;
-  }catch(e){console.error('[ENS] Erreur :',e);allEnseignants=[];return[];}
+  }catch(e){console.error('[ENS] Erreur :',e);return allEnseignants;}
 }
 
 /* ============ RENDU VUE ============ */
@@ -876,7 +915,6 @@ function updateInscriptionsBars(){
   set('inscritSemainePct',pctSemaine+'%');width('inscritSemaineBar',pctSemaine+'%');set('inscritSemaineNb',inscritSemaine);
 }
 
-/* ============ RENDU PROFS ============ */
 function afficherProfs(){
   const tbody=document.getElementById('profsTableBody');
   if(!tbody)return;
@@ -910,7 +948,6 @@ function afficherProfs(){
   tbody.innerHTML=html;
 }
 
-/* ============ RENDU FINANCES ============ */
 function afficherPaiements(){
   const moisEl=document.getElementById('filterMois');
   const sectionEl=document.getElementById('filterSectionPaiement');
@@ -975,7 +1012,7 @@ function updateClasseFilter(){
   Array.from(classes).sort().forEach(c=>{const opt=document.createElement('option');opt.value=c;opt.textContent=c;select.appendChild(opt);});
 }
 
-/* ============ RENDU PERCEPTION ============ */
+/* ============ PERCEPTION ============ */
 function updatePerceptionClasses(){
   const sectionEl=document.getElementById('perceptionSection');
   const select=document.getElementById('perceptionClasse');
@@ -1090,8 +1127,7 @@ function genererExcelPerception(){
   ws['!merges']=[{s:{r:0,c:0},e:{r:0,c:12}},{s:{r:1,c:0},e:{r:1,c:12}},{s:{r:2,c:0},e:{r:2,c:12}},{s:{r:4,c:0},e:{r:4,c:12}},{s:{r:5,c:3},e:{r:5,c:5}},{s:{r:5,c:6},e:{r:5,c:8}},{s:{r:5,c:9},e:{r:5,c:11}}];
   const sheetName=classeDisplay.replace(/\s/g,'_').substring(0,31)||'Feuille1';
   XLSX.utils.book_append_sheet(wb,ws,sheetName);
-  const nomFichier=`Fiche_Perception_${sectionLabel}.xlsx`;
-  XLSX.writeFile(wb,nomFichier);
+  XLSX.writeFile(wb,`Fiche_Perception_${sectionLabel}.xlsx`);
 }
 
 function genererPDFPerception(){
@@ -1135,7 +1171,7 @@ function genererPDFPerception(){
   doc.save(`Perception_${sectionLabel}_${new Date().toISOString().split('T')[0]}.pdf`);
 }
 
-/* ============ RENDU RECOUVREMENT ============ */
+/* ============ RECOUVREMENT ============ */
 function updateRecoverClasses(){
   const sectionEl=document.getElementById('recoverSection');
   const select=document.getElementById('recoverClasse');
@@ -1293,19 +1329,31 @@ function genererPDFRecouvrement(){
 /* ============ TEMPS RÉEL ============ */
 function demarrerTempsReel(){
   const refresh=()=>{
-    chargerTousEleves().then(()=>{updateStats();updatePresenceBars();updateInscriptionsBars();afficherPaiements();afficherPerception();afficherRecouvrement();}).catch(e=>console.error(e));
+    afficherBadgeSync('🔄 Mise à jour...', '#2563eb');
+    chargerTousEleves().then(()=>{
+      updateStats();
+      updatePresenceBars();
+      updateInscriptionsBars();
+      afficherPaiements();
+      afficherPerception();
+      afficherRecouvrement();
+      afficherBadgeSync('✅ Données à jour', '#059669');
+    }).catch(e=>{
+      console.error(e);
+      afficherBadgeSync('⚠️ Erreur sync', '#dc2626');
+    });
   };
   try{
     unsubscribePrimaire=onSnapshot(collection(db,"ecoles",ECOLET_ID,"prima_eleves"),refresh,err=>console.warn('snapshot primaire:',err.message));
     unsubscribeMaternelle=onSnapshot(collection(db,"ecoles",ECOLET_ID,"mater_eleves"),refresh,err=>console.warn('snapshot maternelle:',err.message));
     unsubscribeSecondaire=onSnapshot(collection(db,"ecoles",ECOLET_ID,"compta_eleves"),refresh,err=>console.warn('snapshot secondaire:',err.message));
-    unsubscribeProfs=onSnapshot(collection(db,"ecoles",ECOLET_ID,"professeurs"),()=>{chargerTousProfesseurs().then(()=>{afficherProfs();updateStats();updatePresenceBars();}).catch(e=>console.error(e));},err=>console.warn('snapshot profs:',err.message));
-    unsubscribeEnseignants=onSnapshot(collection(db,"ecoles",ECOLET_ID,"enseignants"),()=>{chargerTousEnseignants().then(()=>{afficherProfs();updateStats();updatePresenceBars();}).catch(e=>console.error(e));},err=>console.warn('snapshot ens:',err.message));
+    unsubscribeProfs=onSnapshot(collection(db,"ecoles",ECOLET_ID,"professeurs"),()=>{chargerTousProfesseurs().then(()=>{afficherProfs();updateStats();updatePresenceBars();afficherBadgeSync('✅ Données à jour', '#059669');}).catch(e=>console.error(e));},err=>console.warn('snapshot profs:',err.message));
+    unsubscribeEnseignants=onSnapshot(collection(db,"ecoles",ECOLET_ID,"enseignants"),()=>{chargerTousEnseignants().then(()=>{afficherProfs();updateStats();updatePresenceBars();afficherBadgeSync('✅ Données à jour', '#059669');}).catch(e=>console.error(e));},err=>console.warn('snapshot ens:',err.message));
     if(isFirstLoad)isFirstLoad=false;
   }catch(e){console.error('Erreur démarrage temps réel:',e);}
 }
 
-/* ============ ATTACHEMENT DES FILTRES ET BOUTONS ============ */
+/* ============ ATTACHEMENT FILTRES ET BOUTONS ============ */
 function attacherFiltresEtPDF(){
   const on=(id,evt,fn)=>{const el=document.getElementById(id);if(el)el.addEventListener(evt,fn);};
   on('searchProf','input',afficherProfs);
@@ -1383,18 +1431,64 @@ function attacherNavClavier(){
 
 /* ============ INITIALISATION ============ */
 async function initApp(){
+  // 1. Attacher les boutons immédiatement
   activerOnglets();
   attacherDeconnexion();
   attacherFiltresEtPDF();
   attacherNavClavier();
 
-  const ok=await verifierAcces();
-  if(!ok){console.warn('[INIT] Accès Firestore non validé. Interface utilisable mais données non chargées.');return;}
+  // 2. AFFICHER LE CACHE INSTANTANÉMENT
+  const cacheEleves = lireCache(CACHE_KEY_ELEVES);
+  const cacheProfs = lireCache(CACHE_KEY_PROFS);
+  const cacheEns = lireCache(CACHE_KEY_ENS);
+
+  if(cacheEleves && cacheEleves.length > 0){
+    allEleves = cacheEleves;
+    allProfs = cacheProfs || [];
+    allEnseignants = cacheEns || [];
+
+    updateStats();
+    updatePresenceBars();
+    updateInscriptionsBars();
+    afficherPaiements();
+    afficherProfs();
+    updateClasseFilter();
+    updatePerceptionClasses();
+    updateRecoverClasses();
+
+    // Remplir mois recouvrement
+    const dateRef0=new Date();
+    const moisActuelNum0=dateRef0.getMonth();
+    let moisCourant0="Septembre";
+    if(moisActuelNum0>=8)moisCourant0=moisListe[moisActuelNum0-8];
+    else if(moisActuelNum0>=0&&moisActuelNum0<=5)moisCourant0=moisListe[moisActuelNum0+4];
+    remplirMois('recoverMois',moisCourant0);
+
+    afficherPerception();
+    afficherRecouvrement();
+
+    afficherBadgeSync('⚡ Affichage rapide (cache)', '#f59e0b');
+    console.log('[CACHE] Affichage instantané depuis sessionStorage');
+  }
+
+  // 3. Vérifier l'accès
+  const ok = await verifierAcces();
+  if(!ok){
+    console.warn('[INIT] Accès Firestore non validé.');
+    if(cacheEleves){
+      afficherBadgeSync('⚠️ Mode hors-ligne', '#dc2626');
+    }
+    return;
+  }
+
+  // 4. Charger Firestore (ÉCRASE le cache)
+  afficherBadgeSync('🔄 Synchronisation...', '#2563eb');
 
   await chargerTousEleves();
   await chargerTousProfesseurs();
   await chargerTousEnseignants();
 
+  // 5. Rafraîchir TOUT (le cache est écrasé par le nouveau)
   updateStats();
   updatePresenceBars();
   updateInscriptionsBars();
@@ -1404,7 +1498,6 @@ async function initApp(){
   updatePerceptionClasses();
   updateRecoverClasses();
 
-  // Remplir le select du mois de recouvrement avec le mois courant
   const dateRef=new Date();
   const moisActuelNum=dateRef.getMonth();
   let moisCourant="Septembre";
@@ -1415,6 +1508,10 @@ async function initApp(){
   afficherPerception();
   afficherRecouvrement();
 
+  afficherBadgeSync('✅ Données à jour', '#059669');
+  console.log('[FIREBASE] Données fraîches chargées, cache écrasé');
+
+  // 6. Temps réel
   demarrerTempsReel();
 }
 
