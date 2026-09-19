@@ -276,9 +276,9 @@ body{height:100%;margin:0;padding:0;overflow-y:auto;overflow-x:hidden;-webkit-ov
 <div class="container">
 <div class="school-header">
 <div class="header-left">
-<img src="https://www.csbwacha.com/favicon.jpg" alt="Logo CS Bwacha" class="header-logo" onerror="this.style.display='none'">
+<img src="https://www.cstremplin.com/favicon.jpg" alt="Logo CS Tremplin" class="header-logo" onerror="this.style.display='none'">
 <div class="header-text">
-<div class="school-name">COMPLEXE SCOLAIRE <span id="schoolNameSpan">BWACHA</span></div>
+<div class="school-name">COMPLEXE SCOLAIRE <span id="schoolNameSpan">TREMPLIN</span></div>
 <div class="school-sub"><i class="fas fa-calendar-alt"></i> 2026-2027</div>
 <div class="school-promoter"><i class="fas fa-crown"></i> ESPACE DU PROMOTEUR</div>
 </div>
@@ -535,12 +535,12 @@ const firebaseConfig={apiKey:"AIzaSyBma80S0bc9uzSuO38qn7JLSwLrYniV5Fw",authDomai
 const app=initializeApp(firebaseConfig);
 const db=getFirestore(app);
 
-if(sessionStorage.getItem('isAuthenticated')!=='true'){window.location.href='https://www.csbwacha.com/login2';throw new Error('Redirection');}
+if(sessionStorage.getItem('isAuthenticated')!=='true'){window.location.href='https://www.cstremplin.com/login2';throw new Error('Redirection');}
 
-const schoolId="bwacha";
-const ECOLET_ID="bwacha";
+const schoolId="tremplin";
+const ECOLET_ID="tremplin";
 const codeFromUrl=sessionStorage.getItem('code')||'';
-document.getElementById('schoolNameSpan').textContent='BWACHA';
+document.getElementById('schoolNameSpan').textContent='TREMPLIN';
 
 let allEleves=[], allProfs=[], allEnseignants=[], isFirstLoad=true, currentDate=new Date().toISOString().split('T')[0];
 let unsubscribePrimaire=null, unsubscribeMaternelle=null, unsubscribeSecondaire=null, unsubscribeProfs=null, unsubscribeEnseignants=null;
@@ -551,23 +551,23 @@ function joursOuvresDuMois(dateRef){const annee=dateRef.getFullYear();const mois
 function prefixeMois(dateRef){const annee=dateRef.getFullYear();const mois=String(dateRef.getMonth()+1).padStart(2,'0');return annee+'-'+mois+'-';}
 
 async function verifierAcces(){
-  if(!codeFromUrl){window.location.href='https://www.csbwacha.com/login2';return false;}
+  if(!codeFromUrl){window.location.href='https://www.cstremplin.com/login2';return false;}
   try{
     const ref=doc(db,"ecoles",ECOLET_ID);
     const snap=await getDoc(ref);
-    if(!snap.exists()){window.location.href='https://www.csbwacha.com/login2';return false;}
+    if(!snap.exists()){window.location.href='https://www.cstremplin.com/login2';return false;}
     const settingsRef=doc(db,"ecoles",ECOLET_ID,"settings","data");
     const settingsSnap=await getDoc(settingsRef);
     if(settingsSnap.exists()){
       const data=settingsSnap.data();
       const codePromoteur=data.codePromoteur||'';
-      if(codeFromUrl!==codePromoteur){window.location.href='https://www.csbwacha.com/login2';return false;}
+      if(codeFromUrl!==codePromoteur){window.location.href='https://www.cstremplin.com/login2';return false;}
     }else{
-      window.location.href='https://www.csbwacha.com/login2';return false;
+      window.location.href='https://www.cstremplin.com/login2';return false;
     }
     return true;
   }catch(e){
-    window.location.href='https://www.csbwacha.com/login2';return false;
+    window.location.href='https://www.cstremplin.com/login2';return false;
   }
 }
 
@@ -801,7 +801,7 @@ function showLogoutModal(){
   document.getElementById('confirmLogout').onclick=function(){
     const overlayEl=this.closest('.modal-overlay');
     overlayEl.classList.remove('show');
-    setTimeout(()=>{overlayEl.remove();sessionStorage.clear();window.location.href='https://www.csbwacha.com/login2';},400);
+    setTimeout(()=>{overlayEl.remove();sessionStorage.clear();window.location.href='https://www.cstremplin.com/login2';},400);
   };
 }
 
@@ -826,7 +826,7 @@ document.getElementById('btnPDFPaiements').addEventListener('click',function(){
   const{jsPDF}=window.jspdf;
   const doc=new jsPDF('landscape','mm','a4');
   const pw=doc.internal.pageSize.getWidth();
-  const nomEcole=document.querySelector('.school-name')?.textContent||'COMPLEXE SCOLAIRE BWACHA';
+  const nomEcole=document.querySelector('.school-name')?.textContent||'COMPLEXE SCOLAIRE TREMPLIN';
   doc.setFillColor(26,26,46);doc.rect(0,0,pw,32,'F');
   doc.setTextColor(212,175,55);doc.setFontSize(16);doc.setFont('helvetica','bold');doc.text(nomEcole,pw/2,12,{align:'center'});
   doc.setTextColor(255,255,255);doc.setFontSize(11);doc.setFont('helvetica','normal');doc.text('SITUATION FINANCIÈRE - '+document.getElementById('filterMois').value.toUpperCase(),pw/2,21,{align:'center'});
@@ -835,7 +835,7 @@ document.getElementById('btnPDFPaiements').addEventListener('click',function(){
   document.querySelectorAll('#paiementsTableBody tr').forEach(row=>{const cells=row.querySelectorAll('td');if(cells.length===6){rows.push([cells[0]?.textContent||'',cells[1]?.textContent||'',cells[2]?.textContent||'',cells[3]?.textContent||'',cells[4]?.textContent||'',cells[5]?.textContent||'']);}});
   doc.autoTable({head:[['CLASSE','ÉLÈVES','ATTENDU','PAYÉ','TAUX','RESTE']],body:rows,startY:38,styles:{fontSize:8,cellPadding:3,textColor:[30,30,30],lineColor:[200,200,200],lineWidth:0.1},headStyles:{fillColor:[26,26,46],textColor:[255,255,255],fontSize:9,fontStyle:'bold',halign:'center',lineColor:[212,175,55],lineWidth:0.3},alternateRowStyles:{fillColor:[248,246,242]},columnStyles:{0:{cellWidth:40,fontStyle:'bold'},1:{cellWidth:20,halign:'center'},2:{cellWidth:35,halign:'right'},3:{cellWidth:35,halign:'right'},4:{cellWidth:20,halign:'center'},5:{cellWidth:35,halign:'right'}},margin:{left:10,right:10},didDrawPage:function(data){const pageNum=doc.internal.getCurrentPageInfo().pageNumber;const totalPages=doc.internal.getNumberOfPages();doc.setFontSize(8);doc.setTextColor(150,150,150);doc.text('Page '+pageNum+'/'+totalPages,pw/2,doc.internal.pageSize.height-10,{align:'center'});doc.text(new Date().toLocaleDateString('fr-FR'),pw-15,doc.internal.pageSize.height-10,{align:'right'});}});
   const finalY=doc.lastAutoTable.finalY+10;
-  doc.setFontSize(8);doc.setTextColor(150,150,150);doc.text('Document généré par l\'Espace Promoteur',15,finalY);doc.text('C.S. Bwacha - Année scolaire 2026-2027',pw-15,finalY,{align:'right'});
+  doc.setFontSize(8);doc.setTextColor(150,150,150);doc.text('Document généré par l\'Espace Promoteur',15,finalY);doc.text('C.S. Tremplin - Année scolaire 2026-2027',pw-15,finalY,{align:'right'});
   doc.save('Situation_Financiere_'+new Date().toISOString().split('T')[0]+'.pdf');
 });
 
@@ -850,13 +850,13 @@ document.getElementById('btnPDFProfs').addEventListener('click',function(){
   doc.setFillColor(26,26,46);doc.rect(0,0,pw,45,'F');
   doc.setDrawColor(212,175,55);doc.setLineWidth(1.5);doc.line(0,45,pw,45);
   doc.setTextColor(255,255,255);doc.setFontSize(18);doc.setFont('helvetica','bold');doc.text('COMPLEXE SCOLAIRE',pw/2,15,{align:'center'});
-  doc.setTextColor(212,175,55);doc.setFontSize(14);doc.text('BWACHA',pw/2,23,{align:'center'});
+  doc.setTextColor(212,175,55);doc.setFontSize(14);doc.text('TREMPLIN',pw/2,23,{align:'center'});
   doc.setTextColor(255,255,255);doc.setFontSize(10);doc.setFont('helvetica','normal');doc.text('Année scolaire 2026-2027',pw/2,30,{align:'center'});
   doc.setFontSize(11);doc.setFont('helvetica','bold');doc.setTextColor(212,175,55);doc.text('RAPPORT DE PRÉSENCE DU PERSONNEL ENSEIGNANT',pw/2,38,{align:'center'});
   doc.setFontSize(9);doc.setFont('helvetica','normal');doc.setTextColor(60,60,60);doc.text('Période : '+moisLabel.charAt(0).toUpperCase()+moisLabel.slice(1)+'  |  Jours ouvrés : '+totalJoursOuvres+'  |  Généré le : '+maintenant.toLocaleDateString('fr-FR')+' à '+maintenant.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}),15,53);
   const rows=[];
   document.querySelectorAll('#profsTableBody tr').forEach(row=>{const cells=row.querySelectorAll('td');if(cells.length===7){rows.push([cells[0]?.textContent||'',cells[1]?.textContent||'',cells[2]?.textContent||'',cells[3]?.textContent||'',cells[4]?.textContent||'',cells[5]?.textContent||'',cells[6]?.textContent||'']);}});
-  doc.autoTable({head:[['N°','NOM ET PRÉNOM','SEXE','TYPE','STATUT DU JOUR','ARRIVÉE','JOURS PRESTÉS']],body:rows,startY:60,styles:{fontSize:9,cellPadding:3.5,textColor:[30,30,30],lineColor:[220,220,220],lineWidth:0.15,valign:'middle'},headStyles:{fillColor:[26,26,46],textColor:[212,175,55],fontSize:9.5,fontStyle:'bold',halign:'center',valign:'middle',lineColor:[212,175,55],lineWidth:0.3,cellPadding:4},alternateRowStyles:{fillColor:[250,249,247]},columnStyles:{0:{cellWidth:12,halign:'center',fontStyle:'bold'},1:{cellWidth:60,fontStyle:'bold'},2:{cellWidth:15,halign:'center'},3:{cellWidth:42,halign:'center'},4:{cellWidth:32,halign:'center',fontStyle:'bold'},5:{cellWidth:22,halign:'center'},6:{cellWidth:28,halign:'center',fontStyle:'bold'}},margin:{left:10,right:10},didParseCell:function(data){if(data.section==='body'&&data.column.index===4){const txt=data.cell.raw||'';if(txt.indexOf('PRÉSENT')!==-1){data.cell.styles.textColor=[5,150,105];}else if(txt.indexOf('RETARD')!==-1){data.cell.styles.textColor=[217,119,6];}else if(txt.indexOf('ABSENT')!==-1){data.cell.styles.textColor=[220,38,38];}}if(data.section==='body'&&data.column.index===3){const t=data.cell.raw||'';if(t.indexOf('PROF')!==-1){data.cell.styles.textColor=[124,58,237];}else{data.cell.styles.textColor=[37,99,235];}}},didDrawPage:function(data){const pageNum=doc.internal.getCurrentPageInfo().pageNumber;const totalPages=doc.internal.getNumberOfPages();doc.setFillColor(248,246,242);doc.rect(0,ph-15,pw,15,'F');doc.setDrawColor(212,175,55);doc.setLineWidth(0.5);doc.line(0,ph-15,pw,ph-15);doc.setFontSize(8);doc.setTextColor(100,100,100);doc.setFont('helvetica','normal');doc.text('COMPLEXE SCOLAIRE BWACHA  |  Rapport de présence - '+moisLabel,pw/2,ph-7,{align:'center'});doc.text('Page '+pageNum+' / '+totalPages,pw-15,ph-7,{align:'right'});doc.text('Document confidentiel',15,ph-7);}});
+  doc.autoTable({head:[['N°','NOM ET PRÉNOM','SEXE','TYPE','STATUT DU JOUR','ARRIVÉE','JOURS PRESTÉS']],body:rows,startY:60,styles:{fontSize:9,cellPadding:3.5,textColor:[30,30,30],lineColor:[220,220,220],lineWidth:0.15,valign:'middle'},headStyles:{fillColor:[26,26,46],textColor:[212,175,55],fontSize:9.5,fontStyle:'bold',halign:'center',valign:'middle',lineColor:[212,175,55],lineWidth:0.3,cellPadding:4},alternateRowStyles:{fillColor:[250,249,247]},columnStyles:{0:{cellWidth:12,halign:'center',fontStyle:'bold'},1:{cellWidth:60,fontStyle:'bold'},2:{cellWidth:15,halign:'center'},3:{cellWidth:42,halign:'center'},4:{cellWidth:32,halign:'center',fontStyle:'bold'},5:{cellWidth:22,halign:'center'},6:{cellWidth:28,halign:'center',fontStyle:'bold'}},margin:{left:10,right:10},didParseCell:function(data){if(data.section==='body'&&data.column.index===4){const txt=data.cell.raw||'';if(txt.indexOf('PRÉSENT')!==-1){data.cell.styles.textColor=[5,150,105];}else if(txt.indexOf('RETARD')!==-1){data.cell.styles.textColor=[217,119,6];}else if(txt.indexOf('ABSENT')!==-1){data.cell.styles.textColor=[220,38,38];}}if(data.section==='body'&&data.column.index===3){const t=data.cell.raw||'';if(t.indexOf('PROF')!==-1){data.cell.styles.textColor=[124,58,237];}else{data.cell.styles.textColor=[37,99,235];}}},didDrawPage:function(data){const pageNum=doc.internal.getCurrentPageInfo().pageNumber;const totalPages=doc.internal.getNumberOfPages();doc.setFillColor(248,246,242);doc.rect(0,ph-15,pw,15,'F');doc.setDrawColor(212,175,55);doc.setLineWidth(0.5);doc.line(0,ph-15,pw,ph-15);doc.setFontSize(8);doc.setTextColor(100,100,100);doc.setFont('helvetica','normal');doc.text('COMPLEXE SCOLAIRE TREMPLIN  |  Rapport de présence - '+moisLabel,pw/2,ph-7,{align:'center'});doc.text('Page '+pageNum+' / '+totalPages,pw-15,ph-7,{align:'right'});doc.text('Document confidentiel',15,ph-7);}});
   doc.save('Rapport_Presence_'+maintenant.toISOString().split('T')[0]+'.pdf');
 });
 
@@ -908,12 +908,12 @@ async function initApp(){
   updateStats();
   updatePresenceBars();
   updateInscriptionsBars();
-  afficherPaiements();
+  afficherPaiementswach();
   afficherProfs();
-  updateClasseFilter();
-  demarrerTempsReel();
+  updateClasseFiltera();
+  demarrerTempsRe"el();
 }
 initApp();
 </script>
-</body>
+</body`>
 </html>
