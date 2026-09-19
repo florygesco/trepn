@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -97,6 +98,14 @@ body{height:100%;margin:0;padding:0;overflow-y:auto;overflow-x:hidden;-webkit-ov
 .btn-sm{padding:6px 16px;font-size:12px}
 .btn-pdf{background:#dc2626;color:#fff;box-shadow:0 2px 8px rgba(220,38,38,0.2)}
 .btn-pdf:hover{background:#b91c1c}
+.btn-pdf-export{background:linear-gradient(135deg,#dc2626,#b91c1c);color:#fff;border:none;padding:14px 40px;border-radius:30px;font-weight:700;font-size:16px;cursor:pointer;transition:all .3s;display:inline-flex;align-items:center;gap:12px;box-shadow:0 4px 20px rgba(220,38,38,0.3);touch-action:manipulation}
+.btn-pdf-export:hover{transform:translateY(-3px);box-shadow:0 8px 32px rgba(220,38,38,0.4)}
+.btn-pdf-export:active{transform:scale(0.96)}
+.btn-pdf-export i{font-size:20px}
+.btn-excel-export{background:linear-gradient(135deg,#1a6b3a,#28a745);color:#fff;border:none;padding:10px 22px;border-radius:30px;font-weight:700;font-size:13px;cursor:pointer;transition:all .3s;display:inline-flex;align-items:center;gap:8px;box-shadow:0 4px 16px rgba(40,167,69,0.3);touch-action:manipulation}
+.btn-excel-export:hover{transform:translateY(-3px);box-shadow:0 8px 32px rgba(40,167,69,0.4)}
+.btn-excel-export:active{transform:scale(0.96)}
+.btn-excel-export i{font-size:16px}
 .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin-bottom:16px}
 .stat-card{background:#fff;border-radius:16px;padding:20px;text-align:center;border:1px solid #e8edf2;transition:all .3s;perspective:600px}
 .stat-card:hover{transform:translateY(-6px);box-shadow:0 12px 32px rgba(0,0,0,0.08)}
@@ -109,6 +118,7 @@ body{height:100%;margin:0;padding:0;overflow-y:auto;overflow-x:hidden;-webkit-ov
 .stat-card .stat-value.red{color:#dc2626;text-shadow:1px 1px 0 rgba(220,38,38,0.15),2px 2px 0 rgba(220,38,38,0.1),3px 3px 0 rgba(220,38,38,0.08),4px 4px 8px rgba(220,38,38,0.1)}
 .stat-card .stat-value.purple{color:#7c3aed;text-shadow:1px 1px 0 rgba(124,58,237,0.15),2px 2px 0 rgba(124,58,237,0.1),3px 3px 0 rgba(124,58,237,0.08),4px 4px 8px rgba(124,58,237,0.1)}
 .stat-card .stat-value.orange{color:#f59e0b;text-shadow:1px 1px 0 rgba(245,158,11,0.15),2px 2px 0 rgba(245,158,11,0.1),3px 3px 0 rgba(245,158,11,0.08),4px 4px 8px rgba(245,158,11,0.1)}
+.stat-card .stat-value.gold{color:#d4af37;text-shadow:1px 1px 0 rgba(212,175,55,0.15),2px 2px 0 rgba(212,175,55,0.1),3px 3px 0 rgba(212,175,55,0.08),4px 4px 8px rgba(212,175,55,0.1)}
 .stat-card .stat-sub{font-size:12px;color:#94a3b8}
 .stat-card.section{border-left:4px solid #d4af37;background:#faf8f5}
 .table-wrapper{overflow-x:auto;overflow-y:hidden;border-radius:14px;border:1px solid #e2dcd2;background:#fff;-webkit-overflow-scrolling:touch!important;touch-action:pan-x pan-y}
@@ -119,6 +129,60 @@ body{height:100%;margin:0;padding:0;overflow-y:auto;overflow-x:hidden;-webkit-ov
 .table-wrapper table td.nom{min-width:200px;white-space:nowrap;font-weight:600;color:#1a1a2e}
 .table-wrapper table tr:last-child td{border-bottom:none}
 .table-wrapper table tr:hover td{background:#f8f6f2}
+
+/* TABLE PERCEPTION */
+.perception-table{overflow-x:auto;overflow-y:auto;border-radius:14px;border:1px solid #e2dcd2;background:#fff;max-height:550px;-webkit-overflow-scrolling:touch!important;touch-action:pan-x pan-y}
+.perception-table table{width:100%;border-collapse:collapse;font-size:11px;min-width:900px}
+.perception-table table th{background:linear-gradient(135deg,#1a1a2e,#16213e);color:#fff;padding:10px 8px;border-bottom:2px solid #d4af37;font-size:10px;font-weight:700;text-transform:uppercase;text-align:center;letter-spacing:0.3px;position:sticky;top:0;z-index:2}
+.perception-table table th:first-child,.perception-table table th:nth-child(2),.perception-table table th:nth-child(3),.perception-table table th:nth-child(4){text-align:left}
+.perception-table table td{padding:8px;border-bottom:1px solid #f1edf0;color:#1a1a2e;font-size:11px;text-align:center}
+.perception-table table td:first-child,.perception-table table td:nth-child(2),.perception-table table td:nth-child(3),.perception-table table td:nth-child(4){text-align:left}
+.perception-table table td.nom{min-width:200px;font-weight:600;white-space:nowrap}
+.perception-table table tr:hover td{background:#f8f6f2}
+.perception-table table tr:nth-child(even) td{background:#faf9f7}
+.perception-table table tr:nth-child(even):hover td{background:#f5f2ed}
+
+/* FINANCE PROGRESS */
+.finance-progress-container{background:linear-gradient(145deg,#f8f6f2,#ede8e0);border-radius:20px;padding:28px 32px;margin-bottom:20px;border:2px solid #d4af37;box-shadow:0 4px 24px rgba(0,0,0,0.08),inset 0 1px 0 rgba(255,255,255,0.8)}
+.finance-progress-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.finance-progress-header .label{font-size:18px;font-weight:700;color:#1e293b;letter-spacing:0.3px}
+.finance-progress-header .label i{color:#d4af37;margin-right:10px}
+.finance-progress-header .percentage{font-size:32px;font-weight:800;color:#d4af37;text-shadow:0 2px 4px rgba(212,175,55,0.3)}
+.finance-progress-track{width:100%;height:28px;background:#d1cbc0;border-radius:14px;overflow:hidden;position:relative;box-shadow:inset 0 3px 8px rgba(0,0,0,0.15),inset 0 -2px 4px rgba(255,255,255,0.3);border:1px solid #b8b0a0}
+.finance-progress-fill{height:100%;border-radius:12px;background:linear-gradient(180deg,#f5b82e 0%,#d4af37 30%,#b8941e 60%,#c49a2a 100%);position:relative;transition:width 1.2s cubic-bezier(0.34,1.56,0.64,1);box-shadow:inset 0 2px 6px rgba(255,215,80,0.6),0 2px 8px rgba(212,175,55,0.4),0 4px 16px rgba(212,175,55,0.15);border-right:2px solid rgba(255,255,255,0.2)}
+.finance-progress-fill::before{content:'';position:absolute;top:0;left:0;right:0;height:50%;background:linear-gradient(180deg,rgba(255,255,255,0.5) 0%,rgba(255,255,255,0) 100%);border-radius:12px 12px 0 0;pointer-events:none}
+.finance-progress-fill::after{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(110deg,transparent 0%,transparent 30%,rgba(255,255,255,0.4) 45%,rgba(255,255,255,0.6) 50%,rgba(255,255,255,0.4) 55%,transparent 70%,transparent 100%);border-radius:12px;animation:shimmer3D 2.8s cubic-bezier(0.4,0,0.2,1) infinite;pointer-events:none;background-size:300% 100%}
+@keyframes shimmer3D{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.finance-progress-details{display:flex;justify-content:space-between;margin-top:14px;font-size:17px;color:#64748b;flex-wrap:wrap;gap:8px}
+.finance-progress-details span strong{font-size:19px}
+.finance-progress-details span:first-child strong:first-child{color:#059669}
+.finance-progress-details span:first-child strong:last-child{color:#2563eb}
+.finance-progress-details span:last-child strong{color:#dc2626}
+.table-wrapper-finance{overflow-x:auto;overflow-y:hidden;border-radius:14px;border:1px solid #e2dcd2;background:#fff;margin-top:12px;box-shadow:0 2px 12px rgba(0,0,0,0.05);-webkit-overflow-scrolling:touch!important;touch-action:pan-x pan-y}
+.table-wrapper-finance table{width:100%;min-width:750px;border-collapse:collapse;font-size:15px}
+.table-wrapper-finance table thead th{background:linear-gradient(135deg,#1a1a2e,#16213e);color:#fff;padding:16px 20px;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;text-align:left;border-bottom:3px solid #d4af37;white-space:nowrap}
+.table-wrapper-finance table thead th i{color:#d4af37;margin-right:6px}
+.table-wrapper-finance table tbody td{padding:14px 20px;border-bottom:1px solid #f1edf0;color:#1a1a2e;font-size:14px;font-weight:500}
+.table-wrapper-finance table tbody tr:hover td{background:#f8f6f2}
+.table-wrapper-finance table tbody tr:nth-child(even) td{background:#faf9f7}
+.table-wrapper-finance table tbody tr:nth-child(even):hover td{background:#f5f2ed}
+.table-wrapper-finance table tbody tr.total-row td{background:#1a1a2e!important;color:#fff!important;font-weight:700;font-size:16px;border-top:3px solid #d4af37}
+.table-wrapper-finance table tbody td .taux-container{display:flex;align-items:center;gap:10px;min-width:110px}
+.table-wrapper-finance table tbody td .taux-bar{flex:1;height:10px;background:#e8edf2;border-radius:10px;overflow:hidden;min-width:55px}
+.table-wrapper-finance table tbody td .taux-fill{height:100%;border-radius:10px}
+.table-wrapper-finance table tbody td .taux-fill.green{background:linear-gradient(90deg,#059669,#10b981)}
+.table-wrapper-finance table tbody td .taux-fill.orange{background:linear-gradient(90deg,#d97706,#f59e0b)}
+.table-wrapper-finance table tbody td .taux-fill.red{background:linear-gradient(90deg,#dc2626,#ef4444)}
+.table-wrapper-finance table tbody td .taux-text{font-weight:700;font-size:14px;min-width:45px;text-align:right}
+.table-wrapper-finance table tbody td .taux-text.green{color:#059669}
+.table-wrapper-finance table tbody td .taux-text.orange{color:#d97706}
+.table-wrapper-finance table tbody td .taux-text.red{color:#dc2626}
+.table-wrapper-finance table tbody td .nom-classe{font-weight:700;color:#1a1a2e}
+.table-wrapper-finance table tbody td .montant-attendu{color:#2563eb;font-weight:600}
+.table-wrapper-finance table tbody td .montant-paye{color:#059669;font-weight:600}
+.table-wrapper-finance table tbody td .montant-reste{color:#dc2626;font-weight:600}
+
+/* DARK MODE */
 .dark-mode{background:#0d1117;color:#e6edf3}
 .dark-mode .container{background:#0d1117}
 .dark-mode .school-header{background:linear-gradient(135deg,#0a0a0f,#161b22);border-color:#30363d}
@@ -144,26 +208,16 @@ body{height:100%;margin:0;padding:0;overflow-y:auto;overflow-x:hidden;-webkit-ov
 .dark-mode .table-wrapper table td{color:#e6edf3;border-color:#30363d}
 .dark-mode .table-wrapper table td.nom{color:#e6edf3}
 .dark-mode .table-wrapper table tr:hover td{background:#1c2333}
+.dark-mode .perception-table{background:#161b22;border-color:#30363d}
+.dark-mode .perception-table table td{color:#e6edf3;border-color:#30363d}
+.dark-mode .perception-table table tr:nth-child(even) td{background:#1c2333}
+.dark-mode .perception-table table tr:nth-child(even):hover td{background:#2d3748}
+.dark-mode .perception-table table tr:hover td{background:#2d3748}
 .dark-mode .modal-overlay .modal-box{background:#161b22;border-color:#d4af37}
 .dark-mode .modal-overlay .modal-title{color:#e6edf3}
 .dark-mode .modal-overlay .modal-message{color:#8b949e}
 .dark-mode .modal-overlay .modal-actions .btn-cancel{background:#1c2333;color:#8b949e}
 .dark-mode .modal-overlay .modal-actions .btn-cancel:hover{background:#2d3748}
-.finance-progress-container{background:linear-gradient(145deg,#f8f6f2,#ede8e0);border-radius:20px;padding:28px 32px;margin-bottom:20px;border:2px solid #d4af37;box-shadow:0 4px 24px rgba(0,0,0,0.08),inset 0 1px 0 rgba(255,255,255,0.8)}
-.finance-progress-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
-.finance-progress-header .label{font-size:18px;font-weight:700;color:#1e293b;letter-spacing:0.3px}
-.finance-progress-header .label i{color:#d4af37;margin-right:10px}
-.finance-progress-header .percentage{font-size:32px;font-weight:800;color:#d4af37;text-shadow:0 2px 4px rgba(212,175,55,0.3)}
-.finance-progress-track{width:100%;height:28px;background:#d1cbc0;border-radius:14px;overflow:hidden;position:relative;box-shadow:inset 0 3px 8px rgba(0,0,0,0.15),inset 0 -2px 4px rgba(255,255,255,0.3);border:1px solid #b8b0a0}
-.finance-progress-fill{height:100%;border-radius:12px;background:linear-gradient(180deg,#f5b82e 0%,#d4af37 30%,#b8941e 60%,#c49a2a 100%);position:relative;transition:width 1.2s cubic-bezier(0.34,1.56,0.64,1);box-shadow:inset 0 2px 6px rgba(255,215,80,0.6),0 2px 8px rgba(212,175,55,0.4),0 4px 16px rgba(212,175,55,0.15);border-right:2px solid rgba(255,255,255,0.2)}
-.finance-progress-fill::before{content:'';position:absolute;top:0;left:0;right:0;height:50%;background:linear-gradient(180deg,rgba(255,255,255,0.5) 0%,rgba(255,255,255,0) 100%);border-radius:12px 12px 0 0;pointer-events:none}
-.finance-progress-fill::after{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(110deg,transparent 0%,transparent 30%,rgba(255,255,255,0.4) 45%,rgba(255,255,255,0.6) 50%,rgba(255,255,255,0.4) 55%,transparent 70%,transparent 100%);border-radius:12px;animation:shimmer3D 2.8s cubic-bezier(0.4,0,0.2,1) infinite;pointer-events:none;background-size:300% 100%}
-@keyframes shimmer3D{0%{background-position:200% 0}100%{background-position:-200% 0}}
-.finance-progress-details{display:flex;justify-content:space-between;margin-top:14px;font-size:17px;color:#64748b;flex-wrap:wrap;gap:8px}
-.finance-progress-details span strong{font-size:19px}
-.finance-progress-details span:first-child strong:first-child{color:#059669}
-.finance-progress-details span:first-child strong:last-child{color:#2563eb}
-.finance-progress-details span:last-child strong{color:#dc2626}
 .dark-mode .finance-progress-container{background:#1c2333;border-color:#30363d}
 .dark-mode .finance-progress-header .label{color:#e6edf3}
 .dark-mode .finance-progress-track{background:#2d3748}
@@ -172,31 +226,6 @@ body{height:100%;margin:0;padding:0;overflow-y:auto;overflow-x:hidden;-webkit-ov
 .dark-mode .finance-progress-details span:first-child strong:first-child{color:#3fb950}
 .dark-mode .finance-progress-details span:first-child strong:last-child{color:#58a6ff}
 .dark-mode .finance-progress-details span:last-child strong{color:#f85149}
-.table-wrapper-finance{overflow-x:auto;overflow-y:hidden;border-radius:14px;border:1px solid #e2dcd2;background:#fff;margin-top:12px;box-shadow:0 2px 12px rgba(0,0,0,0.05);-webkit-overflow-scrolling:touch!important;touch-action:pan-x pan-y}
-.table-wrapper-finance table{width:100%;min-width:750px;border-collapse:collapse;font-size:15px}
-.table-wrapper-finance table thead th{background:linear-gradient(135deg,#1a1a2e,#16213e);color:#fff;padding:16px 20px;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;text-align:left;border-bottom:3px solid #d4af37;white-space:nowrap}
-.table-wrapper-finance table thead th i{color:#d4af37;margin-right:6px}
-.table-wrapper-finance table tbody td{padding:14px 20px;border-bottom:1px solid #f1edf0;color:#1a1a2e;font-size:14px;font-weight:500}
-.table-wrapper-finance table tbody tr:hover td{background:#f8f6f2}
-.table-wrapper-finance table tbody tr:nth-child(even) td{background:#faf9f7}
-.table-wrapper-finance table tbody tr:nth-child(even):hover td{background:#f5f2ed}
-.table-wrapper-finance table tbody tr.total-row td{background:#1a1a2e!important;color:#fff!important;font-weight:700;font-size:16px;border-top:3px solid #d4af37}
-.table-wrapper-finance table tbody tr.total-row td .taux-bar{background:rgba(255,255,255,0.2)}
-.table-wrapper-finance table tbody tr.total-row td .taux-fill{background:linear-gradient(90deg,#d4af37,#f59e0b)}
-.table-wrapper-finance table tbody td .taux-container{display:flex;align-items:center;gap:10px;min-width:110px}
-.table-wrapper-finance table tbody td .taux-bar{flex:1;height:10px;background:#e8edf2;border-radius:10px;overflow:hidden;min-width:55px}
-.table-wrapper-finance table tbody td .taux-fill{height:100%;border-radius:10px}
-.table-wrapper-finance table tbody td .taux-fill.green{background:linear-gradient(90deg,#059669,#10b981)}
-.table-wrapper-finance table tbody td .taux-fill.orange{background:linear-gradient(90deg,#d97706,#f59e0b)}
-.table-wrapper-finance table tbody td .taux-fill.red{background:linear-gradient(90deg,#dc2626,#ef4444)}
-.table-wrapper-finance table tbody td .taux-text{font-weight:700;font-size:14px;min-width:45px;text-align:right}
-.table-wrapper-finance table tbody td .taux-text.green{color:#059669}
-.table-wrapper-finance table tbody td .taux-text.orange{color:#d97706}
-.table-wrapper-finance table tbody td .taux-text.red{color:#dc2626}
-.table-wrapper-finance table tbody td .nom-classe{font-weight:700;color:#1a1a2e}
-.table-wrapper-finance table tbody td .montant-attendu{color:#2563eb;font-weight:600}
-.table-wrapper-finance table tbody td .montant-paye{color:#059669;font-weight:600}
-.table-wrapper-finance table tbody td .montant-reste{color:#dc2626;font-weight:600}
 .dark-mode .table-wrapper-finance{background:#161b22;border-color:#30363d}
 .dark-mode .table-wrapper-finance table tbody td{color:#e6edf3;border-color:#30363d}
 .dark-mode .table-wrapper-finance table tbody tr:nth-child(even) td{background:#1c2333}
@@ -204,6 +233,8 @@ body{height:100%;margin:0;padding:0;overflow-y:auto;overflow-x:hidden;-webkit-ov
 .dark-mode .table-wrapper-finance table tbody tr:hover td{background:#2d3748}
 .dark-mode .table-wrapper-finance table tbody tr.total-row td{background:#0d1117!important}
 .dark-mode .table-wrapper-finance table tbody td .nom-classe{color:#e6edf3}
+.dark-mode .recover-stats .stat-card{background:#161b22}
+
 @media(max-width:768px){
 .container{padding:0 12px 12px 12px}
 .school-header{padding:16px 76px 16px 20px;border-radius:16px}
@@ -229,6 +260,8 @@ body{height:100%;margin:0;padding:0;overflow-y:auto;overflow-x:hidden;-webkit-ov
 .finance-progress-header .percentage{font-size:26px}
 .finance-progress-details{font-size:15px}
 .finance-progress-details span strong{font-size:17px}
+.recover-stats{grid-template-columns:repeat(2,1fr)!important}
+.btn-pdf-export{padding:12px 24px;font-size:14px}
 }
 @media(max-width:480px){
 .container{padding:0 10px 10px 10px}
@@ -268,6 +301,11 @@ body{height:100%;margin:0;padding:0;overflow-y:auto;overflow-x:hidden;-webkit-ov
 .finance-progress-details{font-size:14px;flex-direction:column;align-items:center;gap:6px}
 .finance-progress-details span strong{font-size:16px}
 .stats-grid[style*="repeat(4,1fr)"]{grid-template-columns:repeat(2,1fr)!important}
+.recover-stats{grid-template-columns:repeat(2,1fr)!important}
+.btn-pdf-export{padding:10px 20px;font-size:12px;gap:8px}
+.btn-pdf-export i{font-size:16px}
+.btn-excel-export{padding:8px 14px;font-size:11px;gap:6px}
+.btn-excel-export i{font-size:13px}
 }
 </style>
 </head>
@@ -291,6 +329,8 @@ body{height:100%;margin:0;padding:0;overflow-y:auto;overflow-x:hidden;-webkit-ov
 <button class="tab active" data-tab="tabVue"><i class="fas fa-chart-pie"></i> VUE</button>
 <button class="tab" data-tab="tabFinances"><i class="fas fa-coins"></i> FINANCES</button>
 <button class="tab" data-tab="tabProfs"><i class="fas fa-user-check"></i> PRÉSENCES ENSEIGNANT/PROFS</button>
+<button class="tab" data-tab="tabPerception"><i class="fas fa-file-invoice"></i> PERCEPTION</button>
+<button class="tab" data-tab="tabRecouvrement"><i class="fas fa-hand-holding-usd"></i> RECOUVREMENT</button>
 <button class="tab" id="darkModeBtn"><i class="fas fa-moon"></i> THÈME</button>
 </div>
 </div>
@@ -522,13 +562,80 @@ body{height:100%;margin:0;padding:0;overflow-y:auto;overflow-x:hidden;-webkit-ov
 </div>
 </div>
 
+<!-- ===== ONGLET PERCEPTION ===== -->
+<div id="tabPerception" class="tab-content">
+<div class="card">
+<div class="card-header">
+<i class="fas fa-file-invoice"></i> LISTES DE PERCEPTION ADMINISTRATIVES
+<span style="font-size:14px;color:#64748b;font-weight:400;margin-left:10px;"><i class="fas fa-calendar-alt"></i> <span id="perceptionDate"></span></span>
+</div>
+<div class="card-body">
+<div class="filter-row">
+<div class="filter-group">
+<label><i class="fas fa-layer-group"></i> SECTION</label>
+<select id="perceptionSection">
+<option value="toutes">TOUTES</option>
+<option value="maternelle">MATERNELLE</option>
+<option value="primaire">PRIMAIRE</option>
+<option value="secondaire">SECONDAIRE</option>
+</select>
+</div>
+<div class="filter-group">
+<label><i class="fas fa-school"></i> CLASSE</label>
+<select id="perceptionClasse"><option value="">TOUTES</option></select>
+</div>
+<div class="filter-group">
+<label><i class="fas fa-tag"></i> OPTION</label>
+<select id="perceptionOption"><option value="">TOUTES</option></select>
+</div>
+<button class="btn btn-excel-export" id="perceptionExcel"><i class="fas fa-file-excel"></i> EXPORTER EXCEL</button>
+<button class="btn btn-sm btn-pdf" id="perceptionPDF"><i class="fas fa-file-pdf"></i> PDF</button>
+</div>
+<div class="perception-table">
+<div id="perceptionTableContainer"><div style="text-align:center;padding:20px;color:#9ca3af;"><i class="fas fa-spinner fa-spin"></i> Chargement...</div></div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- ===== ONGLET RECOUVREMENT ===== -->
+<div id="tabRecouvrement" class="tab-content">
+<div class="card">
+<div class="card-header">
+<i class="fas fa-hand-holding-usd"></i> RECOUVREMENT MENSUEL
+<span style="font-size:14px;color:#64748b;font-weight:400;margin-left:10px;"><i class="fas fa-calendar-alt"></i> <span id="recoverDate"></span></span>
+</div>
+<div class="card-body">
+<div class="filter-row">
+<div class="filter-group"><label><i class="fas fa-calendar-alt"></i> MOIS</label><select id="recoverMois"></select></div>
+<div class="filter-group"><label><i class="fas fa-filter"></i> STATUT</label><select id="recoverStatut"><option value="tous">TOUS</option><option value="paye">PAYÉ</option><option value="non_paye">NON PAYÉ</option><option value="partiel">PARTIEL</option></select></div>
+<div class="filter-group"><label><i class="fas fa-layer-group"></i> SECTION</label><select id="recoverSection"><option value="toutes">TOUTES</option><option value="maternelle">MATERNELLE</option><option value="primaire">PRIMAIRE</option><option value="secondaire">SECONDAIRE</option></select></div>
+<div class="filter-group"><label><i class="fas fa-school"></i> CLASSE</label><select id="recoverClasse"><option value="">TOUTES</option></select></div>
+<div class="filter-group"><label><i class="fas fa-tag"></i> OPTION</label><select id="recoverOption"><option value="">TOUTES</option></select></div>
+<div class="filter-group" style="flex:2;min-width:140px;"><label><i class="fas fa-search"></i></label><input type="text" id="recoverSearch" placeholder="Nom élève..."></div>
+</div>
+<div class="stats-grid recover-stats" style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:16px;">
+<div class="stat-card"><div class="stat-label"><i class="fas fa-users"></i> TOTAL</div><div class="stat-value blue" id="recoverTotal">0</div></div>
+<div class="stat-card"><div class="stat-label"><i class="fas fa-check-circle" style="color:#059669;"></i> PAYÉ</div><div class="stat-value green" id="recoverPaye">0</div></div>
+<div class="stat-card"><div class="stat-label"><i class="fas fa-times-circle" style="color:#dc2626;"></i> NON PAYÉ</div><div class="stat-value red" id="recoverNonPaye">0</div></div>
+<div class="stat-card"><div class="stat-label"><i class="fas fa-percent" style="color:#d97706;"></i> PARTIEL</div><div class="stat-value gold" id="recoverPartiel">0</div></div>
+<div class="stat-card"><div class="stat-label"><i class="fas fa-percent"></i> TAUX</div><div class="stat-value gold" id="recoverTaux">0%</div></div>
+</div>
+<div style="text-align:center;padding:20px 0;border-top:2px solid #d4af37;margin-top:10px;">
+<button class="btn btn-pdf-export" id="recoverPDF">
+<i class="fas fa-file-pdf"></i> EXPORTER PDF RECOUVREMENT
+</button>
+<p style="font-size:12px;color:#64748b;margin-top:10px;">Utilisez ce document pour renvoyer les élèves avec statut impayé</p>
+</div>
+</div>
+</div>
+</div>
+
 </div>
 </div>
 
 <!-- ============ SCRIPTS ============ -->
-<!-- 1) SCRIPT CLASSIQUE : protection + onglets TOUJOURS fonctionnels -->
 <script>
-// Protection clavier / clic droit
 document.addEventListener('contextmenu',function(e){const tag=e.target.tagName;if(tag==='INPUT'||tag==='TEXTAREA'||e.target.isContentEditable){return true;}e.preventDefault();return false;});
 document.addEventListener('keydown',function(e){if(e.key==='F12'||e.keyCode===123){e.preventDefault();return false;}if(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.keyCode===73)){e.preventDefault();return false;}if(e.ctrlKey&&e.shiftKey&&(e.key==='J'||e.keyCode===74)){e.preventDefault();return false;}if(e.ctrlKey&&(e.key==='U'||e.keyCode===85)){e.preventDefault();return false;}if(e.ctrlKey&&(e.key==='S'||e.keyCode===83)){e.preventDefault();return false;}return true;});
 if('scrollRestoration' in history)history.scrollRestoration='manual';
@@ -539,9 +646,6 @@ if('scrollRestoration' in history)history.scrollRestoration='manual';
 </script>
 
 <script type="module">
-/* ========================================================
-   1. IMPORTS FIREBASE
-   ======================================================== */
 import{initializeApp}from"firebase/app";
 import{getFirestore,collection,doc,getDoc,getDocs,onSnapshot}from"firebase/firestore";
 
@@ -556,17 +660,11 @@ const firebaseConfig={
 const app=initializeApp(firebaseConfig);
 const db=getFirestore(app);
 
-/* ========================================================
-   2. CONSTANTES
-   ======================================================== */
 const ECOLET_ID="tremplin";
 const codeFromUrl=sessionStorage.getItem('code')||'';
 const schoolNameSpan=document.getElementById('schoolNameSpan');
 if(schoolNameSpan)schoolNameSpan.textContent='TREMPLIN';
 
-/* ========================================================
-   3. ÉTAT GLOBAL
-   ======================================================== */
 let allEleves=[];
 let allProfs=[];
 let allEnseignants=[];
@@ -576,39 +674,32 @@ let unsubscribePrimaire=null,unsubscribeMaternelle=null,unsubscribeSecondaire=nu
 let darkModeActive=false;
 let authentifie=false;
 
-/* ========================================================
-   4. OUTILS
-   ======================================================== */
+const moisListe=["Septembre","Octobre","Novembre","Decembre","Janvier","Fevrier","Mars","Avril","Mai","Juin"];
+const classesSecondaire=["7ème EB","8ème EB","1ère Année","2ème Année","3ème Année","4ème Année"];
+const classesPrimaire=["1ère A","1ère B","2ème A","2ème B","3ème A","3ème B","4ème A","4ème B","5ème A","5ème B","6ème A","6ème B"];
+const classesMaternelle=["Niveau 1","Niveau 2","Niveau 3"];
+const optionsSecondaire={"7ème EB":[],"8ème EB":[],"1ère Année":["LATIN-PHILO","SCIENCES","PEDAGOGIE GENERALE","COMMERCIALE ET GESTION","ELECTRICITE","MECANIQUE GENERALE","COUPE ET COUTURE"],"2ème Année":["LATIN-PHILO","SCIENCES","PEDAGOGIE GENERALE","COMMERCIALE ET GESTION","ELECTRICITE","MECANIQUE GENERALE","COUPE ET COUTURE"],"3ème Année":["LATIN-PHILO","SCIENCES","PEDAGOGIE GENERALE","COMMERCIALE ET GESTION","ELECTRICITE","MECANIQUE GENERALE","COUPE ET COUTURE"],"4ème Année":["LATIN-PHILO","SCIENCES","PEDAGOGIE GENERALE","COMMERCIALE ET GESTION","ELECTRICITE","MECANIQUE GENERALE","COUPE ET COUTURE"]};
+
 function formatNb(n){if(isNaN(n)||n===null||n===undefined)return"0";return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g," ");}
 function escapeHtml(s){if(!s)return'';return String(s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));}
 function joursOuvresDuMois(dateRef){const annee=dateRef.getFullYear();const mois=dateRef.getMonth();const dernierJour=new Date(annee,mois+1,0).getDate();let count=0;for(let j=1;j<=dernierJour;j++){const d=new Date(annee,mois,j).getDay();if(d!==0&&d!==6)count++;}return count;}
 function prefixeMois(dateRef){const annee=dateRef.getFullYear();const mois=String(dateRef.getMonth()+1).padStart(2,'0');return annee+'-'+mois+'-';}
 
-/* ========================================================
-   5. ONGLETS — attachés immédiatement, ne dépendent PAS de Firebase
-   ======================================================== */
+/* ============ ONGLETS (attachés immédiatement) ============ */
 function activerOnglets(){
   const tousLesTabs=document.querySelectorAll('.tab');
   const tousLesContenus=document.querySelectorAll('.tab-content');
-
   tousLesTabs.forEach(function(btn){
-    // Retirer tout ancien listener en clonant ? Non, on attache simplement
     btn.addEventListener('click',function(e){
       e.preventDefault();
       e.stopPropagation();
-
-      // Cas spécial : bouton THÈME
       if(this.id==='darkModeBtn'){
         darkModeActive=!darkModeActive;
         document.body.classList.toggle('dark-mode',darkModeActive);
         const icon=this.querySelector('i');
-        if(icon){
-          icon.className=darkModeActive?'fas fa-sun':'fas fa-moon';
-        }
+        if(icon)icon.className=darkModeActive?'fas fa-sun':'fas fa-moon';
         return;
       }
-
-      // Onglets normaux
       tousLesTabs.forEach(t=>t.classList.remove('active'));
       tousLesContenus.forEach(c=>c.classList.remove('active'));
       this.classList.add('active');
@@ -616,36 +707,22 @@ function activerOnglets(){
       if(cible)cible.classList.add('active');
       document.body.scrollTop=0;
       document.documentElement.scrollTop=0;
-
-      // Chargements à la demande (uniquement si authentifié)
       if(!authentifie)return;
-      if(this.dataset.tab==='tabProfs'){
-        chargerTousProfesseurs().then(()=>chargerTousEnseignants()).then(()=>afficherProfs()).catch(err=>console.error(err));
-      }
-      if(this.dataset.tab==='tabFinances'){
-        afficherPaiements();
-      }
-      if(this.dataset.tab==='tabVue'){
-        updateStats();
-        updatePresenceBars();
-        updateInscriptionsBars();
-      }
+      if(this.dataset.tab==='tabProfs'){chargerTousProfesseurs().then(()=>chargerTousEnseignants()).then(()=>afficherProfs()).catch(err=>console.error(err));}
+      if(this.dataset.tab==='tabFinances'){afficherPaiements();}
+      if(this.dataset.tab==='tabVue'){updateStats();updatePresenceBars();updateInscriptionsBars();}
+      if(this.dataset.tab==='tabPerception'){afficherPerception();}
+      if(this.dataset.tab==='tabRecouvrement'){afficherRecouvrement();}
     });
   });
 }
 
-/* ========================================================
-   6. MODAL DÉCONNEXION — attaché immédiatement
-   ======================================================== */
+/* ============ MODAL DÉCONNEXION ============ */
 function attacherDeconnexion(){
   const btn=document.getElementById('logoutBtn');
   if(!btn)return;
-  btn.addEventListener('click',function(e){
-    e.preventDefault();
-    showLogoutModal();
-  });
+  btn.addEventListener('click',function(e){e.preventDefault();showLogoutModal();});
 }
-
 function showLogoutModal(){
   document.querySelectorAll('.modal-overlay').forEach(m=>m.remove());
   const overlay=document.createElement('div');
@@ -664,50 +741,26 @@ function showLogoutModal(){
   };
 }
 
-/* ========================================================
-   7. VÉRIFICATION D'ACCÈS — AVERTISSEMENT mais ne bloque PAS l'UI
-   ======================================================== */
+/* ============ VÉRIFICATION ACCÈS ============ */
 async function verifierAcces(){
-  if(!codeFromUrl){
-    console.warn('[ACCÈS] Aucun code en sessionStorage.');
-    authentifie=false;
-    return false;
-  }
+  if(!codeFromUrl){console.warn('[ACCÈS] Aucun code en sessionStorage.');authentifie=false;return false;}
   try{
     const ref=doc(db,"ecoles",ECOLET_ID);
     const snap=await getDoc(ref);
-    if(!snap.exists()){
-      console.warn('[ACCÈS] École "tremplin" introuvable dans Firestore.');
-      authentifie=false;
-      return false;
-    }
+    if(!snap.exists()){console.warn('[ACCÈS] École "tremplin" introuvable.');authentifie=false;return false;}
     const settingsRef=doc(db,"ecoles",ECOLET_ID,"settings","data");
     const settingsSnap=await getDoc(settingsRef);
     if(settingsSnap.exists()){
       const data=settingsSnap.data();
       const codePromoteur=data.codePromoteur||'';
-      if(codeFromUrl!==codePromoteur){
-        console.warn('[ACCÈS] Code promoteur invalide.');
-        authentifie=false;
-        return false;
-      }
-    }else{
-      console.warn('[ACCÈS] settings/data introuvable.');
-      authentifie=false;
-      return false;
-    }
+      if(codeFromUrl!==codePromoteur){console.warn('[ACCÈS] Code promoteur invalide.');authentifie=false;return false;}
+    }else{console.warn('[ACCÈS] settings/data introuvable.');authentifie=false;return false;}
     authentifie=true;
     return true;
-  }catch(e){
-    console.error('[ACCÈS] Erreur Firestore :',e);
-    authentifie=false;
-    return false;
-  }
+  }catch(e){console.error('[ACCÈS] Erreur Firestore :',e);authentifie=false;return false;}
 }
 
-/* ========================================================
-   8. CHARGEMENTS DE DONNÉES
-   ======================================================== */
+/* ============ CHARGEMENTS ============ */
 async function chargerTousEleves(){
   try{
     const[primaireSnap,materSnap,secSnap]=await Promise.all([
@@ -746,9 +799,7 @@ async function chargerTousEnseignants(){
   }catch(e){console.error('[ENS] Erreur :',e);allEnseignants=[];return[];}
 }
 
-/* ========================================================
-   9. RENDU UI
-   ======================================================== */
+/* ============ RENDU VUE ============ */
 function updateStats(){
   const actifs=allEleves.filter(e=>!e.abandon);
   const abandons=allEleves.filter(e=>e.abandon);
@@ -760,11 +811,8 @@ function updateStats(){
   const ensMaternelle=allEnseignants.filter(e=>e.actif!==false&&e.cycle==='maternelle').length;
   const totalProfs=allProfs.filter(p=>p.actif!==false).length;
   const set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v;};
-  set('statTotalEleves',total);
-  set('statFilles',filles);
-  set('statGarcons',garcons);
-  set('statExoneres',exoneres);
-  set('statAbandons',abandons.length);
+  set('statTotalEleves',total);set('statFilles',filles);set('statGarcons',garcons);
+  set('statExoneres',exoneres);set('statAbandons',abandons.length);
   set('statProfs',totalProfs+ensPrimaire+ensMaternelle);
   const secActifs=actifs.filter(e=>e.section==='secondaire');
   set('statSecondaire',secActifs.length);
@@ -828,6 +876,7 @@ function updateInscriptionsBars(){
   set('inscritSemainePct',pctSemaine+'%');width('inscritSemaineBar',pctSemaine+'%');set('inscritSemaineNb',inscritSemaine);
 }
 
+/* ============ RENDU PROFS ============ */
 function afficherProfs(){
   const tbody=document.getElementById('profsTableBody');
   if(!tbody)return;
@@ -861,6 +910,7 @@ function afficherProfs(){
   tbody.innerHTML=html;
 }
 
+/* ============ RENDU FINANCES ============ */
 function afficherPaiements(){
   const moisEl=document.getElementById('filterMois');
   const sectionEl=document.getElementById('filterSectionPaiement');
@@ -925,12 +975,325 @@ function updateClasseFilter(){
   Array.from(classes).sort().forEach(c=>{const opt=document.createElement('option');opt.value=c;opt.textContent=c;select.appendChild(opt);});
 }
 
-/* ========================================================
-   10. TEMPS RÉEL
-   ======================================================== */
+/* ============ RENDU PERCEPTION ============ */
+function updatePerceptionClasses(){
+  const sectionEl=document.getElementById('perceptionSection');
+  const select=document.getElementById('perceptionClasse');
+  if(!sectionEl||!select)return;
+  const section=sectionEl.value;
+  const currentValue=select.value;
+  let classes=[];
+  if(section==='toutes'){classes=[...classesMaternelle,...classesPrimaire,...classesSecondaire];}
+  else if(section==='maternelle'){classes=classesMaternelle;}
+  else if(section==='primaire'){classes=classesPrimaire;}
+  else if(section==='secondaire'){classes=classesSecondaire;}
+  select.innerHTML='<option value="">TOUTES</option>';
+  classes.sort().forEach(c=>{const opt=document.createElement('option');opt.value=c;opt.textContent=c;if(c===currentValue)opt.selected=true;select.appendChild(opt);});
+  updatePerceptionOptions();
+}
+
+function updatePerceptionOptions(){
+  const sectionEl=document.getElementById('perceptionSection');
+  const classeEl=document.getElementById('perceptionClasse');
+  const select=document.getElementById('perceptionOption');
+  if(!sectionEl||!classeEl||!select)return;
+  const section=sectionEl.value;
+  const classe=classeEl.value;
+  const currentValue=select.value;
+  select.innerHTML='<option value="">TOUTES</option>';
+  if(section==='secondaire'&&classe&&optionsSecondaire[classe]){
+    optionsSecondaire[classe].forEach(o=>{const opt=document.createElement('option');opt.value=o;opt.textContent=o;if(o===currentValue)opt.selected=true;select.appendChild(opt);});
+  }else if(section==='secondaire'&&!classe){
+    const optsUniques=new Set();
+    Object.values(optionsSecondaire).forEach(arr=>{arr.forEach(o=>optsUniques.add(o));});
+    [...optsUniques].sort().forEach(o=>{const opt=document.createElement('option');opt.value=o;opt.textContent=o;if(o===currentValue)opt.selected=true;select.appendChild(opt);});
+  }
+}
+
+function afficherPerception(){
+  const sectionEl=document.getElementById('perceptionSection');
+  const classeEl=document.getElementById('perceptionClasse');
+  const optionEl=document.getElementById('perceptionOption');
+  const container=document.getElementById('perceptionTableContainer');
+  if(!sectionEl||!classeEl||!optionEl||!container)return;
+  const section=sectionEl.value;
+  const classe=classeEl.value;
+  const option=optionEl.value;
+  let eleves=allEleves.filter(e=>!e.abandon);
+  if(section!=='toutes'){eleves=eleves.filter(e=>e.section===section);}
+  if(classe){eleves=eleves.filter(e=>e.classe===classe);}
+  if(option){eleves=eleves.filter(e=>e.option===option);}
+  eleves.sort((a,b)=>(a.nom||'').localeCompare(b.nom||''));
+  const dateEl=document.getElementById('perceptionDate');
+  if(dateEl)dateEl.textContent=new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'});
+  if(eleves.length===0){container.innerHTML='<div style="text-align:center;padding:30px;color:#9ca3af;"><i class="fas fa-users" style="font-size:32px;display:block;margin-bottom:8px;color:#e5e7eb;"></i><p>Aucun élève trouvé</p></div>';return;}
+  let html='<table><thead><tr><th>N°</th><th>NOM ET POST NOM</th><th>CLASSE</th><th>OPTION</th>';
+  moisListe.forEach(m=>{html+=`<th>${m.substring(0,3)}</th>`;});
+  html+='</tr></thead><tbody>';
+  eleves.forEach((e,index)=>{
+    const nomComplet=(e.nom+' '+(e.postnom||'')+' '+(e.prenom||'')).trim().toUpperCase();
+    html+='<tr><td>'+(index+1)+'</td><td class="nom">'+escapeHtml(nomComplet)+'</td><td>'+escapeHtml(e.classe||'')+'</td><td>'+escapeHtml(e.option||'-')+'</td>';
+    moisListe.forEach(m=>{
+      const paiement=e.paiements?.[m]?.montant||0;
+      const estBlanc=(e.moisBlancs||[]).includes(m);
+      const affichage=estBlanc?'0FC':paiement>0?formatNb(paiement)+'FC':'0FC';
+      const couleur=estBlanc?'#64748b':paiement>0?'#059669':'#dc2626';
+      html+=`<td style="font-weight:600;color:${couleur};">${affichage}</td>`;
+    });
+    html+='</tr>';
+  });
+  html+='</tbody></table>';
+  container.innerHTML=html;
+}
+
+function genererExcelPerception(){
+  const sectionEl=document.getElementById('perceptionSection');
+  const classeEl=document.getElementById('perceptionClasse');
+  const optionEl=document.getElementById('perceptionOption');
+  if(!sectionEl||!classeEl||!optionEl)return;
+  const section=sectionEl.value||'toutes';
+  const classe=classeEl.value||'TOUTES';
+  const option=optionEl.value||'TOUTES';
+  let sectionLabel=section==='maternelle'?'MATERNELLE':section==='primaire'?'PRIMAIRE':section==='secondaire'?'SECONDAIRE':'TOUTES SECTIONS';
+  let eleves=allEleves.filter(e=>!e.abandon);
+  if(section!=='toutes'){eleves=eleves.filter(e=>e.section===section);}
+  if(classe!=='TOUTES'&&classe){eleves=eleves.filter(e=>e.classe===classe);}
+  if(option!=='TOUTES'&&option){eleves=eleves.filter(e=>e.option===option);}
+  eleves.sort((a,b)=>(a.nom||'').localeCompare(b.nom||''));
+  if(eleves.length===0){alert("Aucun élève à exporter");return;}
+  const XLSX=window.XLSX;
+  const data=[];
+  data.push(["COMPLEXE SCOLAIRE LE TREMPLIN","","","","","","","","","","","",""]);
+  data.push(["MUSOSHI-SODIMICO","","","","","","","","","","","",""]);
+  const classeDisplay=classe==='TOUTES'?'TOUTES CLASSES':classe;
+  const optionDisplay=option==='TOUTES'?'':` - ${option}`;
+  data.push([`CLASSE: ${classeDisplay}${optionDisplay} - ${sectionLabel}`,"","","","","","","","","","","",""]);
+  data.push(["","","","","","","","","","","","",""]);
+  data.push(["LISTE DE PERCEPTION DES FRAIS ADMINISTRATIFS","","","","","","","","","","","",""]);
+  data.push(["N°","NOM ET POST NOM","","","Premier Trimestre","","","Deuxième Trimestre","","","Troisième Trimestre","",""]);
+  data.push(["","","","SEP","OCT","NOV","DEC","JANV","FEV","MARS","AVR","MAI","JUIN"]);
+  eleves.forEach((e,index)=>{
+    const nomComplet=(e.nom+' '+(e.postnom||'')+' '+(e.prenom||'')).trim().toUpperCase();
+    const paiements=e.paiements||{};
+    const moisBlancs=e.moisBlancs||[];
+    const moisData=moisListe.map(m=>{
+      if(moisBlancs.includes(m)){return "0FC";}
+      const paiement=paiements[m]?.montant||0;
+      if(paiement===0){return "0FC";}
+      return `${paiement.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}FC`;
+    });
+    data.push([(index+1).toString(),nomComplet,"",moisData[0],moisData[1],moisData[2],moisData[3],moisData[4],moisData[5],moisData[6],moisData[7],moisData[8],moisData[9]]);
+  });
+  const wb=XLSX.utils.book_new();
+  const ws=XLSX.utils.aoa_to_sheet(data);
+  ws['!cols']=[{wch:6},{wch:30},{wch:5},{wch:12},{wch:12},{wch:12},{wch:12},{wch:12},{wch:12},{wch:12},{wch:12},{wch:12},{wch:12}];
+  ws['!merges']=[{s:{r:0,c:0},e:{r:0,c:12}},{s:{r:1,c:0},e:{r:1,c:12}},{s:{r:2,c:0},e:{r:2,c:12}},{s:{r:4,c:0},e:{r:4,c:12}},{s:{r:5,c:3},e:{r:5,c:5}},{s:{r:5,c:6},e:{r:5,c:8}},{s:{r:5,c:9},e:{r:5,c:11}}];
+  const sheetName=classeDisplay.replace(/\s/g,'_').substring(0,31)||'Feuille1';
+  XLSX.utils.book_append_sheet(wb,ws,sheetName);
+  const nomFichier=`Fiche_Perception_${sectionLabel}.xlsx`;
+  XLSX.writeFile(wb,nomFichier);
+}
+
+function genererPDFPerception(){
+  const sectionEl=document.getElementById('perceptionSection');
+  const classeEl=document.getElementById('perceptionClasse');
+  const optionEl=document.getElementById('perceptionOption');
+  if(!sectionEl||!classeEl||!optionEl)return;
+  const section=sectionEl.value||'toutes';
+  const classe=classeEl.value||'TOUTES';
+  const option=optionEl.value||'TOUTES';
+  let sectionLabel=section==='maternelle'?'MATERNELLE':section==='primaire'?'PRIMAIRE':section==='secondaire'?'SECONDAIRE':'TOUTES SECTIONS';
+  let eleves=allEleves.filter(e=>!e.abandon);
+  if(section!=='toutes'){eleves=eleves.filter(e=>e.section===section);}
+  if(classe!=='TOUTES'&&classe){eleves=eleves.filter(e=>e.classe===classe);}
+  if(option!=='TOUTES'&&option){eleves=eleves.filter(e=>e.option===option);}
+  eleves.sort((a,b)=>(a.nom||'').localeCompare(b.nom||''));
+  if(eleves.length===0){alert("Aucun élève à exporter");return;}
+  const{jsPDF}=window.jspdf;
+  const doc=new jsPDF('landscape','mm','a4');
+  const pw=doc.internal.pageSize.getWidth();
+  doc.setFillColor(26,26,46);doc.rect(0,0,pw,32,'F');
+  doc.setTextColor(212,175,55);doc.setFontSize(16);doc.setFont('helvetica','bold');
+  doc.text('COMPLEXE SCOLAIRE TREMPLIN',pw/2,12,{align:'center'});
+  doc.setTextColor(255,255,255);doc.setFontSize(11);doc.setFont('helvetica','normal');
+  doc.text('LISTE DE PERCEPTION - '+sectionLabel,pw/2,21,{align:'center'});
+  doc.setFontSize(9);doc.text('Année scolaire 2026-2027 · '+new Date().toLocaleDateString('fr-FR'),pw/2,28,{align:'center'});
+  const body=eleves.map((e,index)=>{
+    const nomComplet=(e.nom+' '+(e.postnom||'')+' '+(e.prenom||'')).trim().toUpperCase();
+    const paiements=e.paiements||{};
+    const moisBlancs=e.moisBlancs||[];
+    const row=[(index+1).toString(),nomComplet];
+    moisListe.forEach(m=>{
+      if(moisBlancs.includes(m)){row.push("0FC");}
+      else{const paiement=paiements[m]?.montant||0;row.push(paiement>0?formatNb(paiement)+'FC':'0FC');}
+    });
+    return row;
+  });
+  const headers=['N°','NOM'];
+  moisListe.forEach(m=>{headers.push(m.substring(0,3));});
+  doc.autoTable({head:[headers],body:body,startY:38,styles:{fontSize:7,cellPadding:2},headStyles:{fillColor:[26,26,46],textColor:[255,255,255],fontSize:8,fontStyle:'bold'},alternateRowStyles:{fillColor:[248,246,242]},columnStyles:{0:{cellWidth:10},1:{cellWidth:45}},margin:{left:10,right:10}});
+  doc.save(`Perception_${sectionLabel}_${new Date().toISOString().split('T')[0]}.pdf`);
+}
+
+/* ============ RENDU RECOUVREMENT ============ */
+function updateRecoverClasses(){
+  const sectionEl=document.getElementById('recoverSection');
+  const select=document.getElementById('recoverClasse');
+  if(!sectionEl||!select)return;
+  const section=sectionEl.value;
+  const currentValue=select.value;
+  let classes=[];
+  if(section==='toutes'){classes=[...classesMaternelle,...classesPrimaire,...classesSecondaire];}
+  else if(section==='maternelle'){classes=classesMaternelle;}
+  else if(section==='primaire'){classes=classesPrimaire;}
+  else if(section==='secondaire'){classes=classesSecondaire;}
+  select.innerHTML='<option value="">TOUTES</option>';
+  classes.sort().forEach(c=>{const opt=document.createElement('option');opt.value=c;opt.textContent=c;if(c===currentValue)opt.selected=true;select.appendChild(opt);});
+  updateRecoverOptions();
+}
+
+function updateRecoverOptions(){
+  const sectionEl=document.getElementById('recoverSection');
+  const classeEl=document.getElementById('recoverClasse');
+  const select=document.getElementById('recoverOption');
+  if(!sectionEl||!classeEl||!select)return;
+  const section=sectionEl.value;
+  const classe=classeEl.value;
+  const currentValue=select.value;
+  select.innerHTML='<option value="">TOUTES</option>';
+  if(section==='secondaire'&&classe&&optionsSecondaire[classe]){
+    optionsSecondaire[classe].forEach(o=>{const opt=document.createElement('option');opt.value=o;opt.textContent=o;if(o===currentValue)opt.selected=true;select.appendChild(opt);});
+  }else if(section==='secondaire'&&!classe){
+    const optsUniques=new Set();
+    Object.values(optionsSecondaire).forEach(arr=>{arr.forEach(o=>optsUniques.add(o));});
+    [...optsUniques].sort().forEach(o=>{const opt=document.createElement('option');opt.value=o;opt.textContent=o;if(o===currentValue)opt.selected=true;select.appendChild(opt);});
+  }
+}
+
+function remplirMois(selectId,selectedValue){
+  const select=document.getElementById(selectId);
+  if(!select)return;
+  let html='';
+  moisListe.forEach(m=>{const s=m===selectedValue?'selected':'';html+=`<option value="${m}" ${s}>${m}</option>`;});
+  select.innerHTML=html;
+}
+
+function afficherRecouvrement(){
+  const moisEl=document.getElementById('recoverMois');
+  const statutEl=document.getElementById('recoverStatut');
+  const sectionEl=document.getElementById('recoverSection');
+  const classeEl=document.getElementById('recoverClasse');
+  const optionEl=document.getElementById('recoverOption');
+  const searchEl=document.getElementById('recoverSearch');
+  if(!moisEl||!statutEl||!sectionEl||!classeEl||!optionEl||!searchEl)return;
+  const mois=moisEl.value;
+  const statut=statutEl.value;
+  const section=sectionEl.value;
+  const classe=classeEl.value;
+  const option=optionEl.value;
+  const search=searchEl.value.trim().toLowerCase();
+  let eleves=allEleves.filter(e=>!e.abandon);
+  if(section!=='toutes'){eleves=eleves.filter(e=>e.section===section);}
+  if(classe){eleves=eleves.filter(e=>e.classe===classe);}
+  if(option){eleves=eleves.filter(e=>e.option===option);}
+  if(search){eleves=eleves.filter(e=>{const nom=(e.nom+' '+(e.postnom||'')+' '+(e.prenom||'')).toLowerCase();return nom.includes(search);});}
+  const elevesFiltres=eleves.filter(e=>{
+    const paiement=e.paiements?.[mois]?.montant||0;
+    const minerval=e.exonere?0:(e.minerval||45000);
+    const estPaye=paiement>=minerval;
+    const estPartiel=paiement>0&&paiement<minerval;
+    if(statut==='paye')return estPaye;
+    if(statut==='non_paye')return !estPaye&&paiement===0;
+    if(statut==='partiel')return estPartiel;
+    return true;
+  });
+  const set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v;};
+  if(elevesFiltres.length===0){set('recoverTotal','0');set('recoverPaye','0');set('recoverNonPaye','0');set('recoverPartiel','0');set('recoverTaux','0%');return;}
+  const total=elevesFiltres.length;
+  const payes=elevesFiltres.filter(e=>{const paiement=e.paiements?.[mois]?.montant||0;const minerval=e.exonere?0:(e.minerval||45000);return paiement>=minerval;}).length;
+  const nonPayes=elevesFiltres.filter(e=>{const paiement=e.paiements?.[mois]?.montant||0;return paiement===0;}).length;
+  const partiels=elevesFiltres.filter(e=>{const paiement=e.paiements?.[mois]?.montant||0;const minerval=e.exonere?0:(e.minerval||45000);return paiement>0&&paiement<minerval;}).length;
+  const taux=total>0?Math.round((payes/total)*100):0;
+  set('recoverTotal',total);
+  set('recoverPaye',payes);
+  set('recoverNonPaye',nonPayes);
+  set('recoverPartiel',partiels);
+  set('recoverTaux',taux+'%');
+  const dateEl=document.getElementById('recoverDate');
+  if(dateEl)dateEl.textContent=mois+' '+new Date().getFullYear();
+}
+
+function genererPDFRecouvrement(){
+  const moisEl=document.getElementById('recoverMois');
+  const statutEl=document.getElementById('recoverStatut');
+  const sectionEl=document.getElementById('recoverSection');
+  const classeEl=document.getElementById('recoverClasse');
+  const optionEl=document.getElementById('recoverOption');
+  if(!moisEl||!statutEl||!sectionEl||!classeEl||!optionEl)return;
+  const mois=moisEl.value;
+  const statut=statutEl.value;
+  const section=sectionEl.value;
+  const classe=classeEl.value;
+  const option=optionEl.value;
+  let eleves=allEleves.filter(e=>!e.abandon);
+  if(section!=='toutes'){eleves=eleves.filter(e=>e.section===section);}
+  if(classe){eleves=eleves.filter(e=>e.classe===classe);}
+  if(option){eleves=eleves.filter(e=>e.option===option);}
+  let colorSection='#3b82f6';
+  let sectionLabel=section==='toutes'?'TOUTES SECTIONS':section.toUpperCase();
+  if(section==='maternelle'){colorSection='#10b981';}
+  else if(section==='primaire'){colorSection='#3b82f6';}
+  else if(section==='secondaire'){colorSection='#8b5cf6';}
+  const elevesFiltres=eleves.filter(e=>{
+    const paiement=e.paiements?.[mois]?.montant||0;
+    const minerval=e.exonere?0:(e.minerval||45000);
+    const estPaye=paiement>=minerval;
+    const estPartiel=paiement>0&&paiement<minerval;
+    if(statut==='paye')return estPaye;
+    if(statut==='non_paye')return !estPaye&&paiement===0;
+    if(statut==='partiel')return estPartiel;
+    return true;
+  });
+  if(elevesFiltres.length===0){alert("Aucun élève à exporter");return;}
+  const{jsPDF}=window.jspdf;
+  const doc=new jsPDF('landscape','mm','a4');
+  const pw=doc.internal.pageSize.getWidth();
+  doc.setFillColor(248,246,242);doc.rect(0,0,pw,40,'F');
+  doc.setDrawColor(212,175,55);doc.setLineWidth(2);doc.line(0,40,pw,40);
+  doc.setFontSize(16);doc.setFont('helvetica','bold');doc.setTextColor(26,26,46);
+  doc.text('COMPLEXE SCOLAIRE LE TREMPLIN',pw/2,12,{align:'center'});
+  doc.setFontSize(10);doc.setFont('helvetica','normal');doc.setTextColor(80,80,80);
+  doc.text('MUSOSHI-SODIMICO',pw/2,20,{align:'center'});
+  doc.setFontSize(12);doc.setFont('helvetica','bold');doc.setTextColor(212,175,55);
+  doc.text(`RECOUVREMENT - ${mois.toUpperCase()} ${new Date().getFullYear()}`,pw/2,30,{align:'center'});
+  doc.setFontSize(9);doc.setFont('helvetica','normal');doc.setTextColor(60,60,60);
+  const statutLabel=statut==='paye'?'PAYÉ':statut==='non_paye'?'NON PAYÉ':statut==='partiel'?'PARTIEL':'TOUS';
+  const classeLabel=classe||'TOUTES CLASSES';
+  const optionLabel=option||'TOUTES OPTIONS';
+  doc.text(`Section: ${sectionLabel} | Classe: ${classeLabel} | Option: ${optionLabel} | Statut: ${statutLabel}`,15,48);
+  const body=elevesFiltres.map((e,index)=>{
+    const paiement=e.paiements?.[mois]?.montant||0;
+    const minerval=e.exonere?0:(e.minerval||45000);
+    const estPaye=paiement>=minerval;
+    const estPartiel=paiement>0&&paiement<minerval;
+    const reste=Math.max(0,minerval-paiement);
+    const nomComplet=(e.nom+' '+(e.postnom||'')+' '+(e.prenom||'')).trim().toUpperCase();
+    let statutTexte='NON PAYÉ';
+    if(estPaye){statutTexte='PAYÉ';}else if(estPartiel){statutTexte='PARTIEL';}
+    return[(index+1).toString(),nomComplet,e.classe||'-',e.option||'-',`${formatNb(minerval)} FC`,`${formatNb(paiement)} FC`,statutTexte,`${formatNb(reste)} FC`];
+  });
+  doc.autoTable({startY:55,head:[['N°','ÉLÈVE','CLASSE','OPTION','MINERVAL','PAYÉ','STATUT','RESTE']],body:body,styles:{fontSize:9,cellPadding:3,textColor:[30,30,30],lineColor:[200,200,200],lineWidth:0.1},headStyles:{fillColor:[248,246,242],textColor:[26,26,46],fontSize:9,fontStyle:'bold',halign:'center',lineColor:[200,200,200],lineWidth:0.1},alternateRowStyles:{fillColor:[250,249,247]},columnStyles:{0:{cellWidth:10,halign:'center'},1:{cellWidth:55,fontStyle:'bold'},2:{cellWidth:20,halign:'center'},3:{cellWidth:22,halign:'center'},4:{cellWidth:22,halign:'right'},5:{cellWidth:22,halign:'right'},6:{cellWidth:20,halign:'center'},7:{cellWidth:22,halign:'right'}},margin:{left:10,right:10},didDrawPage:function(data){const pageNum=doc.internal.getCurrentPageInfo().pageNumber;const totalPages=doc.internal.getNumberOfPages();doc.setFontSize(8);doc.setTextColor(150,150,150);doc.text(`Page ${pageNum}/${totalPages}`,pw/2,doc.internal.pageSize.height-10,{align:'center'});doc.text(new Date().toLocaleDateString('fr-FR'),pw-15,doc.internal.pageSize.height-10,{align:'right'});}});
+  const finalY=doc.lastAutoTable.finalY+10;
+  doc.setFontSize(8);doc.setTextColor(150,150,150);
+  doc.text('Document généré par l\'Espace Promoteur',15,finalY);
+  doc.text('C.S. LE TREMPLIN - Année scolaire 2026-2027',pw-15,finalY,{align:'right'});
+  doc.save(`Recouvrement_${mois}_${new Date().toISOString().split('T')[0]}.pdf`);
+}
+
+/* ============ TEMPS RÉEL ============ */
 function demarrerTempsReel(){
   const refresh=()=>{
-    chargerTousEleves().then(()=>{updateStats();updatePresenceBars();updateInscriptionsBars();afficherPaiements();}).catch(e=>console.error(e));
+    chargerTousEleves().then(()=>{updateStats();updatePresenceBars();updateInscriptionsBars();afficherPaiements();afficherPerception();afficherRecouvrement();}).catch(e=>console.error(e));
   };
   try{
     unsubscribePrimaire=onSnapshot(collection(db,"ecoles",ECOLET_ID,"prima_eleves"),refresh,err=>console.warn('snapshot primaire:',err.message));
@@ -942,9 +1305,7 @@ function demarrerTempsReel(){
   }catch(e){console.error('Erreur démarrage temps réel:',e);}
 }
 
-/* ========================================================
-   11. FILTRES ET BOUTONS PDF — attachés au chargement
-   ======================================================== */
+/* ============ ATTACHEMENT DES FILTRES ET BOUTONS ============ */
 function attacherFiltresEtPDF(){
   const on=(id,evt,fn)=>{const el=document.getElementById(id);if(el)el.addEventListener(evt,fn);};
   on('searchProf','input',afficherProfs);
@@ -952,22 +1313,31 @@ function attacherFiltresEtPDF(){
   on('filterMois','change',()=>{afficherPaiements();updateClasseFilter();});
   on('filterSectionPaiement','change',()=>{updateClasseFilter();afficherPaiements();});
   on('filterClassePaiement','change',afficherPaiements);
+  on('perceptionSection','change',()=>{updatePerceptionClasses();afficherPerception();});
+  on('perceptionClasse','change',()=>{updatePerceptionOptions();afficherPerception();});
+  on('perceptionOption','change',afficherPerception);
+  on('perceptionExcel','click',genererExcelPerception);
+  on('perceptionPDF','click',genererPDFPerception);
+  on('recoverMois','change',afficherRecouvrement);
+  on('recoverStatut','change',afficherRecouvrement);
+  on('recoverSection','change',()=>{updateRecoverClasses();afficherRecouvrement();});
+  on('recoverClasse','change',()=>{updateRecoverOptions();afficherRecouvrement();});
+  on('recoverOption','change',afficherRecouvrement);
+  on('recoverSearch','input',afficherRecouvrement);
+  on('recoverPDF','click',genererPDFRecouvrement);
 
   on('btnPDFPaiements','click',function(){
     try{
       const{jsPDF}=window.jspdf;
       const doc=new jsPDF('landscape','mm','a4');
-      const pw=doc.internal.pageSize.getWidth();
       const nomEcole=document.querySelector('.school-name')?.textContent||'COMPLEXE SCOLAIRE TREMPLIN';
-      doc.setFillColor(26,26,46);doc.rect(0,0,pw,32,'F');
-      doc.setTextColor(212,175,55);doc.setFontSize(16);doc.setFont('helvetica','bold');doc.text(nomEcole,pw/2,12,{align:'center'});
-      doc.setTextColor(255,255,255);doc.setFontSize(11);doc.setFont('helvetica','normal');doc.text('SITUATION FINANCIÈRE - '+document.getElementById('filterMois').value.toUpperCase(),pw/2,21,{align:'center'});
-      doc.setFontSize(9);doc.text('Année scolaire 2026-2027',pw/2,28,{align:'center'});
+      doc.setFillColor(26,26,46);doc.rect(0,0,doc.internal.pageSize.getWidth(),32,'F');
+      doc.setTextColor(212,175,55);doc.setFontSize(16);doc.setFont('helvetica','bold');doc.text(nomEcole,doc.internal.pageSize.getWidth()/2,12,{align:'center'});
+      doc.setTextColor(255,255,255);doc.setFontSize(11);doc.setFont('helvetica','normal');doc.text('SITUATION FINANCIÈRE - '+document.getElementById('filterMois').value.toUpperCase(),doc.internal.pageSize.getWidth()/2,21,{align:'center'});
+      doc.setFontSize(9);doc.text('Année scolaire 2026-2027',doc.internal.pageSize.getWidth()/2,28,{align:'center'});
       const rows=[];
       document.querySelectorAll('#paiementsTableBody tr').forEach(row=>{const cells=row.querySelectorAll('td');if(cells.length===6){rows.push([cells[0]?.textContent||'',cells[1]?.textContent||'',cells[2]?.textContent||'',cells[3]?.textContent||'',cells[4]?.textContent||'',cells[5]?.textContent||'']);}});
-      doc.autoTable({head:[['CLASSE','ÉLÈVES','ATTENDU','PAYÉ','TAUX','RESTE']],body:rows,startY:38,styles:{fontSize:8,cellPadding:3,textColor:[30,30,30],lineColor:[200,200,200],lineWidth:0.1},headStyles:{fillColor:[26,26,46],textColor:[255,255,255],fontSize:9,fontStyle:'bold',halign:'center',lineColor:[212,175,55],lineWidth:0.3},alternateRowStyles:{fillColor:[248,246,242]},columnStyles:{0:{cellWidth:40,fontStyle:'bold'},1:{cellWidth:20,halign:'center'},2:{cellWidth:35,halign:'right'},3:{cellWidth:35,halign:'right'},4:{cellWidth:20,halign:'center'},5:{cellWidth:35,halign:'right'}},margin:{left:10,right:10},didDrawPage:function(data){const pageNum=doc.internal.getCurrentPageInfo().pageNumber;const totalPages=doc.internal.getNumberOfPages();doc.setFontSize(8);doc.setTextColor(150,150,150);doc.text('Page '+pageNum+'/'+totalPages,pw/2,doc.internal.pageSize.height-10,{align:'center'});doc.text(new Date().toLocaleDateString('fr-FR'),pw-15,doc.internal.pageSize.height-10,{align:'right'});}});
-      const finalY=doc.lastAutoTable.finalY+10;
-      doc.setFontSize(8);doc.setTextColor(150,150,150);doc.text('Document généré par l\'Espace Promoteur',15,finalY);doc.text('C.S. Tremplin - Année scolaire 2026-2027',pw-15,finalY,{align:'right'});
+      doc.autoTable({head:[['CLASSE','ÉLÈVES','ATTENDU','PAYÉ','TAUX','RESTE']],body:rows,startY:38,styles:{fontSize:8,cellPadding:3},headStyles:{fillColor:[26,26,46],textColor:[255,255,255],fontSize:9,fontStyle:'bold'},alternateRowStyles:{fillColor:[248,246,242]}});
       doc.save('Situation_Financiere_'+new Date().toISOString().split('T')[0]+'.pdf');
     }catch(e){console.error('PDF finances:',e);alert('Erreur lors de la génération du PDF.');}
   });
@@ -976,29 +1346,20 @@ function attacherFiltresEtPDF(){
     try{
       const{jsPDF}=window.jspdf;
       const doc=new jsPDF('landscape','mm','a4');
-      const pw=doc.internal.pageSize.getWidth();
-      const ph=doc.internal.pageSize.getHeight();
-      const maintenant=new Date();
-      const moisLabel=maintenant.toLocaleDateString('fr-FR',{month:'long',year:'numeric'});
-      const totalJoursOuvres=joursOuvresDuMois(maintenant);
-      doc.setFillColor(26,26,46);doc.rect(0,0,pw,45,'F');
-      doc.setDrawColor(212,175,55);doc.setLineWidth(1.5);doc.line(0,45,pw,45);
-      doc.setTextColor(255,255,255);doc.setFontSize(18);doc.setFont('helvetica','bold');doc.text('COMPLEXE SCOLAIRE',pw/2,15,{align:'center'});
-      doc.setTextColor(212,175,55);doc.setFontSize(14);doc.text('TREMPLIN',pw/2,23,{align:'center'});
-      doc.setTextColor(255,255,255);doc.setFontSize(10);doc.setFont('helvetica','normal');doc.text('Année scolaire 2026-2027',pw/2,30,{align:'center'});
-      doc.setFontSize(11);doc.setFont('helvetica','bold');doc.setTextColor(212,175,55);doc.text('RAPPORT DE PRÉSENCE DU PERSONNEL ENSEIGNANT',pw/2,38,{align:'center'});
-      doc.setFontSize(9);doc.setFont('helvetica','normal');doc.setTextColor(60,60,60);doc.text('Période : '+moisLabel.charAt(0).toUpperCase()+moisLabel.slice(1)+'  |  Jours ouvrés : '+totalJoursOuvres+'  |  Généré le : '+maintenant.toLocaleDateString('fr-FR')+' à '+maintenant.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}),15,53);
+      const nomEcole=document.querySelector('.school-name')?.textContent||'COMPLEXE SCOLAIRE TREMPLIN';
+      doc.setFillColor(26,26,46);doc.rect(0,0,doc.internal.pageSize.getWidth(),32,'F');
+      doc.setTextColor(212,175,55);doc.setFontSize(16);doc.setFont('helvetica','bold');doc.text(nomEcole,doc.internal.pageSize.getWidth()/2,12,{align:'center'});
+      doc.setTextColor(255,255,255);doc.setFontSize(11);doc.setFont('helvetica','normal');doc.text('PRÉSENCES ENSEIGNANT/PROFS',doc.internal.pageSize.getWidth()/2,21,{align:'center'});
+      doc.setFontSize(9);doc.text('Année scolaire 2026-2027',doc.internal.pageSize.getWidth()/2,28,{align:'center'});
       const rows=[];
       document.querySelectorAll('#profsTableBody tr').forEach(row=>{const cells=row.querySelectorAll('td');if(cells.length===7){rows.push([cells[0]?.textContent||'',cells[1]?.textContent||'',cells[2]?.textContent||'',cells[3]?.textContent||'',cells[4]?.textContent||'',cells[5]?.textContent||'',cells[6]?.textContent||'']);}});
-      doc.autoTable({head:[['N°','NOM ET PRÉNOM','SEXE','TYPE','STATUT DU JOUR','ARRIVÉE','JOURS PRESTÉS']],body:rows,startY:60,styles:{fontSize:9,cellPadding:3.5,textColor:[30,30,30],lineColor:[220,220,220],lineWidth:0.15,valign:'middle'},headStyles:{fillColor:[26,26,46],textColor:[212,175,55],fontSize:9.5,fontStyle:'bold',halign:'center',valign:'middle',lineColor:[212,175,55],lineWidth:0.3,cellPadding:4},alternateRowStyles:{fillColor:[250,249,247]},columnStyles:{0:{cellWidth:12,halign:'center',fontStyle:'bold'},1:{cellWidth:60,fontStyle:'bold'},2:{cellWidth:15,halign:'center'},3:{cellWidth:42,halign:'center'},4:{cellWidth:32,halign:'center',fontStyle:'bold'},5:{cellWidth:22,halign:'center'},6:{cellWidth:28,halign:'center',fontStyle:'bold'}},margin:{left:10,right:10},didParseCell:function(data){if(data.section==='body'&&data.column.index===4){const txt=data.cell.raw||'';if(txt.indexOf('PRÉSENT')!==-1){data.cell.styles.textColor=[5,150,105];}else if(txt.indexOf('RETARD')!==-1){data.cell.styles.textColor=[217,119,6];}else if(txt.indexOf('ABSENT')!==-1){data.cell.styles.textColor=[220,38,38];}}if(data.section==='body'&&data.column.index===3){const t=data.cell.raw||'';if(t.indexOf('PROF')!==-1){data.cell.styles.textColor=[124,58,237];}else{data.cell.styles.textColor=[37,99,235];}}},didDrawPage:function(data){const pageNum=doc.internal.getCurrentPageInfo().pageNumber;const totalPages=doc.internal.getNumberOfPages();doc.setFillColor(248,246,242);doc.rect(0,ph-15,pw,15,'F');doc.setDrawColor(212,175,55);doc.setLineWidth(0.5);doc.line(0,ph-15,pw,ph-15);doc.setFontSize(8);doc.setTextColor(100,100,100);doc.setFont('helvetica','normal');doc.text('COMPLEXE SCOLAIRE TREMPLIN  |  Rapport de présence - '+moisLabel,pw/2,ph-7,{align:'center'});doc.text('Page '+pageNum+' / '+totalPages,pw-15,ph-7,{align:'right'});doc.text('Document confidentiel',15,ph-7);}});
-      doc.save('Rapport_Presence_'+maintenant.toISOString().split('T')[0]+'.pdf');
+      doc.autoTable({head:[['N°','NOM','SEXE','TYPE','STATUT','ARRIVÉE','JOURS']],body:rows,startY:38,styles:{fontSize:8,cellPadding:3},headStyles:{fillColor:[26,26,46],textColor:[255,255,255],fontSize:9,fontStyle:'bold'},alternateRowStyles:{fillColor:[248,246,242]}});
+      doc.save('Liste_Presences_'+new Date().toISOString().split('T')[0]+'.pdf');
     }catch(e){console.error('PDF profs:',e);alert('Erreur lors de la génération du PDF.');}
   });
 }
 
-/* ========================================================
-   12. NAVIGATION CLAVIER DES ONGLETS
-   ======================================================== */
+/* ============ NAVIGATION CLAVIER ============ */
 function attacherNavClavier(){
   const tabsContainer=document.querySelector('.tabs-container');
   if(!tabsContainer)return;
@@ -1020,42 +1381,43 @@ function attacherNavClavier(){
   tabsContainer.addEventListener('click',function(){this.focus();});
 }
 
-/* ========================================================
-   13. INITIALISATION
-   ======================================================== */
+/* ============ INITIALISATION ============ */
 async function initApp(){
-  // ÉTAPE A — Attacher TOUT de suite les boutons pour qu'ils fonctionnent même sans Firebase
   activerOnglets();
   attacherDeconnexion();
   attacherFiltresEtPDF();
   attacherNavClavier();
 
-  // ÉTAPE B — Vérifier l'accès (avertit mais ne bloque PAS)
   const ok=await verifierAcces();
-  if(!ok){
-    console.warn('[INIT] Accès Firestore non validé. Interface utilisable mais données non chargées.');
-    // On laisse quand même l'utilisateur cliquer sur les onglets, PDF, thème, déconnexion
-    return;
-  }
+  if(!ok){console.warn('[INIT] Accès Firestore non validé. Interface utilisable mais données non chargées.');return;}
 
-  // ÉTAPE C — Charger les données
   await chargerTousEleves();
   await chargerTousProfesseurs();
   await chargerTousEnseignants();
 
-  // ÉTAPE D — Afficher
   updateStats();
   updatePresenceBars();
   updateInscriptionsBars();
   afficherPaiements();
   afficherProfs();
   updateClasseFilter();
+  updatePerceptionClasses();
+  updateRecoverClasses();
 
-  // ÉTAPE E — Temps réel
+  // Remplir le select du mois de recouvrement avec le mois courant
+  const dateRef=new Date();
+  const moisActuelNum=dateRef.getMonth();
+  let moisCourant="Septembre";
+  if(moisActuelNum>=8)moisCourant=moisListe[moisActuelNum-8];
+  else if(moisActuelNum>=0&&moisActuelNum<=5)moisCourant=moisListe[moisActuelNum+4];
+  remplirMois('recoverMois',moisCourant);
+
+  afficherPerception();
+  afficherRecouvrement();
+
   demarrerTempsReel();
 }
 
-// Lancement après que le DOM soit prêt
 if(document.readyState==='loading'){
   document.addEventListener('DOMContentLoaded',initApp);
 }else{
