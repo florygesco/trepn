@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Vidéos — ÉCOLE TREMPLIN</title>
+    <meta name="description" content="Découvrez toutes les vidéos de l'École Tremplin à Kasumbalesa : vie scolaire, événements, sport et bien plus.">
+    <meta name="theme-color" content="#000000">
+    <link rel="icon" type="image/jpeg" href="https://www.cstremplin.com/favicon.jpg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;-webkit-tap-highlight-color:transparent}
+        html,body{overflow-x:hidden;width:100%;height:100%;background:#000;color:#fff}
+        body{position:fixed;inset:0}
+        .tiktok-container{position:relative;width:100%;height:100vh;height:100dvh;overflow-y:scroll;scroll-snap-type:y mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+        .tiktok-container::-webkit-scrollbar{display:none}
+        .video-slide{position:relative;width:100%;height:100vh;height:100dvh;scroll-snap-align:start;scroll-snap-stop:always;display:flex;align-items:center;justify-content:center;background:#000;overflow:hidden}
+        .video-slide iframe{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:100%;height:100%;border:none;pointer-events:none}
+        .video-slide.vertical iframe{width:calc(100vh * 9 / 16);max-width:100%;height:100vh;height:100dvh}
+        .video-overlay{position:absolute;inset:0;background:linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 30%, transparent 60%, rgba(0,0,0,0.4) 100%);pointer-events:none;z-index:2}
+        .play-zone{position:absolute;inset:0;z-index:3;cursor:pointer}
+        .play-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) scale(0.8);width:80px;height:80px;background:rgba(0,0,0,0.5);backdrop-filter:blur(10px);border-radius:50%;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s, transform .3s;pointer-events:none;z-index:4}
+        .play-center i{font-size:2rem;color:#fff;margin-left:6px}
+        .video-slide.paused .play-center{opacity:1;transform:translate(-50%,-50%) scale(1)}
+        .school-name{position:absolute;top:70px;left:16px;z-index:5;font-size:0.95rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:#ffffff;text-shadow:0 2px 8px rgba(0,0,0,0.9), 0 0 20px rgba(204,51,51,0.5);pointer-events:none}
+        .school-name::before{content:'';display:inline-block;width:8px;height:8px;background:#cc3333;border-radius:50%;margin-right:8px;vertical-align:middle;box-shadow:0 0 12px #cc3333;animation:pulseDot 2s ease-in-out infinite}
+        @keyframes pulseDot{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.3);opacity:0.7}}
+        .video-info{position:absolute;bottom:80px;left:16px;right:90px;z-index:5;pointer-events:none}
+        .video-info .video-title{font-size:1rem;font-weight:700;margin-bottom:6px;line-height:1.35;text-shadow:0 1px 3px rgba(0,0,0,0.8)}
+        .video-info .video-desc{font-size:0.85rem;color:#e0e0e0;line-height:1.4;text-shadow:0 1px 2px rgba(0,0,0,0.8)}
+        .video-info .video-tags{margin-top:8px;font-size:0.8rem;color:#7cc7ff;font-weight:600}
+        .video-actions{position:absolute;right:10px;bottom:100px;z-index:5;display:flex;flex-direction:column;align-items:center;gap:22px}
+        .action-btn{display:flex;flex-direction:column;align-items:center;gap:4px;background:none;border:none;color:#fff;cursor:pointer;transition:transform .2s}
+        .action-btn:active{transform:scale(0.88)}
+        .action-btn i{font-size:1.7rem;text-shadow:0 2px 6px rgba(0,0,0,0.6);transition:color .2s, transform .2s}
+        .action-btn span{font-size:0.72rem;font-weight:600;text-shadow:0 1px 3px rgba(0,0,0,0.8)}
+        .top-header{position:fixed;top:0;left:0;right:0;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;z-index:100;background:linear-gradient(to bottom, rgba(0,0,0,0.6), transparent);pointer-events:none}
+        .top-header .back-btn{pointer-events:auto;width:42px;height:42px;border-radius:50%;background:rgba(0,0,0,0.4);backdrop-filter:blur(8px);border:none;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1.1rem;transition:transform .2s, background .2s}
+        .top-header .back-btn:hover{background:rgba(0,0,0,0.7);transform:scale(1.05)}
+        .top-header .tabs{display:flex;gap:20px;pointer-events:auto}
+        .top-header .tabs button{background:none;border:none;color:rgba(255,255,255,0.6);font-size:1rem;font-weight:700;cursor:pointer;padding:6px 2px;transition:color .2s;position:relative}
+        .top-header .tabs button.active{color:#fff}
+        .top-header .tabs button.active::after{content:'';position:absolute;bottom:-2px;left:50%;transform:translateX(-50%);width:24px;height:3px;background:#cc3333;border-radius:2px}
+        .top-header .tabs button:hover{color:#fff}
+        .scroll-hint{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:100;color:rgba(255,255,255,0.7);font-size:0.8rem;display:flex;flex-direction:column;align-items:center;gap:4px;animation:bounce 2s infinite;pointer-events:none;transition:opacity .5s}
+        @keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-8px)}}
+        .scroll-hint.hidden{opacity:0}
+        @media(min-width: 768px){
+            .video-slide.vertical iframe{width:400px;height:calc(400px * 16 / 9);max-height:90vh;border-radius:16px}
+            .video-slide:not(.vertical) iframe{width:min(90%,900px);height:auto;aspect-ratio:16/9;border-radius:16px}
+            .video-slide{background:#0a0a0a}
+            .video-info{bottom:90px;left:24px;right:110px}
+            .video-actions{right:20px;bottom:110px}
+            .school-name{top:80px;left:24px;font-size:1rem}
+        }
+        .end-slide{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 24px;background:linear-gradient(135deg,#0a1a2a,#1a3a5c);gap:16px}
+        .end-slide i{font-size:3rem;color:#cc3333;margin-bottom:8px}
+        .end-slide h2{font-size:1.5rem;font-weight:800}
+        .end-slide p{color:#aac4d4;font-size:1rem;line-height:1.6;max-width:400px}
+        .end-slide .btn-end{margin-top:16px;background:#cc3333;color:#fff;padding:14px 32px;border-radius:50px;text-decoration:none;font-weight:700;font-size:1rem;display:inline-flex;align-items:center;gap:10px;transition:all .3s;border:none;cursor:pointer}
+        .end-slide .btn-end:hover{background:#aa2222;transform:translateY(-3px)}
+    </style>
+</head>
+<body>
+
+<div class="top-header">
+    <button class="back-btn" onclick="history.length > 1 ? history.back() : window.location.href='index.html'">
+        <i class="fas fa-arrow-left"></i>
+    </button>
+    <div class="tabs">
+        <button class="active" data-filter="all">Toutes</button>
+        <button data-filter="events">Événements</button>
+        <button data-filter="vie">Vie scolaire</button>
+    </div>
+</div>
+
+<div class="tiktok-container" id="tiktokContainer">
+
+    <div class="video-slide" data-video-id="xiaB7KpcJ0o" data-category="events">
+        <iframe src="https://www.youtube.com/embed/xiaB7KpcJ0o?rel=0&modestbranding=1&playsinline=1&enablejsapi=1&autoplay=1&mute=1&loop=1&playlist=xiaB7KpcJ0o"
+                title="Cérémonie de clôture 2025-2026"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+        <div class="video-overlay"></div>
+        <div class="play-zone"></div>
+        <div class="play-center"><i class="fas fa-play"></i></div>
+        <div class="school-name">ÉCOLE TREMPLIN</div>
+        <div class="video-info">
+            <div class="video-title">🎓 Cérémonie de clôture 2025-2026</div>
+            <div class="video-desc">Retour en images sur la fin d'année scolaire au Complexe Scolaire Le Tremplin.</div>
+            <div class="video-tags">#Cérémonie #Clôture #Tremplin</div>
+        </div>
+        <div class="video-actions">
+            <button class="action-btn share-btn" data-video-url="https://youtu.be/xiaB7KpcJ0o">
+                <i class="fas fa-share"></i>
+                <span>Partager</span>
+            </button>
+            <button class="action-btn" onclick="window.open('https://youtu.be/xiaB7KpcJ0o','_blank')">
+                <i class="fab fa-youtube"></i>
+                <span>YouTube</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="video-slide vertical" data-video-id="pesOu-McKMQ" data-category="vie">
+        <iframe src="https://www.youtube.com/embed/pesOu-McKMQ?rel=0&modestbranding=1&playsinline=1&enablejs #api=1&autoplay=1&mute=1&loop=1&playlist=pesOu-McKMQ"
+                title="Short CS Le Tremplin"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+        <div class="video-overlay"></div>
+        <div class="play-zone"></div>
+        <div class="play-center"><i class="fas fa-play"></i></div>
+        <div class="school-name">ÉCOLE TREMPLIN</div>
+        <div class="video-info">
+            <div class="video-title">📱 Short — École Tremplin</div>
+            <div class="video-desc">Un aperçu rapide et dynamique de notre école.</div>
+            <div class="video-tags">#ShortTremplin #Kasumbalesa</div>
+        </div>
+        <div class="video-actions">
+            <button class="action-btn share-btn" data-video-url="https://youtube.com/shorts/pesOu-McKMQ">
+                <i class="fas fa-share"></i>
+                <span>Partager</span>
+            </button>
+            <button class="action-btn" onclick="window.open('https://youtube.com/shorts/pesOu-McKMQ','_blank')">
+                <i class="fab fa-youtube"></i>
+                <span>YouTube</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="video-slide" data-video-id="487zSZfs4CM" data-category="events">
+        <iframe src="https://www.youtube.com/embed/487zSZfs4CM?rel=0&modestbranding=1&playsinline=1&enablejsapi=1&autoplay=1&mute=1&loop=1&playlist=487zSZfs4CM"
+                title="Journée de la Femme"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+        <div class="video-overlay"></div>
+        <div class="play-zone"></div>
+        <div class="play-center"><i class="fas fa-play"></i></div>
+        <div class="school-name">ÉCOLE TREMPLIN</div>
+        <div class="video-info">
+            <div class="video-title">🌸 Journée de la Femme</div>
+            <div class="video-desc">Défilé des élèves pour célébrer la femme, l'égalité et le respect.</div>
+            <div class="video-tags">#JournéeDeLaFemme #Défilé #Tremplin</div>
+        </div>
+        <div class="video-actions">
+            <button class="action-btn share-btn" data-video-url="https://youtu.be/487zSZfs4CM">
+                <i class="fas fa-share"></i>
+                <span>Partager</span>
+            </button>
+            <button class="action-btn" onclick="window.open('https://youtu.be/487zSZfs4CM','_blank')">
+                <i class="fab fa-youtube"></i>
+                <span>YouTube</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="video-slide" data-video-id="D5Z4BkkQGi8" data-category="vie">
+        <iframe src="https://www.youtube.com/embed/D5Z4BkkQGi8?rel=0&modestbranding=1&playsinline=1&enablejsapi=1&autoplay=1&mute=1&loop=1&playlist=D5Z4BkkQGi8"
+                title="Élèves en joie"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+        <div class="video-overlay"></div>
+        <div class="play-zone"></div>
+        <div class="play-center"><i class="fas fa-play"></i></div>
+        <div class="school-name">ÉCOLE TREMPLIN</div>
+        <div class="video-info">
+            <div class="video-title">😊 Élèves en joie</div>
+            <div class="video-desc">Le bonheur d'apprendre à l'École Tremplin.</div>
+            <div class="video-tags">#Joie #Apprendre #Tremplin</div>
+        </div>
+        <div class="video-actions">
+            <button class="action-btn share-btn" data-video-url="https://youtu.be/D5Z4BkkQGi8">
+                <i class="fas fa-share"></i>
+                <span>Partager</span>
+            </button>
+            <button class="action-btn" onclick="window.open('https://youtu.be/D5Z4BkkQGi8','_blank')">
+                <i class="fab fa-youtube"></i>
+                <span>YouTube</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="video-slide" data-video-id="kI3PHsM2Rtk" data-category="vie">
+        <iframe src="https://www.youtube.com/embed/kI3PHsM2Rtk?rel=0&modestbranding=1&playsinline=1&enablejsapi=1&autoplay=1&mute=1&loop=1&playlist=kI3PHsM2Rtk"
+                title="Nos élèves en action"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+        <div class="video-overlay"></div>
+        <div class="play-zone"></div>
+        <div class="play-center"><i class="fas fa-play"></i></div>
+        <div class="school-name">ÉCOLE TREMPLIN</div>
+        <div class="video-info">
+            <div class="video-title">📚 Nos élèves en action</div>
+            <div class="video-desc">Découvrez nos élèves en pleine activité scolaire.</div>
+            <div class="video-tags">#Élèves #Action #Tremplin</div>
+        </div>
+        <div class="video-actions">
+            <button class="action-btn share-btn" data-video-url="https://youtu.be/kI3PHsM2Rtk">
+                <i class="fas fa-share"></i>
+                <span>Partager</span>
+            </button>
+            <button class="action-btn" onclick="window.open('https://youtu.be/kI3PHsM2Rtk','_blank')">
+                <i class="fab fa-youtube"></i>
+                <span>YouTube</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="video-slide" data-video-id="1L8GC3USxHI" data-category="vie">
+        <iframe src="https://www.youtube.com/embed/1L8GC3USxHI?rel=0&modestbranding=1&playsinline=1&enablejsapi=1&autoplay=1&mute=1&loop=1&playlist=1L8GC3USxHI"
+                title="Élèves Sport"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+        <div class="video-overlay"></div>
+        <div class="play-zone"></div>
+        <div class="play-center"><i class="fas fa-play"></i></div>
+        <div class="school-name">ÉCOLE TREMPLIN</div>
+        <div class="video-info">
+            <div class="video-title">⚽ Élèves Sport</div>
+            <div class="video-desc">Sport, discipline et esprit d'équipe à l'École Tremplin.</div>
+            <div class="video-tags">#Sport #Équipe #Tremplin</div>
+        </div>
+        <div class="video-actions">
+            <button class="action-btn share-btn" data-video-url="https://youtu.be/1L8GC3USxHI">
+                <i class="fas fa-share"></i>
+                <span>Partager</span>
+            </button>
+            <button class="action-btn" onclick="window.open('https://youtu.be/1L8GC3USxHI','_blank')">
+                <i class="fab fa-youtube"></i>
+                <span>YouTube</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="video-slide" data-video-id="zSuiTzJlNmo" data-category="vie">
+        <iframe src="https://www.youtube.com/embed/zSuiTzJlNmo?rel=0&modestbranding=1&playsinline=1&enablejsapi=1&autoplay=1&mute=1&loop=1&playlist=zSuiTzJlNmo"
+                title="Transport scolaire"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+        <div class="video-overlay"></div>
+        <div class="play-zone"></div>
+        <div class="play-center"><i class="fas fa-play"></i></div>
+        <div class="school-name">ÉCOLE TREMPLIN</div>
+        <div class="video-info">
+            <div class="video-title">🚌 Transport scolaire</div>
+            <div class="video-desc">Un transport sécurisé pour nos élèves, chaque jour.</div>
+            <div class="video-tags">#Transport #Sécurité #Tremplin</div>
+        </div>
+        <div class="video-actions">
+            <button class="action-btn share-btn" data-video-url="https://youtu.be/zSuiTzJlNmo">
+                <i class="fas fa-share"></i>
+                <span>Partager</span>
+            </button>
+            <button class="action-btn" onclick="window.open('https://youtu.be/zSuiTzJlNmo','_blank')">
+                <i class="fab fa-youtube"></i>
+                <span>YouTube</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="video-slide end-slide">
+        <i class="fas fa-graduation-cap"></i>
+        <h2>Merci d'avoir regardé !</h2>
+        <p>Rejoignez la famille de l'École Tremplin et offrez à votre enfant une éducation d'excellence.</p>
+        <a href="index.html" class="btn-end"><i class="fas fa-home"></i> Retour à l'accueil</a>
+    </div>
+
+</div>
+
+<div class="scroll-hint" id="scrollHint">
+    <i class="fas fa-chevron-up"></i>
+    <span>Glissez pour naviguer</span>
+</div>
+
+<script>
+document.querySelectorAll('.share-btn').forEach(function(btn){
+    btn.addEventListener('click', function(e){
+        e.stopPropagation();
+        var url = btn.dataset.videoUrl;
+        if(navigator.share){
+            navigator.share({
+                title: 'École Tremplin — Vidéo',
+                text: 'Découvrez cette vidéo de l\'École Tremplin',
+                url: url
+            }).catch(function(){});
+        } else {
+            navigator.clipboard.writeText(url).then(function(){
+                var span = btn.querySelector('span');
+                var old = span.textContent;
+                span.textContent = 'Copié !';
+                setTimeout(function(){ span.textContent = old; }, 1500);
+            });
+        }
+    });
+});
+
+var slides = document.querySelectorAll('.video-slide:not(.end-slide)');
+slides.forEach(function(slide){
+    var iframe = slide.querySelector('iframe');
+    var playZone = slide.querySelector('.play-zone');
+    var isPlaying = true;
+
+    iframe.addEventListener('load', function(){
+        iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+    });
+
+    playZone.addEventListener('click', function(){
+        if(isPlaying){
+            iframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+            slide.classList.add('paused');
+        } else {
+            iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+            slide.classList.remove('paused');
+        }
+        isPlaying = !isPlaying;
+    });
+});
+
+var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+        var slide = entry.target;
+        var iframe = slide.querySelector('iframe');
+        if(!iframe) return;
+        if(entry.isIntersecting && entry.intersectionRatio > 0.6){
+            iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+            slide.classList.remove('paused');
+        } else {
+            iframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+        }
+    });
+}, { threshold: [0, 0.6, 1] });
+slides.forEach(function(slide){ observer.observe(slide); });
+
+var hint = document.getElementById('scrollHint');
+var container = document.getElementById('tiktokContainer');
+container.addEventListener('scroll', function(){
+    if(container.scrollTop > 100) hint.classList.add('hidden');
+    else hint.classList.remove('hidden');
+}, { passive: true });
+
+var tabButtons = document.querySelectorAll('.top-header .tabs button');
+tabButtons.forEach(function(btn){
+    btn.addEventListener('click', function(){
+        tabButtons.forEach(function(b){ b.classList.remove('active'); });
+        btn.classList.add('active');
+        var filter = btn.dataset.filter;
+        document.querySelectorAll('.video-slide[data-category]').forEach(function(slide){
+            if(filter === 'all' || slide.dataset.category === filter){
+                slide.style.display = '';
+            } else {
+                slide.style.display = 'none';
+            }
+        });
+        container.scrollTop = 0;
+    });
+});
+
+document.addEventListener('keydown', function(e){
+    if(e.key === 'ArrowDown' || e.key === 'ArrowUp'){
+        e.preventDefault();
+        var current = Math.round(container.scrollTop / container.clientHeight);
+        var total = slides.length + 1;
+        var next = e.key === 'ArrowDown' ? current + 1 : current - 1;
+        if(next >= 0 && next < total){
+            container.scrollTo({ top: next * container.clientHeight, behavior: 'smooth' });
+        }
+    }
+});
+
+document.addEventListener('contextmenu', function(e){
+    if(e.target.closest('iframe')) return;
+    e.preventDefault();
+});
+</script>
+
+</body>
+</html>
