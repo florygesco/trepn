@@ -4,8 +4,8 @@
         xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
 
   <url>
-    <loc>https://cstremplin.com/</loc>
-    <lastmod>2026-09-13</lastmod>
+    <loc>https://www.cstremplin.com/</loc>
+    <lastmod>2026-09-24</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <image:image>
@@ -15,7 +15,7 @@
     </image:image>
     <image:image>
       <image:loc>https://www.cstremplin.com/image2.jpg</image:loc>
-      <image:title>Vue extérieure de l'école CS Le Tremplin</image:title>
+      <image:title>Vue extérieure de l'école Le Tremplin</image:title>
     </image:image>
     <image:image>
       <image:loc>https://www.cstremplin.com/image3.jpg</image:loc>
@@ -78,22 +78,50 @@
       <image:title>Élève du CS Le Tremplin en activité</image:title>
     </image:image>
     <video:video>
+      <video:thumbnail_loc>https://img.youtube.com/vi/xiaB7KpcJ0o/maxresdefault.jpg</video:thumbnail_loc>
+      <video:title>Cérémonie de clôture 2025-2026 — Le Tremplin</video:title>
+      <video:description>Cérémonie de clôture de l'année scolaire 2025-2026 au Complexe Scolaire Le Tremplin, Kasumbalesa, RDC.</video:description>
+      <video:player_loc>https://www.youtube.com/embed/xiaB7KpcJ0o</video:player_loc>
+      <video:publication_date>2026-07-01</video:publication_date>
+    </video:video>
+    <video:video>
+      <video:thumbnail_loc>https://img.youtube.com/vi/pesOu-McKMQ/maxresdefault.jpg</video:thumbnail_loc>
+      <video:title>Short — Le Tremplin</video:title>
+      <video:description>Aperçu rapide et dynamique du Complexe Scolaire Le Tremplin à Kasumbalesa.</video:description>
+      <video:player_loc>https://www.youtube.com/embed/pesOu-McKMQ</video:player_loc>
+      <video:publication_date>2026-01-01</video:publication_date>
+    </video:video>
+    <video:video>
+      <video:thumbnail_loc>https://img.youtube.com/vi/D5Z4BkkQGi8/maxresdefault.jpg</video:thumbnail_loc>
+      <video:title>Élèves en joie au Complexe Scolaire Le Tremplin</video:title>
+      <video:description>Découvrez la joie et le bonheur de nos élèves au Complexe Scolaire Le Tremplin, Kasumbalesa, RDC.</video:description>
+      <video:player_loc>https://www.youtube.com/embed/D5Z4BkkQGi8</video:player_loc>
+      <video:publication_date>2026-01-01</video:publication_date>
+    </video:video>
+    <video:video>
+      <video:thumbnail_loc>https://img.youtube.com/vi/487zSZfs4CM/maxresdefault.jpg</video:thumbnail_loc>
+      <video:title>Journée de la Femme — Élèves en défilé — Le Tremplin</video:title>
+      <video:description>À l'occasion de la Journée Internationale de la Femme, les élèves du Complexe Scolaire Le Tremplin défilent pour célébrer la femme, l'égalité et le respect.</video:description>
+      <video:player_loc>https://www.youtube.com/embed/487zSZfs4CM</video:player_loc>
+      <video:publication_date>2026-03-08</video:publication_date>
+    </video:video>
+    <video:video>
       <video:thumbnail_loc>https://img.youtube.com/vi/kI3PHsM2Rtk/maxresdefault.jpg</video:thumbnail_loc>
-      <video:title>Nos élèves en action — CS Le Tremplin</video:title>
+      <video:title>Nos élèves en action — Le Tremplin</video:title>
       <video:description>Découvrez nos élèves en action au Complexe Scolaire Le Tremplin, Kasumbalesa, RDC.</video:description>
       <video:player_loc>https://www.youtube.com/embed/kI3PHsM2Rtk</video:player_loc>
       <video:publication_date>2026-01-01</video:publication_date>
     </video:video>
     <video:video>
       <video:thumbnail_loc>https://img.youtube.com/vi/1L8GC3USxHI/maxresdefault.jpg</video:thumbnail_loc>
-      <video:title>Élèves Sport — CS Le Tremplin</video:title>
+      <video:title>Élèves Sport — Le Tremplin</video:title>
       <video:description>Activités sportives des élèves du Complexe Scolaire Le Tremplin. Sport, discipline et esprit d'équipe.</video:description>
       <video:player_loc>https://www.youtube.com/embed/1L8GC3USxHI</video:player_loc>
       <video:publication_date>2026-01-01</video:publication_date>
     </video:video>
     <video:video>
       <video:thumbnail_loc>https://img.youtube.com/vi/zSuiTzJlNmo/maxresdefault.jpg</video:thumbnail_loc>
-      <video:title>Élèves en déplacement — CS Le Tremplin</video:title>
+      <video:title>Élèves en déplacement — Le Tremplin</video:title>
       <video:description>Transport scolaire sécurisé des élèves du Complexe Scolaire Le Tremplin.</video:description>
       <video:player_loc>https://www.youtube.com/embed/zSuiTzJlNmo</video:player_loc>
       <video:publication_date>2026-01-01</video:publication_date>
@@ -101,35 +129,42 @@
   </url>
 
   <url>
-    <loc>https://cstremplin.com/about.html</loc>
+    <loc>https://www.cstremplin.com/videos.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://www.cstremplin.com/about.html</loc>
     <lastmod>2026-08-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://cstremplin.com/decouvir.html</loc>
+    <loc>https://www.cstremplin.com/decouvir.html</loc>
     <lastmod>2026-08-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://cstremplin.com/niveaux.html</loc>
+    <loc>https://www.cstremplin.com/niveaux.html</loc>
     <lastmod>2026-08-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://cstremplin.com/fondateur.html</loc>
+    <loc>https://www.cstremplin.com/fondateur.html</loc>
     <lastmod>2026-08-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://cstremplin.com/enseignants.html</loc>
+    <loc>https://www.cstremplin.com/enseignants.html</loc>
     <lastmod>2026-08-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
