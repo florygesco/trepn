@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-:root{--navy:#0a1a2a;--navy-2:#102a44;--navy-3:#1d4568;--red:#cc3333;--red-dark:#a92323;--orange:#f36c21;--orange-dark:#d85812;--yellow:#f5c518;--ink:#0a1a2a;--text:#4a5a6a;--muted:#7a8ca0;--line:#e6ecf2;--soft:#f6f8fb;--white:#fff;--radius:18px;--shadow-sm:0 2px 12px rgba(10,26,42,.06);--shadow-md:0 10px 30px rgba(10,26,42,.08);--shadow-lg:0 20px 50px rgba(10,26,42,.12);--ease:cubic-bezier(.22,.61,.36,1)}
+:root{--navy:#0a1a2a;--navy-2:#102a44;--navy-3:#1d4568;--red:#cc3333;--red-dark:#a92323;--yellow:#f5c518;--ink:#0a1a2a;--text:#4a5a6a;--muted:#7a8ca0;--line:#e6ecf2;--soft:#f6f8fb;--white:#fff;--radius:18px;--shadow-sm:0 2px 12px rgba(10,26,42,.06);--shadow-md:0 10px 30px rgba(10,26,42,.08);--shadow-lg:0 20px 50px rgba(10,26,42,.12);--ease:cubic-bezier(.22,.61,.36,1)}
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
 html,body{overflow-x:hidden;width:100%;scroll-behavior:smooth}
 body{background:#eef2f6;color:var(--ink);display:flex;justify-content:center;min-height:100vh;-webkit-font-smoothing:antialiased;line-height:1.6}
@@ -22,7 +22,7 @@ a{color:inherit;text-decoration:none}
 .top-bar{background:var(--navy);color:#a8bccd;padding:10px 4%;font-size:.8rem;display:flex;justify-content:space-between;align-items:center;overflow:hidden;position:relative}
 .top-bar .socials{display:flex;gap:14px;font-size:1.1rem;z-index:2}
 .top-bar .socials a{color:#a8bccd;transition:.3s}
-.top-bar .socials a:hover{color:var(--orange)}
+.top-bar .socials a:hover{color:var(--red)}
 .top-bar .devise-marquee{flex:1;margin-left:24px;white-space:nowrap;overflow:hidden;position:relative;font-style:italic;font-weight:600;letter-spacing:.5px;color:#fff}
 .top-bar .devise-marquee span{display:inline-block;padding-left:100%;animation:marquee 15s linear infinite}
 @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}
@@ -33,7 +33,7 @@ a{color:inherit;text-decoration:none}
 .header-logo{height:85px;width:auto;object-fit:contain}
 .header-texts{display:flex;flex-direction:column;line-height:1.1}
 .header-texts .small{font-size:1.15rem;font-weight:800;color:var(--navy);letter-spacing:.5px}
-.header-texts .big{font-size:2.6rem;font-weight:900;color:var(--orange);letter-spacing:-.5px}
+.header-texts .big{font-size:2.6rem;font-weight:900;color:var(--red);letter-spacing:-.5px}
 .burger-menu{width:54px;height:54px;background:#f4f6f9;border-radius:12px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;cursor:pointer;border:1px solid var(--line);transition:.3s}
 .burger-menu span{width:24px;height:3px;background:var(--navy);border-radius:2px;transition:.3s}
 .burger-menu:hover{background:#e6ecf2}
@@ -44,9 +44,9 @@ a{color:inherit;text-decoration:none}
 .floating-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:30px;border-bottom:1px solid var(--line);padding-bottom:20px}
 .floating-header h3{font-size:1.2rem;font-weight:900;color:var(--navy)}
 .floating-close{background:none;border:none;font-size:1.8rem;color:var(--navy);cursor:pointer;transition:.3s}
-.floating-close:hover{color:var(--orange);transform:rotate(90deg)}
+.floating-close:hover{color:var(--red);transform:rotate(90deg)}
 .floating-menu a{display:flex;align-items:center;gap:16px;padding:18px 20px;border-radius:12px;font-weight:700;font-size:1.1rem;color:var(--navy);background:var(--soft);margin-bottom:12px;transition:.3s}
-.floating-menu a:hover{background:var(--orange);color:var(--white);transform:translateX(-4px)}
+.floating-menu a:hover{background:var(--red);color:var(--white);transform:translateX(-4px)}
 .floating-menu a i{font-size:1.3rem}
 .menu-overlay{position:fixed;inset:0;background:rgba(5,10,20,.6);backdrop-filter:blur(4px);z-index:9998;opacity:0;pointer-events:none;transition:.4s}
 .menu-overlay.active{opacity:1;pointer-events:all}
@@ -67,15 +67,15 @@ a{color:inherit;text-decoration:none}
 .nav-menu{background:var(--white);padding:0 4% 20px 4%;display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
 .nav-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:30px;font-weight:700;font-size:1.05rem;transition:.3s var(--ease);cursor:pointer}
 .nav-btn i{font-size:1.15rem}
-.nav-btn.active{background:var(--orange);color:var(--white);box-shadow:0 4px 15px rgba(243,108,33,.3)}
+.nav-btn.active{background:var(--red);color:var(--white);box-shadow:0 4px 15px rgba(204,51,51,.3)}
 .nav-btn.outline{background:transparent;color:var(--navy);border:2px solid transparent}
-.nav-btn.outline:hover{color:var(--orange);background:rgba(243,108,33,.05)}
+.nav-btn.outline:hover{color:var(--red);background:rgba(204,51,51,.05)}
 .nav-btn.videos{background:var(--navy);color:var(--white);padding:12px 50px;border-radius:30px}
 .nav-btn.videos:hover{background:var(--navy-2);box-shadow:0 4px 15px rgba(10,26,42,.3)}
-.nav-btn.fondateur{background:var(--orange);color:var(--white);padding:12px 50px;border-radius:30px}
-.nav-btn.fondateur:hover{background:var(--orange-dark);box-shadow:0 4px 15px rgba(243,108,33,.4)}
+.nav-btn.fondateur{background:var(--red);color:var(--white);padding:12px 50px;border-radius:30px}
+.nav-btn.fondateur:hover{background:var(--red-dark);box-shadow:0 4px 15px rgba(204,51,51,.4)}
 
-/* HERO - Reproduction exacte de la maquette */
+/* HERO */
 .hero{
     background: linear-gradient(180deg, #0a4f9c 0%, #0d3d7a 40%, #071c33 100%);
     color:var(--white);
@@ -86,16 +86,16 @@ a{color:inherit;text-decoration:none}
     min-height:700px;
     padding:60px 5%;
     margin-top: 20px;
-    border-bottom: 8px solid var(--orange);
-    border-radius: 0 0 50% 50% / 0 0 30px 30px; /* Vague en bas */
+    border-bottom: 8px solid var(--red);
+    border-radius: 0 0 50% 50% / 0 0 30px 30px;
 }
 
-/* L'image de l'élève positionnée exactement comme sur l'image */
+/* L'image de l'élève positionnée très à droite */
 .hero-bg{
     position:absolute;
     top:0;
-    right:0;
-    width: 60%;
+    right:0; /* Collé à droite */
+    width: 55%; /* Réduit la largeur */
     height: 100%;
     z-index:1;
     background-image:url('https://www.cstremplin.com/eleveimage.png');
@@ -141,8 +141,8 @@ a{color:inherit;text-decoration:none}
     transition:.3s var(--ease);position:relative;
     box-shadow:0 8px 25px rgba(0,0,0,.3); border:none; cursor:pointer;
 }
-.hero-btn.orange{background:var(--orange);color:var(--white);box-shadow:0 8px 25px rgba(243,108,33,.4)}
-.hero-btn.orange:hover{background:var(--orange-dark);transform:translateY(-3px)}
+.hero-btn.rouge{background:var(--red);color:var(--white);box-shadow:0 8px 25px rgba(204,51,51,.4)}
+.hero-btn.rouge:hover{background:var(--red-dark);transform:translateY(-3px)}
 .hero-btn.transparent{background:transparent;color:var(--white);border:2px solid var(--white);backdrop-filter:blur(4px)}
 .hero-btn.transparent:hover{background:rgba(255,255,255,.1);transform:translateY(-3px)}
 
@@ -159,7 +159,7 @@ a{color:inherit;text-decoration:none}
     .hero p{font-size:1rem;margin:20px 0 30px;max-width:100%}
     .hero-buttons{width:100%;max-width:100%;margin-top: 10px;}
     .hero-bg {
-        width: 80%;
+        width: 70%; /* Réduit un peu plus sur mobile */
         background-position: top right;
     }
 }
@@ -403,7 +403,7 @@ a{color:inherit;text-decoration:none}
                 Au <strong>COMPLEXE SCOLAIRE LE TREMPLIN</strong>, nous formons des esprits critiques, des citoyens responsables et des leaders de demain. Notre approche allie rigueur scolaire, éducation aux valeurs et accompagnement personnalisé pour révéler le potentiel unique de chaque élève.
             </p>
             <div class="hero-buttons">
-                <a href="decouvir.html" class="hero-btn orange">
+                <a href="decouvir.html" class="hero-btn rouge">
                     <i class="fas fa-school"></i> Découvrir l'école <i class="fas fa-chevron-right arrow"></i>
                 </a>
                 <a href="niveaux.html" class="hero-btn transparent">
