@@ -154,6 +154,14 @@ a{color:inherit;text-decoration:none}
 .gallery-item.big{grid-column:span 2;grid-row:span 2}
 .gallery-item.wide{grid-column:span 2}
 .gallery-item.tall{grid-row:span 2}
+/* Grille maternelle pleine largeur */
+.maternelle-grid{display:grid;grid-template-columns:1fr;gap:24px;padding:0 5% 50px 5%}
+.maternelle-grid .gallery-item{grid-column:span 1 !important;grid-row:span 1 !important;width:100%;height:auto;aspect-ratio:16/9;border-radius:18px}
+.maternelle-grid .gallery-item img{width:100%;height:100%;object-fit:cover}
+.maternelle-grid .gallery-caption{padding:24px 22px 18px}
+.maternelle-grid .gallery-caption .gc-tag{font-size:.72rem;letter-spacing:2px}
+.maternelle-grid .gallery-caption .gc-title{font-size:1.15rem;line-height:1.35}
+@media(max-width:768px){.maternelle-grid{gap:16px;padding:0 4% 40px 4%}.maternelle-grid .gallery-item{aspect-ratio:4/3;border-radius:14px}.maternelle-grid .gallery-caption{padding:16px 14px 12px}.maternelle-grid .gallery-caption .gc-title{font-size:.92rem}}
 .brand-section{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-2) 50%,var(--navy-3) 100%);padding:70px 5%;text-align:center;position:relative;overflow:hidden}
 .brand-section::before{content:'';position:absolute;top:-30%;left:-10%;width:50%;height:160%;background:radial-gradient(circle,rgba(204,51,51,.15) 0%,transparent 65%);pointer-events:none}
 .brand-section::after{content:'';position:absolute;bottom:-30%;right:-10%;width:50%;height:160%;background:radial-gradient(circle,rgba(255,255,255,.06) 0%,transparent 65%);pointer-events:none}
@@ -444,14 +452,18 @@ Au <strong>COMPLEXE SCOLAIRE LE TREMPLIN</strong>, nous formons des esprits crit
 </div>
 <div class="section-title fade-in"><i class="fas fa-child"></i> MATERNELLE</div>
 <p class="section-sub fade-in">Un environnement doux et stimulant pour éveiller la curiosité de nos plus petits.</p>
-<div class="gallery-grid fade-in-scale">
-<div class="gallery-item wide" onclick="openModal(this.querySelector('img').src)">
+<div class="maternelle-grid fade-in-scale">
+<div class="gallery-item" onclick="openModal(this.querySelector('img').src)">
 <img src="https://www.cstremplin.com/mate1.png" alt="Maternelle 1" loading="lazy">
 <div class="gallery-caption"><span class="gc-tag">Maternelle</span><span class="gc-title">Nos petits à la maternelle</span></div>
 </div>
-<div class="gallery-item wide" onclick="openModal(this.querySelector('img').src)">
+<div class="gallery-item" onclick="openModal(this.querySelector('img').src)">
 <img src="https://www.cstremplin.com/mat2.png" alt="Maternelle 2" loading="lazy">
 <div class="gallery-caption"><span class="gc-tag">Maternelle</span><span class="gc-title">Activités de maternelle</span></div>
+</div>
+<div class="gallery-item" onclick="openModal(this.querySelector('img').src)">
+<img src="https://www.cstremplin.com/mat3.png" alt="Maternelle 3" loading="lazy">
+<div class="gallery-caption"><span class="gc-tag">Maternelle</span><span class="gc-title">Moment de partage à la maternelle</span></div>
 </div>
 </div>
 <div class="brand-section fade-in-scale">
