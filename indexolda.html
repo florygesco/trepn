@@ -85,14 +85,14 @@ a{color:inherit;text-decoration:none}
     min-height:700px;
     padding:60px 5%;
 }
-/* Le fond avec l'élève */
+/* L'image de l'élève ajustée */
 .hero-bg{
     position:absolute;
     top:0;left:0;width:100%;height:100%;
     z-index:1;
     background-image:url('https://www.cstremplin.com/eleveimage.png');
     background-size:cover;
-    background-position: center top; /* Sur mobile, on centre la tête de l'élève */
+    background-position: center top;
     background-repeat:no-repeat;
     opacity:1;
 }
@@ -102,18 +102,26 @@ a{color:inherit;text-decoration:none}
         background-position: right bottom;
         background-size: contain;
     }
-    /* Un dégradé pour que le texte soit lisible sur PC */
     .hero::before{
         content:'';position:absolute;inset:0;
         background:linear-gradient(90deg, rgba(10,26,42,1) 0%, rgba(10,26,42,0.8) 40%, rgba(10,26,42,0) 100%);
         z-index:2;
     }
 }
-/* Sur mobile, un léger voile sombre en haut pour lire le texte */
+/* Sur mobile, ajustement pour réduire l'image et la faire remonter */
 @media(max-width:768px){
+    .hero{
+        padding:40px 5% 20px;
+        min-height: 600px; /* Hauteur réduite */
+        align-items: flex-start;
+    }
+    .hero-bg{
+        background-size: 140% auto; /* Réduit la taille de l'image */
+        background-position: center 15%; /* Remonte l'image */
+    }
     .hero::before{
         content:'';position:absolute;inset:0;
-        background:linear-gradient(180deg, rgba(10,26,42,0.8) 0%, rgba(10,26,42,0.3) 50%, rgba(10,26,42,0) 100%);
+        background:linear-gradient(180deg, rgba(10,26,42,0.85) 0%, rgba(10,26,42,0.4) 45%, rgba(10,26,42,0) 100%);
         z-index:2;
     }
 }
@@ -140,25 +148,19 @@ a{color:inherit;text-decoration:none}
 .hero-btn i:first-child{font-size:1.2rem}
 .hero-btn .arrow{position:absolute;right:24px;font-size:1rem}
 
-/* RESPONSIVE HERO */
 @media(max-width:1024px){
     .hero h1{font-size:3.2rem}
     .hero h1 .yellow{font-size:3.8rem}
 }
 @media(max-width:768px){
-    .hero{
-        padding:40px 5% 20px;
-        min-height: 100vh; /* Prend toute la hauteur de l'écran sur mobile */
-        align-items: flex-start;
-        background-position: center top;
-    }
     .hero h1{font-size:2.6rem}
     .hero h1 .yellow{font-size:3.2rem}
     .hero p{font-size:1rem;margin:20px 0 30px;max-width:100%}
     .hero-buttons{width:100%;max-width:100%;margin-top: 10px;}
 }
 @media(max-width:480px){
-    .hero{padding:30px 5%;}
+    .hero{padding:30px 5%;min-height: 550px;}
+    .hero-bg{background-size: 160% auto; background-position: center 10%;}
     .hero h1{font-size:2.2rem}
     .hero h1 .yellow{font-size:2.6rem}
     .hero h1 .yellow::after{width:40%}
@@ -166,7 +168,7 @@ a{color:inherit;text-decoration:none}
 }
 
 
-/* SECTIONS RESTANTES (inchangées) */
+/* SECTIONS RESTANTES */
 .section-title{font-size:1.85rem;font-weight:800;color:var(--ink);letter-spacing:-.4px;padding:56px 5% 8px 5%;display:flex;align-items:center;gap:14px}
 .section-title::after{content:'';flex:1;height:1px;background:var(--line);margin-left:8px}
 .section-title i{color:var(--red);font-size:1.4rem}
@@ -379,7 +381,7 @@ a{color:inherit;text-decoration:none}
         <a href="fondateur.html" class="nav-btn fondateur"><i class="fas fa-user-tie"></i> Fondateur</a>
     </div>
 
-    <!-- HERO AVEC IMAGE EN FOND -->
+    <!-- HERO -->
     <div class="hero">
         <div class="hero-bg fade-in-right"></div>
         <div class="hero-content fade-in-left">
