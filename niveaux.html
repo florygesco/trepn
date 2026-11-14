@@ -1,302 +1,263 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Niveaux · CS Le Tremplin</title>
-    <meta name="description" content="Découvrez les niveaux d'enseignement au Complexe Scolaire Le Tremplin.">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <style>
-        *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',-apple-system,sans-serif}
-        body{background:#f0ebe3;display:flex;justify-content:center;padding:16px}
-        .page{max-width:820px;width:100%;background:#ffffff;border-radius:28px;padding:24px 20px;box-shadow:0 12px 48px rgba(0,0,0,0.06)}
-        .logo-simple{display:flex;align-items:center;gap:14px;border-bottom:2px solid #ede6db;padding-bottom:16px;margin-bottom:20px}
-        .logo-simple img{height:56px;width:auto;border-radius:10px}
-        .logo-simple h1{font-size:1.5rem;font-weight:800;color:#1a1a1a;letter-spacing:-0.3px}
-        .logo-simple h1 span{color:#8b7a5a}
-        .nav-links{display:flex;justify-content:center;gap:1.8rem;margin-bottom:20px;flex-wrap:wrap}
-        .nav-links a{color:#6b5d48;text-decoration:none;font-weight:500;font-size:0.9rem;border-bottom:2px solid transparent;padding-bottom:4px;transition:0.3s}
-        .nav-links a:hover,.nav-links a.active{color:#8b7a5a;border-bottom-color:#8b7a5a}
-        .hero{background:linear-gradient(145deg,#f7f2ea,#ede6db);border-radius:20px;padding:24px 20px;text-align:center;margin-bottom:24px;border:1px solid #e8e0d6}
-        .hero .badge{display:inline-block;background:#8b7a5a;color:#fff;border-radius:30px;padding:4px 18px;font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
-        .hero h2{font-size:1.8rem;font-weight:800;color:#1a1a1a;letter-spacing:-0.5px}
-        .hero h2 i{color:#8b7a5a;font-weight:300}
-        .hero p{color:#4a4036;font-size:0.95rem;max-width:600px;margin:8px auto 0;line-height:1.6}
-        .section-title{font-size:1.3rem;font-weight:700;color:#1a1a1a;padding:24px 0 12px 0;display:flex;align-items:center;gap:10px}
-        .section-title i{color:#8b7a5a;font-size:1.4rem}
-        .card-niveau{background:#faf7f2;border-radius:18px;padding:20px 18px;border:1px solid #ede6db;margin-bottom:14px}
-        .card-niveau .icon-wrap{font-size:2.6rem;color:#8b7a5a;display:block;margin-bottom:4px}
-        .card-niveau h3{font-size:1.3rem;font-weight:700;color:#1a1a1a}
-        .card-niveau .subtitle{color:#8b7a5a;font-weight:500;font-size:0.85rem;letter-spacing:0.5px;display:block}
-        .card-niveau .age{color:#6b5d48;font-size:0.8rem;background:#ede6db;padding:2px 14px;border-radius:20px;display:inline-block;margin:6px 0 8px}
-        .card-niveau p{color:#3f3a32;line-height:1.6;font-size:0.92rem;margin-bottom:8px}
-        .card-niveau .subjects{display:flex;flex-wrap:wrap;gap:5px}
-        .card-niveau .subjects span{background:#fff;border:1px solid #e8e0d6;padding:2px 12px;border-radius:14px;font-size:0.75rem;color:#6b5d48}
-        .btn-retour{display:inline-flex;align-items:center;gap:10px;background:#8b7a5a;color:#fff;padding:14px 34px;border-radius:50px;font-weight:600;font-size:1rem;text-decoration:none;transition:0.3s;border:none;cursor:pointer;box-shadow:0 4px 16px rgba(139,122,90,0.2)}
-        .btn-retour:hover{background:#6b5d48;transform:translateY(-2px);box-shadow:0 8px 24px rgba(139,122,90,0.3)}
-        .retour-wrapper{text-align:center;padding:18px 0 6px}
-        .footer{background:#f8f5f0;color:#4a4036;border-radius:16px;padding:22px 20px 16px;margin-top:24px;border:1px solid #ede6db}
-        .footer .inner{display:grid;grid-template-columns:2fr 1fr 1fr;gap:20px}
-        .footer h4{color:#1a1a1a;font-weight:700;margin-bottom:6px;font-size:0.9rem}
-        .footer p{font-size:0.82rem;line-height:1.6;color:#4a4036}
-        .footer a{color:#6b5d48;text-decoration:none;display:block;margin:3px 0;font-size:0.82rem;transition:0.2s}
-        .footer a:hover{color:#8b7a5a;transform:translateX(3px)}
-        .footer a i{color:#8b7a5a;width:16px}
-        .footer .copy{text-align:center;border-top:1px solid #ede6db;padding-top:12px;margin-top:14px;font-size:0.75rem;color:#8a7a6a}
-        .footer .phone-link{cursor:pointer;display:inline-block}
-        .footer .phone-link:hover{color:#8b7a5a}
-        .slide-left{opacity:0;transform:translateX(-50px);transition:all 0.8s cubic-bezier(0.25,0.46,0.45,0.94)}
-        .slide-left.visible{opacity:1;transform:translateX(0)}
-        .comparaison-simple{background:#faf7f2;border-radius:16px;padding:16px 18px;border:1px solid #ede6db;margin-bottom:6px}
-        .comparaison-simple .ligne{display:flex;padding:10px 0;border-bottom:1px solid #ede6db;align-items:center}
-        .comparaison-simple .ligne:last-child{border-bottom:0}
-        .comparaison-simple .ligne .icone{width:32px;color:#8b7a5a;font-size:1.1rem;flex-shrink:0}
-        .comparaison-simple .ligne .nom{width:80px;font-weight:600;color:#1a1a1a;font-size:0.85rem;flex-shrink:0}
-        .comparaison-simple .ligne .valeurs{display:flex;gap:8px;flex-wrap:wrap}
-        .comparaison-simple .ligne .valeurs span{background:#fff;border:1px solid #e8e0d6;padding:2px 12px;border-radius:14px;font-size:0.78rem;color:#1a1a1a}
-        .comparaison-simple .ligne .valeurs .m{color:#8b7a5a;font-weight:600}
-        .comparaison-simple .ligne .valeurs .p{color:#6b8a5a;font-weight:600}
-        .comparaison-simple .ligne .valeurs .s{color:#5a7a8b;font-weight:600}
-        .pourquoi-item{background:#faf7f2;border-radius:16px;padding:16px 18px;border:1px solid #ede6db;text-align:center;margin-bottom:10px}
-        .pourquoi-item i{font-size:2rem;color:#8b7a5a;display:block;margin-bottom:6px}
-        .pourquoi-item h4{color:#1a1a1a;font-size:0.95rem;margin-bottom:2px}
-        .pourquoi-item p{color:#4a4036;font-size:0.88rem;line-height:1.5}
-
-        .phone-popup-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);backdrop-filter:blur(8px);z-index:99999;justify-content:center;align-items:center}
-        .phone-popup-overlay.active{display:flex}
-        .phone-popup-box{background:linear-gradient(145deg,#ffffff,#f5f7fa);border-radius:28px;padding:40px 36px;max-width:420px;width:92%;text-align:center;box-shadow:0 40px 80px rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.15);transform:scale(0.95) translateY(20px);transition:all 0.7s cubic-bezier(0.34,1.56,0.64,1)}
-        .phone-popup-overlay.active .phone-popup-box{transform:scale(1) translateY(0)}
-        .phone-popup-box .phone-icon{font-size:3.5rem;color:#8b7a5a;display:block;margin-bottom:8px}
-        .phone-popup-box h2{font-size:1.4rem;font-weight:800;color:#0a1a2a;margin-bottom:6px}
-        .phone-popup-box .phone-number{font-size:1.5rem;font-weight:700;color:#8b7a5a;margin-bottom:16px;display:block}
-        .phone-popup-box .phone-buttons{display:flex;flex-direction:column;gap:12px}
-        .phone-popup-box .phone-buttons a{display:flex;align-items:center;justify-content:center;gap:12px;padding:14px;border-radius:14px;font-weight:700;font-size:1.1rem;text-decoration:none;transition:all 0.3s}
-        .phone-popup-box .phone-buttons .btn-whatsapp{background:#25D366;color:#fff}
-        .phone-popup-box .phone-buttons .btn-whatsapp:hover{transform:scale(1.03);box-shadow:0 8px 24px rgba(37,211,102,0.4)}
-        .phone-popup-box .phone-buttons .btn-call{background:#1a1a1a;color:#fff}
-        .phone-popup-box .phone-buttons .btn-call:hover{transform:scale(1.03);box-shadow:0 8px 24px rgba(26,26,26,0.4)}
-        .phone-popup-box .btn-close-phone{background:transparent;border:none;color:#4a5a6a;font-size:0.9rem;cursor:pointer;margin-top:12px;padding:8px;transition:0.3s}
-        .phone-popup-box .btn-close-phone:hover{color:#0a1a2a}
-
-        @media(max-width:640px){.page{padding:14px 10px}.hero{padding:16px 12px}.hero h2{font-size:1.4rem}.section-title{font-size:1.1rem;padding:18px 0 10px}.card-niveau{padding:16px 14px}.card-niveau h3{font-size:1.1rem}.logo-simple h1{font-size:1.1rem}.logo-simple img{height:42px}.nav-links{gap:1rem}.comparaison-simple{padding:12px 14px}.comparaison-simple .ligne{padding:8px 0;flex-wrap:wrap}.comparaison-simple .ligne .nom{width:70px;font-size:0.8rem}.comparaison-simple .ligne .valeurs span{font-size:0.7rem;padding:2px 8px}.footer .inner{grid-template-columns:1fr;gap:12px}}
-        @media(max-width:400px){.hero h2{font-size:1.1rem}.btn-retour{padding:12px 20px;font-size:0.85rem;width:100%;justify-content:center}.comparaison-simple .ligne .nom{width:60px;font-size:0.75rem}.comparaison-simple .ligne .valeurs span{font-size:0.65rem;padding:1px 6px}}
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Niveaux · CS Le Tremplin</title>
+<meta name="description" content="Découvrez les niveaux d'enseignement au Complexe Scolaire Le Tremplin.">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+html,body{overflow-x:hidden;width:100%;background:linear-gradient(135deg,#eef2f6 0%,#e3eaf1 100%);-webkit-font-smoothing:antialiased}
+body{display:flex;justify-content:center;min-height:100vh;padding:16px;user-select:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none}
+.page{max-width:1100px;width:100%;background:#fff;border-radius:24px;overflow:hidden;box-shadow:0 20px 60px rgba(10,26,42,0.1)}
+.top{background:linear-gradient(135deg,#0a1a2a 0%,#102a44 55%,#1d4568 100%);padding:16px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;position:relative;overflow:hidden}
+.top::before{content:'';position:absolute;top:-40%;right:-10%;width:50%;height:200%;background:radial-gradient(circle,rgba(204,51,51,0.25) 0%,transparent 65%);pointer-events:none}
+.top-logo{display:flex;align-items:center;gap:12px;position:relative;z-index:2}
+.top-logo img{height:48px;width:48px;object-fit:contain;background:#fff;border-radius:12px;padding:5px;box-shadow:0 6px 18px rgba(0,0,0,0.3)}
+.top-logo h1{font-size:1.2rem;font-weight:900;color:#fff;letter-spacing:-0.3px;line-height:1.1}
+.top-logo h1 span{color:#f5c518;display:block;font-size:0.65rem;letter-spacing:3px;font-weight:700;margin-top:2px;text-transform:uppercase}
+.top-nav{display:flex;gap:6px;flex-wrap:wrap;position:relative;z-index:2}
+.top-nav a{color:#e6eef6;text-decoration:none;font-weight:600;font-size:0.82rem;padding:7px 14px;border-radius:20px;transition:0.3s;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1)}
+.top-nav a:hover{background:rgba(204,51,51,0.2);border-color:rgba(204,51,51,0.5);color:#fff;transform:translateY(-2px)}
+.top-nav a.active{background:#cc3333;border-color:#cc3333;color:#fff}
+.hero{padding:36px 28px 28px;background:linear-gradient(180deg,#f6f8fb 0%,#fff 100%);border-bottom:1px solid #e6ecf2;text-align:center;position:relative}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(204,51,51,0.1);border:1px solid rgba(204,51,51,0.25);color:#cc3333;padding:5px 16px;border-radius:30px;font-size:0.68rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:14px}
+.hero h2{font-size:2.1rem;font-weight:900;color:#0a1a2a;letter-spacing:-1px;line-height:1.15;margin-bottom:10px}
+.hero h2 em{font-style:normal;color:#cc3333;position:relative}
+.hero h2 em::after{content:'';display:block;width:100%;height:3px;background:#cc3333;border-radius:2px;margin-top:4px;opacity:0.3}
+.hero p{font-size:0.95rem;line-height:1.7;color:#4a5a6a;max-width:580px;margin:0 auto}
+.content{padding:28px}
+.section-head{display:flex;align-items:center;gap:12px;margin-bottom:16px;margin-top:8px}
+.section-head .ic{width:38px;height:38px;background:rgba(204,51,51,0.1);border-radius:11px;display:flex;align-items:center;justify-content:center;color:#cc3333;font-size:1rem;flex-shrink:0}
+.section-head h3{font-size:1.15rem;font-weight:800;color:#0a1a2a;letter-spacing:-0.3px}
+.section-head h3 small{display:block;font-size:0.68rem;font-weight:500;color:#7a8ca0;letter-spacing:0.5px;text-transform:uppercase;margin-top:2px}
+.levels-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:24px}
+.level-card{background:#fff;border:1px solid #e6ecf2;border-radius:18px;padding:22px 20px;position:relative;overflow:hidden;transition:0.4s}
+.level-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#cc3333,#f5c518);transform:scaleX(0);transform-origin:left;transition:0.4s}
+.level-card:hover{transform:translateY(-6px);box-shadow:0 16px 36px rgba(10,26,42,0.12);border-color:#cc3333}
+.level-card:hover::before{transform:scaleX(1)}
+.level-card .lc-icon{width:52px;height:52px;border-radius:14px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:1.5rem;margin-bottom:14px;box-shadow:0 8px 20px rgba(0,0,0,0.15);transform:rotate(-4deg);transition:0.3s}
+.level-card:hover .lc-icon{transform:rotate(0) scale(1.08)}
+.level-card.mater .lc-icon{background:linear-gradient(135deg,#f5c518,#e5a100)}
+.level-card.prim .lc-icon{background:linear-gradient(135deg,#1a6bc4,#0b3a78)}
+.level-card.sec .lc-icon{background:linear-gradient(135deg,#cc3333,#a92323)}
+.level-card h4{font-size:1.1rem;font-weight:900;color:#0a1a2a;letter-spacing:-0.3px;margin-bottom:4px;text-transform:uppercase}
+.level-card .lc-sub{font-size:0.75rem;color:#7a8ca0;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:10px}
+.level-card .lc-age{display:inline-flex;align-items:center;gap:5px;background:#f6f8fb;color:#0a1a2a;padding:3px 10px;border-radius:20px;font-size:0.7rem;font-weight:700;margin-bottom:10px}
+.level-card .lc-age i{color:#cc3333;font-size:0.65rem}
+.level-card p{font-size:0.85rem;color:#4a5a6a;line-height:1.6;margin-bottom:12px}
+.level-card .lc-tags{display:flex;flex-wrap:wrap;gap:5px}
+.level-card .lc-tags span{background:#f6f8fb;border:1px solid #e6ecf2;padding:2px 10px;border-radius:14px;font-size:0.68rem;color:#4a5a6a;font-weight:600}
+.compare-table{background:#f6f8fb;border:1px solid #e6ecf2;border-radius:16px;overflow:hidden;margin-bottom:24px}
+.compare-row{display:grid;grid-template-columns:140px 1fr 1fr 1fr;align-items:center;padding:12px 16px;border-bottom:1px solid #e6ecf2;transition:0.2s}
+.compare-row:last-child{border-bottom:0}
+.compare-row.head{background:linear-gradient(135deg,#0a1a2a,#102a44);color:#fff;padding:12px 16px}
+.compare-row.head .ch{font-size:0.72rem;font-weight:800;letter-spacing:1px;text-transform:uppercase}
+.compare-row.head .ch.mater{color:#f5c518}
+.compare-row.head .ch.prim{color:#7ab8f5}
+.compare-row.head .ch.sec{color:#f59a9a}
+.compare-row .r-label{font-size:0.78rem;font-weight:800;color:#0a1a2a;display:flex;align-items:center;gap:8px}
+.compare-row .r-label i{color:#cc3333;font-size:0.82rem;width:16px}
+.compare-row .r-val{font-size:0.78rem;color:#4a5a6a;font-weight:600;line-height:1.4}
+.compare-row:hover{background:#fff}
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px}
+.why-item{background:#fff;border:1px solid #e6ecf2;border-radius:14px;padding:18px 16px;text-align:center;transition:0.3s}
+.why-item:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(10,26,42,0.1);border-color:#cc3333}
+.why-item i{font-size:1.6rem;color:#cc3333;margin-bottom:8px;display:block;transition:0.3s}
+.why-item:hover i{transform:scale(1.15) rotate(-5deg)}
+.why-item h4{font-size:0.9rem;font-weight:800;color:#0a1a2a;margin-bottom:4px}
+.why-item p{font-size:0.78rem;color:#4a5a6a;line-height:1.5}
+.cta{text-align:center}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:#0a1a2a;color:#fff;padding:13px 32px;border-radius:12px;font-weight:700;font-size:0.92rem;text-decoration:none;box-shadow:0 8px 22px rgba(10,26,42,0.25);transition:0.3s;border:2px solid transparent}
+.btn:hover{background:#cc3333;transform:translateY(-3px);box-shadow:0 14px 32px rgba(204,51,51,0.3)}
+.btn i{transition:transform 0.3s}
+.btn:hover i{transform:translateX(-4px)}
+.footer{background:#0a1a2a;color:#8fa5b8;padding:26px 28px 18px}
+.footer-inner{display:grid;grid-template-columns:2fr 1fr 1fr;gap:24px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,0.08)}
+.footer h4{color:#fff;font-weight:800;margin-bottom:8px;font-size:0.9rem;letter-spacing:0.3px}
+.footer p{font-size:0.78rem;line-height:1.6;color:#8fa5b8;max-width:280px}
+.footer a{color:#8fa5b8;text-decoration:none;display:flex;align-items:center;gap:6px;margin:5px 0;font-size:0.78rem;transition:0.2s}
+.footer a:hover{color:#fff;transform:translateX(2px)}
+.footer a i{color:#cc3333;width:14px;font-size:0.7rem}
+.footer .copy{text-align:center;padding-top:14px;font-size:0.7rem;color:#5a6d80;letter-spacing:0.3px}
+.phone-popup-overlay{display:none;position:fixed;inset:0;background:rgba(5,10,20,0.75);backdrop-filter:blur(10px);z-index:99999;justify-content:center;align-items:center}
+.phone-popup-overlay.active{display:flex}
+.phone-popup-box{background:#fff;border-radius:22px;padding:36px 32px;max-width:400px;width:92%;text-align:center;box-shadow:0 40px 80px rgba(0,0,0,0.4);transform:scale(0.92) translateY(20px);transition:0.5s}
+.phone-popup-overlay.active .phone-popup-box{transform:scale(1) translateY(0)}
+.phone-popup-box .phone-icon{font-size:3rem;color:#cc3333;display:block;margin-bottom:8px}
+.phone-popup-box h2{font-size:1.2rem;font-weight:800;color:#0a1a2a;margin-bottom:6px}
+.phone-popup-box .phone-number{font-size:1.3rem;font-weight:800;color:#cc3333;margin-bottom:20px;display:block;letter-spacing:0.5px}
+.phone-popup-box .phone-buttons{display:flex;flex-direction:column;gap:10px}
+.phone-popup-box .phone-buttons a{display:flex;align-items:center;justify-content:center;gap:10px;padding:13px;border-radius:10px;font-weight:700;font-size:0.95rem;text-decoration:none;transition:0.3s;border:2px solid transparent}
+.phone-popup-box .btn-whatsapp{background:#25D366;color:#fff}
+.phone-popup-box .btn-whatsapp:hover{background:#fff;color:#25D366;border-color:#25D366;transform:translateY(-2px)}
+.phone-popup-box .btn-call{background:#0a1a2a;color:#fff}
+.phone-popup-box .btn-call:hover{background:#fff;color:#0a1a2a;border-color:#0a1a2a;transform:translateY(-2px)}
+.phone-popup-box .btn-close-phone{background:transparent;border:none;color:#7a8ca0;font-size:0.85rem;cursor:pointer;margin-top:10px;padding:8px;transition:0.3s}
+.phone-popup-box .btn-close-phone:hover{color:#0a1a2a}
+.fade-in{opacity:0;transform:translateY(20px);transition:all 0.7s cubic-bezier(0.25,0.46,0.45,0.94)}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+@media(max-width:760px){
+body{padding:10px}
+.page{border-radius:18px}
+.top{padding:14px 18px;flex-direction:column;align-items:flex-start;gap:12px}
+.top-logo h1{font-size:1rem}
+.top-logo img{height:42px;width:42px}
+.top-nav{width:100%;justify-content:center}
+.top-nav a{font-size:0.72rem;padding:6px 12px}
+.hero{padding:28px 18px 22px}
+.hero h2{font-size:1.5rem}
+.hero p{font-size:0.88rem}
+.content{padding:18px}
+.levels-grid{grid-template-columns:1fr;gap:12px}
+.compare-row{grid-template-columns:100px 1fr;gap:8px;padding:10px 12px}
+.compare-row.head .ch:nth-child(3),.compare-row.head .ch:nth-child(4){display:none}
+.compare-row .r-val{grid-column:2;font-size:0.72rem}
+.compare-row .r-val:nth-child(3),.compare-row .r-val:nth-child(4){display:none}
+.why-grid{grid-template-columns:1fr}
+.footer-inner{grid-template-columns:1fr;gap:16px}
+.footer p{max-width:none}
+.btn{width:100%;padding:12px 20px;font-size:0.88rem}
+}
+</style>
 </head>
 <body>
 <div class="page">
-
-    <div class="logo-simple slide-left visible">
-        <img src="https://www.netubex.com/tremplin.png" alt="Logo">
-        <h1>CS <span>LE TREMPLIN</span></h1>
-    </div>
-
-    <div class="nav-links slide-left visible">
-        <a href="index.html">Accueil</a>
-        <a href="about.html">À propos</a>
-        <a href="#" class="active">Niveaux</a>
-    </div>
-
-    <div class="hero slide-left visible">
-        <div class="badge"><i class="fas fa-graduation-cap" style="margin-right:5px;"></i> Parcours scolaire</div>
-        <h2>NOS NIVEAUX <i>D'ENSEIGNEMENT</i></h2>
-        <p>De la maternelle au secondaire, un accompagnement structuré pour chaque élève.</p>
-    </div>
-
-    <div class="section-title slide-left visible"><i class="fas fa-layer-group"></i> Les 3 niveaux</div>
-
-    <div class="card-niveau slide-left visible">
-        <span class="icon-wrap"><i class="fas fa-child"></i></span>
-        <h3>MATERNELLE</h3>
-        <span class="subtitle">Les premières bases</span>
-        <span class="age"><i class="fas fa-clock"></i> 3 à 5 ans</span>
-        <p>Éveil, socialisation, développement moteur et langagier dans un cadre ludique.</p>
-        <div class="subjects">
-            <span>Motricité</span>
-            <span>Langage</span>
-            <span>Découverte</span>
-            <span>Socialisation</span>
-        </div>
-    </div>
-
-    <div class="card-niveau slide-left visible">
-        <span class="icon-wrap"><i class="fas fa-book-open"></i></span>
-        <h3>PRIMAIRE</h3>
-        <span class="subtitle">Apprendre et comprendre</span>
-        <span class="age"><i class="fas fa-clock"></i> 6 à 11 ans</span>
-        <p>Acquisition des fondamentaux : lecture, écriture, calcul, développement intellectuel et social.</p>
-        <div class="subjects">
-            <span>Français</span>
-            <span>Maths</span>
-            <span>Sciences</span>
-            <span>Histoire</span>
-            <span>Anglais</span>
-        </div>
-    </div>
-
-    <div class="card-niveau slide-left visible">
-        <span class="icon-wrap"><i class="fas fa-user-graduate"></i></span>
-        <h3>SECONDAIRE</h3>
-        <span class="subtitle">Préparer l'avenir</span>
-        <span class="age"><i class="fas fa-clock"></i> 12 à 18 ans</span>
-        <p>Formation approfondie, préparation aux examens nationaux et aux études supérieures.</p>
-        <div class="subjects">
-            <span>Lettres</span>
-            <span>Sciences</span>
-            <span>Maths</span>
-            <span>Anglais</span>
-            <span>Informatique</span>
-        </div>
-    </div>
-
-    <div class="section-title slide-left visible"><i class="fas fa-table"></i> Comparaison</div>
-
-    <div class="comparaison-simple slide-left visible">
-        <div class="ligne">
-            <span class="icone">👶</span>
-            <span class="nom">Âge</span>
-            <div class="valeurs">
-                <span class="m">3-5 ans</span>
-                <span class="p">6-11 ans</span>
-                <span class="s">12-18 ans</span>
-            </div>
-        </div>
-        <div class="ligne">
-            <span class="icone">⏳</span>
-            <span class="nom">Durée</span>
-            <div class="valeurs">
-                <span class="m">3 ans</span>
-                <span class="p">6 ans</span>
-                <span class="s">6 ans</span>
-            </div>
-        </div>
-        <div class="ligne">
-            <span class="icone">📚</span>
-            <span class="nom">Matières</span>
-            <div class="valeurs">
-                <span class="m">Éveil</span>
-                <span class="p">Français, Maths</span>
-                <span class="s">Lettres, Sciences</span>
-            </div>
-        </div>
-        <div class="ligne">
-            <span class="icone">🎓</span>
-            <span class="nom">Diplôme</span>
-            <div class="valeurs">
-                <span class="m">Certificat (3e maternelle)</span>
-                <span class="p">Certificat (6e primaire)</span>
-                <span class="s">Brevet (8e) · Diplôme d'État (4e)</span>
-            </div>
-        </div>
-        <div class="ligne">
-            <span class="icone">🚀</span>
-            <span class="nom">Débouchés</span>
-            <div class="valeurs">
-                <span class="m">Primaire</span>
-                <span class="p">Secondaire</span>
-                <span class="s">Études sup.</span>
-            </div>
-        </div>
-    </div>
-
-    <div class="section-title slide-left visible"><i class="fas fa-check-circle"></i> Pourquoi nos niveaux ?</div>
-
-    <div class="pourquoi-item slide-left visible">
-        <i class="fas fa-chart-line"></i>
-        <h4>Progression continue</h4>
-        <p>Un apprentissage qui respecte le rythme de chaque enfant.</p>
-    </div>
-    <div class="pourquoi-item slide-left visible">
-        <i class="fas fa-user-check"></i>
-        <h4>Suivi personnalisé</h4>
-        <p>Un encadrement attentif pour identifier les besoins de chaque élève.</p>
-    </div>
-    <div class="pourquoi-item slide-left visible">
-        <i class="fas fa-rocket"></i>
-        <h4>Préparation à l'avenir</h4>
-        <p>Des compétences solides pour les études supérieures.</p>
-    </div>
-
-    <div class="retour-wrapper slide-left visible">
-        <a href="index.html" class="btn-retour"><i class="fas fa-arrow-left"></i> Retour à l'accueil</a>
-    </div>
-
-    <div class="footer slide-left visible">
-        <div class="inner">
-            <div>
-                <h4>CS LE TREMPLIN</h4>
-                <p>Une école d'excellence à Kasumbalesa, formant les leaders de demain.</p>
-            </div>
-            <div>
-                <h4>Liens rapides</h4>
-                <a href="index.html">Accueil</a>
-                <a href="about.html">À propos</a>
-                <a href="niveaux.html">Niveaux</a>
-            </div>
-            <div>
-                <h4>Contact</h4>
-                <a href="#" class="phone-link" onclick="openPhonePopup(); return false;"><i class="fas fa-phone"></i> +243 973510555</a>
-                <a href="#"><i class="fas fa-map-marker-alt"></i> Kasumbalesa, RDC</a>
-            </div>
-        </div>
-        <div class="copy">© 2026 Complexe Scolaire Le Tremplin — Tous droits réservés</div>
-    </div>
-
+<div class="top">
+<div class="top-logo">
+<img src="https://www.cstremplin.com/tremplin.png" alt="Logo">
+<h1>CS LE TREMPLIN <span>Niveaux</span></h1>
 </div>
-
+<div class="top-nav">
+<a href="index.html">Accueil</a>
+<a href="about.html">À propos</a>
+<a href="niveaux.html" class="active">Niveaux</a>
+<a href="enseignants.html">Enseignants</a>
+<a href="fondateur.html">Fondateur</a>
+</div>
+</div>
+<div class="hero">
+<div class="hero-badge"><i class="fas fa-graduation-cap"></i> Parcours scolaire</div>
+<h2>Nos <em>niveaux d'enseignement</em></h2>
+<p>De la maternelle au secondaire, un accompagnement structuré pour chaque élève.</p>
+</div>
+<div class="content">
+<div class="section-head fade-in">
+<div class="ic"><i class="fas fa-layer-group"></i></div>
+<h3>Les 3 niveaux <small>Un parcours complet</small></h3>
+</div>
+<div class="levels-grid">
+<div class="level-card mater fade-in">
+<div class="lc-icon"><i class="fas fa-child"></i></div>
+<h4>Maternelle</h4>
+<div class="lc-sub">Les premières bases</div>
+<div class="lc-age"><i class="fas fa-clock"></i> 3-5 ans</div>
+<p>Éveil, socialisation, développement moteur et langagier dans un cadre ludique.</p>
+<div class="lc-tags"><span>Motricité</span><span>Langage</span><span>Découverte</span><span>Socialisation</span></div>
+</div>
+<div class="level-card prim fade-in">
+<div class="lc-icon"><i class="fas fa-book-open"></i></div>
+<h4>Primaire</h4>
+<div class="lc-sub">Apprendre et comprendre</div>
+<div class="lc-age"><i class="fas fa-clock"></i> 6-11 ans</div>
+<p>Acquisition des fondamentaux : lecture, écriture, calcul, développement intellectuel et social.</p>
+<div class="lc-tags"><span>Français</span><span>Maths</span><span>Sciences</span><span>Histoire</span><span>Anglais</span></div>
+</div>
+<div class="level-card sec fade-in">
+<div class="lc-icon"><i class="fas fa-user-graduate"></i></div>
+<h4>Secondaire</h4>
+<div class="lc-sub">Préparer l'avenir</div>
+<div class="lc-age"><i class="fas fa-clock"></i> 12-18 ans</div>
+<p>Formation approfondie, préparation aux examens nationaux et aux études supérieures.</p>
+<div class="lc-tags"><span>Lettres</span><span>Sciences</span><span>Maths</span><span>Anglais</span><span>Informatique</span></div>
+</div>
+</div>
+<div class="section-head fade-in">
+<div class="ic"><i class="fas fa-table"></i></div>
+<h3>Comparaison <small>Vue d'ensemble</small></h3>
+</div>
+<div class="compare-table fade-in">
+<div class="compare-row head">
+<div class="ch">Critère</div>
+<div class="ch mater">Maternelle</div>
+<div class="ch prim">Primaire</div>
+<div class="ch sec">Secondaire</div>
+</div>
+<div class="compare-row">
+<div class="r-label"><i class="fas fa-baby"></i> Âge</div>
+<div class="r-val">3-5 ans</div>
+<div class="r-val">6-11 ans</div>
+<div class="r-val">12-18 ans</div>
+</div>
+<div class="compare-row">
+<div class="r-label"><i class="fas fa-hourglass-half"></i> Durée</div>
+<div class="r-val">3 ans</div>
+<div class="r-val">6 ans</div>
+<div class="r-val">6 ans</div>
+</div>
+<div class="compare-row">
+<div class="r-label"><i class="fas fa-book"></i> Matières</div>
+<div class="r-val">Éveil</div>
+<div class="r-val">Français, Maths</div>
+<div class="r-val">Lettres, Sciences</div>
+</div>
+<div class="compare-row">
+<div class="r-label"><i class="fas fa-award"></i> Diplôme</div>
+<div class="r-val">Certificat 3e maternelle</div>
+<div class="r-val">Certificat 6e primaire</div>
+<div class="r-val">Brevet 8e · Diplôme d'État 4e</div>
+</div>
+<div class="compare-row">
+<div class="r-label"><i class="fas fa-rocket"></i> Débouchés</div>
+<div class="r-val">Primaire</div>
+<div class="r-val">Secondaire</div>
+<div class="r-val">Études supérieures</div>
+</div>
+</div>
+<div class="section-head fade-in">
+<div class="ic"><i class="fas fa-check-circle"></i></div>
+<h3>Pourquoi nos niveaux ? <small>Nos engagements</small></h3>
+</div>
+<div class="why-grid">
+<div class="why-item fade-in"><i class="fas fa-chart-line"></i><h4>Progression continue</h4><p>Un apprentissage qui respecte le rythme de chaque enfant.</p></div>
+<div class="why-item fade-in"><i class="fas fa-user-check"></i><h4>Suivi personnalisé</h4><p>Un encadrement attentif pour identifier les besoins de chaque élève.</p></div>
+<div class="why-item fade-in"><i class="fas fa-rocket"></i><h4>Préparation à l'avenir</h4><p>Des compétences solides pour les études supérieures.</p></div>
+</div>
+<div class="cta fade-in">
+<a href="index.html" class="btn"><i class="fas fa-arrow-left"></i> Retour à l'accueil</a>
+</div>
+</div>
+<div class="footer">
+<div class="footer-inner">
+<div><h4>CS LE TREMPLIN</h4><p>Une école d'excellence à Kasumbalesa, formant les leaders de demain.</p></div>
+<div><h4>Liens rapides</h4><a href="index.html"><i class="fas fa-chevron-right"></i> Accueil</a><a href="about.html"><i class="fas fa-chevron-right"></i> À propos</a><a href="niveaux.html"><i class="fas fa-chevron-right"></i> Niveaux</a><a href="enseignants.html"><i class="fas fa-chevron-right"></i> Enseignants</a><a href="fondateur.html"><i class="fas fa-chevron-right"></i> Fondateur</a></div>
+<div><h4>Contact</h4><a href="#" onclick="openPhonePopup(); return false;"><i class="fas fa-phone"></i> +243 973510555</a><a href="#"><i class="fas fa-map-marker-alt"></i> Kasumbalesa, RDC</a></div>
+</div>
+<div class="copy">© 2026 Complexe Scolaire Le Tremplin — Tous droits réservés</div>
+</div>
+</div>
 <div class="phone-popup-overlay" id="phonePopupOverlay" onclick="closePhonePopup()">
-    <div class="phone-popup-box" onclick="event.stopPropagation()">
-        <i class="fas fa-phone-alt phone-icon"></i>
-        <h2>📞 CONTACTEZ-NOUS</h2>
-        <span class="phone-number">+243 973510555</span>
-        <div class="phone-buttons">
-            <a href="https://wa.me/243973510555" target="_blank" class="btn-whatsapp"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-            <a href="tel:+243973510555" class="btn-call"><i class="fas fa-phone"></i> Appel normal</a>
-        </div>
-        <button class="btn-close-phone" onclick="closePhonePopup()">✕ Fermer</button>
-    </div>
+<div class="phone-popup-box" onclick="event.stopPropagation()">
+<i class="fas fa-phone-alt phone-icon"></i>
+<h2>Contactez-nous</h2>
+<span class="phone-number">+243 973510555</span>
+<div class="phone-buttons">
+<a href="https://wa.me/243973510555" target="_blank" class="btn-whatsapp"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+<a href="tel:+243973510555" class="btn-call"><i class="fas fa-phone"></i> Appel normal</a>
 </div>
-
+<button class="btn-close-phone" onclick="closePhonePopup()">✕ Fermer</button>
+</div>
+</div>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var elements = document.querySelectorAll('.slide-left');
-        var observer = new IntersectionObserver(function(entries) {
-            entries.forEach(function(entry) {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, { threshold: 0.1 });
-        elements.forEach(function(el) {
-            observer.observe(el);
-        });
-        setTimeout(function() {
-            elements.forEach(function(el) {
-                if (el.getBoundingClientRect().top < window.innerHeight) {
-                    el.classList.add('visible');
-                }
-            });
-        }, 100);
-    });
-
-    document.addEventListener('contextmenu',function(e){e.preventDefault();return false});
-    document.addEventListener('keydown',function(e){if(e.key==='F12'||e.keyCode===123){e.preventDefault();return false}if(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='i'||e.key==='J'||e.key==='j')){e.preventDefault();return false}if(e.ctrlKey&&(e.key==='U'||e.key==='u')){e.preventDefault();return false}if(e.ctrlKey&&(e.key==='S'||e.key==='s')){e.preventDefault();return false}if(e.ctrlKey&&e.shiftKey&&(e.key==='C'||e.key==='c')){e.preventDefault();return false}});
-    document.addEventListener('dragstart',function(e){e.preventDefault();return false});
-    document.addEventListener('selectstart',function(e){e.preventDefault();return false});
-
-    function openPhonePopup() {
-        document.getElementById('phonePopupOverlay').classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
-    function closePhonePopup() {
-        document.getElementById('phonePopupOverlay').classList.remove('active');
-        document.body.style.overflow = '';
-    }
-    document.getElementById('phonePopupOverlay').addEventListener('click', function(e) {
-        if (e.target === this) {
-            closePhonePopup();
-        }
-    });
+function openPhonePopup(){document.getElementById('phonePopupOverlay').classList.add('active');document.body.style.overflow='hidden'}
+function closePhonePopup(){document.getElementById('phonePopupOverlay').classList.remove('active');document.body.style.overflow=''}
+document.addEventListener('DOMContentLoaded',function(){var e=document.querySelectorAll('.fade-in');var t=new IntersectionObserver(function(e){e.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:0.12,rootMargin:'0px 0px -30px 0px'});e.forEach(function(e){t.observe(e)});setTimeout(function(){e.forEach(function(e){if(e.getBoundingClientRect().top<window.innerHeight)e.target.classList.add('visible')})},150)});
+document.addEventListener('contextmenu',function(e){e.preventDefault();return false});
+document.addEventListener('keydown',function(e){if(e.key==='F12'||e.keyCode===123){e.preventDefault();return false}if(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='i'||e.key==='J'||e.key==='j'||e.key==='C'||e.key==='c')){e.preventDefault();return false}if(e.ctrlKey&&(e.key==='U'||e.key==='u'||e.key==='S'||e.key==='s')){e.preventDefault();return false}if(e.key==='Escape')closePhonePopup()});
+document.addEventListener('dragstart',function(e){e.preventDefault();return false});
+document.addEventListener('selectstart',function(e){e.preventDefault();return false});
 </script>
 </body>
 </html>
