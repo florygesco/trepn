@@ -108,16 +108,16 @@ a{color:inherit;text-decoration:none}
         z-index:2;
     }
 }
-/* Sur mobile, ajustement pour réduire l'image et la faire remonter */
+/* Sur mobile, ajustement exact pour réduire, décaler à droite et remonter */
 @media(max-width:768px){
     .hero{
         padding:40px 5% 20px;
-        min-height: 600px; /* Hauteur réduite */
+        min-height: 600px;
         align-items: flex-start;
     }
     .hero-bg{
-        background-size: 140% auto; /* Réduit la taille de l'image */
-        background-position: center 15%; /* Remonte l'image */
+        background-size: 120% auto; /* Réduit la taille pour ne pas être trop proche */
+        background-position: 70% 15%; /* Décale vers la droite (70%) et remonte (15%) */
     }
     .hero::before{
         content:'';position:absolute;inset:0;
@@ -160,7 +160,7 @@ a{color:inherit;text-decoration:none}
 }
 @media(max-width:480px){
     .hero{padding:30px 5%;min-height: 550px;}
-    .hero-bg{background-size: 160% auto; background-position: center 10%;}
+    .hero-bg{background-size: 130% auto; background-position: 70% 10%;}
     .hero h1{font-size:2.2rem}
     .hero h1 .yellow{font-size:2.6rem}
     .hero h1 .yellow::after{width:40%}
